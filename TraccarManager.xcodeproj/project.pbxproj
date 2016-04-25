@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
-		CE0721151C86EB9800D057CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721141C86EB9800D057CE /* ViewController.swift */; };
+		CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721141C86EB9800D057CE /* MapViewController.swift */; };
 		CE0721181C86EB9800D057CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0721161C86EB9800D057CE /* Main.storyboard */; };
 		CE07211A1C86EB9800D057CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0721191C86EB9800D057CE /* Assets.xcassets */; };
 		CE07211D1C86EB9800D057CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */; };
 		CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721271C86EB9800D057CE /* TraccarManagerTests.swift */; };
 		CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721321C86EB9800D057CE /* TraccarManagerUITests.swift */; };
+		CEE848D21CCDCD53000B1E9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE848D11CCDCD53000B1E9D /* MapKit.framework */; };
+		CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */; };
+		CEE848D61CCDCF34000B1E9D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		CE07210F1C86EB9800D057CE /* TraccarManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraccarManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0721121C86EB9800D057CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE0721141C86EB9800D057CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE0721141C86EB9800D057CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CE0721171C86EB9800D057CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE0721191C86EB9800D057CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE07211C1C86EB9800D057CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +50,9 @@
 		CE07212E1C86EB9800D057CE /* TraccarManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraccarManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0721321C86EB9800D057CE /* TraccarManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraccarManagerUITests.swift; sourceTree = "<group>"; };
 		CE0721341C86EB9800D057CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEE848D11CCDCD53000B1E9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
+		CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE848D21CCDCD53000B1E9D /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +84,7 @@
 		CE0721061C86EB9800D057CE = {
 			isa = PBXGroup;
 			children = (
+				CEE848D11CCDCD53000B1E9D /* MapKit.framework */,
 				CE0721111C86EB9800D057CE /* TraccarManager */,
 				CE0721261C86EB9800D057CE /* TraccarManagerTests */,
 				CE0721311C86EB9800D057CE /* TraccarManagerUITests */,
@@ -98,7 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				CE0721121C86EB9800D057CE /* AppDelegate.swift */,
-				CE0721141C86EB9800D057CE /* ViewController.swift */,
+				CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */,
+				CE0721141C86EB9800D057CE /* MapViewController.swift */,
+				CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */,
 				CE0721161C86EB9800D057CE /* Main.storyboard */,
 				CE0721191C86EB9800D057CE /* Assets.xcassets */,
 				CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */,
@@ -256,8 +266,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE0721151C86EB9800D057CE /* ViewController.swift in Sources */,
+				CEE848D61CCDCF34000B1E9D /* LoginViewController.swift in Sources */,
+				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
+				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +496,7 @@
 				CE0721391C86EB9800D057CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE07213A1C86EB9800D057CE /* Build configuration list for PBXNativeTarget "TraccarManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +505,7 @@
 				CE07213C1C86EB9800D057CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE07213D1C86EB9800D057CE /* Build configuration list for PBXNativeTarget "TraccarManagerUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +514,7 @@
 				CE07213F1C86EB9800D057CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
