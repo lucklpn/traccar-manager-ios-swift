@@ -36,23 +36,19 @@ class WebService {
                 switch response.result {
                     
                 case .Success(let JSON):
-                    if let data = JSON as? [String : AnyObject] {
-                        
-                        // the api still returns a 200 status code (and empty
-                        // response) on failed login...
-                        // we need to catch this and return a failure
-                        if data.keys.count == 0 {
-                            if let fail = onFailure {
-                                fail("Invalid email and/or password")
-                            }
-                        } else {
+                    if response.response!.statusCode != 200 {
+                        if let fail = onFailure {
+                            fail("Invalid email and/or password")
+                        }
+                    } else {
+                        if let data = JSON as? [String : AnyObject] {
                             let u = User.sharedInstance
                             u.setValuesForKeysWithDictionary(data)
                             onSuccess(u)
-                        }
-                    } else {
-                        if let fail = onFailure {
-                            fail("Server response was invalid")
+                        } else {
+                            if let fail = onFailure {
+                                fail("Server response was invalid")
+                            }
                         }
                     }
                     
