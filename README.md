@@ -10,6 +10,15 @@ Website - [https://www.traccar.org](https://www.traccar.org)
 
 Coming soon...
 
+## Contributing
+
+This project uses [CocoaPods](https://cocoapods.org) to manage dependencies. 
+
+After you clone this project:
+
+1. Run `pod install` from the project's root directory
+2. Use `TraccarManager.xcworkspace` for development
+
 ## License
 
     Apache License, Version 2.0
