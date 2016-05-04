@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import SocketRocket
 
-class WebService {
+class WebService: NSObject, SRWebSocketDelegate {
     
     static let sharedInstance = WebService()
     
@@ -20,9 +20,13 @@ class WebService {
     private var serviceUrl: String?
     
     private func enableWebSocket() {
-        socket = SRWebSocket(URL: NSURL(string: serviceUrl + "socket"))
-        socket?.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: ViewController.serviceUrl)!)
+        socket = SRWebSocket(URL: NSURL(string: serviceUrl! + "socket"))
+        socket?.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: serviceUrl!)!)
         socket?.delegate = self
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+        // required for SRWebSocketDelegate
     }
     
     func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
