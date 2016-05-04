@@ -12,7 +12,7 @@ Coming soon...
 
 ## Contributing
 
-This project uses [Carthage](https://github.com/Carthage/Carthage) to manage dependencies.  Run `carthage update` from the project's root directory to install dependencies.
+This project uses [Carthage](https://github.com/Carthage/Carthage) to manage dependencies.  Run `carthage update --platform ios` from the project's root directory to install dependencies.
 
 ## License
 

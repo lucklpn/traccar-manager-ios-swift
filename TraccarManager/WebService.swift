@@ -8,10 +8,24 @@
 
 import Foundation
 import Alamofire
+import SocketRocket
 
 class WebService {
     
-    static func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
+    static let sharedInstance = WebService()
+    
+    private var socket: SRWebSocket?
+    
+    // ends with a "/"
+    private var serviceUrl: String?
+    
+    private func enableWebSocket() {
+        socket = SRWebSocket(URL: NSURL(string: serviceUrl + "socket"))
+        socket?.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: ViewController.serviceUrl)!)
+        socket?.delegate = self
+    }
+    
+    func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
         
         guard (serverURL.lowercaseString.hasPrefix("http://") || serverURL.lowercaseString.hasPrefix("https://")) else {
             if let fail = onFailure {
@@ -24,6 +38,8 @@ class WebService {
         if !serverURL.hasSuffix("/") {
             url = url + "/"
         }
+        
+        serviceUrl = url
         
         url = url + "api/session"
         
