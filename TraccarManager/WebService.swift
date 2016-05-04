@@ -1,5 +1,5 @@
 //
-//  Traccar.swift
+//  WebService.swift
 //  TraccarManager
 //
 //  Created by William Pearse on 4/05/16.
@@ -9,11 +9,23 @@
 import Foundation
 import Alamofire
 
-class Traccar: NSObject {
+class WebService {
     
     static func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
         
-        let url = "http://" + serverURL + "/api/session"
+        guard (serverURL.lowercaseString.hasPrefix("http://") || serverURL.lowercaseString.hasPrefix("https://")) else {
+            if let fail = onFailure {
+                fail("Server URL must begin with either http:// or https://")
+            }
+            return false
+        }
+        
+        var url = serverURL
+        if !serverURL.hasSuffix("/") {
+            url = url + "/"
+        }
+        
+        url = url + "api/session"
         
         let parameters = [
             "email" : email,

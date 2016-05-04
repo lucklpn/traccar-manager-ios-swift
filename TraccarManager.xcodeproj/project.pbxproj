@@ -21,9 +21,9 @@
 		D3091C0F1CD9D0670017F0DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C0D1CD9D0670017F0DC /* User.swift */; };
 		D3091C101CD9D0670017F0DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C0D1CD9D0670017F0DC /* User.swift */; };
 		D3091C121CD9D86F0017F0DC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C111CD9D86F0017F0DC /* CoreLocation.framework */; };
-		D3B7E1E21CD9C9910096D11A /* Traccar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* Traccar.swift */; };
-		D3B7E1E31CD9C9910096D11A /* Traccar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* Traccar.swift */; };
-		D3B7E1E41CD9C9910096D11A /* Traccar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* Traccar.swift */; };
+		D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
+		D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
+		D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		EAD7760E68A6022A828212C8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E198A28BD1403C62E16E8E37 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +65,7 @@
 		CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D3091C0D1CD9D0670017F0DC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D3091C111CD9D86F0017F0DC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		D3B7E1E11CD9C9910096D11A /* Traccar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Traccar.swift; sourceTree = "<group>"; };
+		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		E198A28BD1403C62E16E8E37 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -142,7 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				D3091C0C1CD9D0560017F0DC /* Model */,
-				D3B7E1E11CD9C9910096D11A /* Traccar.swift */,
+				D3B7E1E11CD9C9910096D11A /* WebService.swift */,
 				CE0721121C86EB9800D057CE /* AppDelegate.swift */,
 				CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */,
 				CE0721141C86EB9800D057CE /* MapViewController.swift */,
@@ -365,7 +365,7 @@
 			files = (
 				CEE848D61CCDCF34000B1E9D /* LoginViewController.swift in Sources */,
 				D3091C0E1CD9D0670017F0DC /* User.swift in Sources */,
-				D3B7E1E21CD9C9910096D11A /* Traccar.swift in Sources */,
+				D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */,
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
@@ -376,7 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3B7E1E31CD9C9910096D11A /* Traccar.swift in Sources */,
+				D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */,
 				D3091C0F1CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */,
 			);
@@ -386,7 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3B7E1E41CD9C9910096D11A /* Traccar.swift in Sources */,
+				D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */,
 				D3091C101CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */,
 			);

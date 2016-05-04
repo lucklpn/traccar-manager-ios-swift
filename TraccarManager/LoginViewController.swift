@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func loginButtonPressed() {
-        Traccar.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
+        WebService.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
                 // TODO: this is a bit plain
                 UIAlertView(title: "Couldn't Login", message: errorString, delegate: nil, cancelButtonTitle: "OK").show()
             }, onSuccess: { (user) in
