@@ -12,12 +12,7 @@ Coming soon...
 
 ## Contributing
 
-This project uses [CocoaPods](https://cocoapods.org) to manage dependencies. 
-
-After you clone this project:
-
-1. Run `pod install` from the project's root directory
-2. Use `TraccarManager.xcworkspace` for development
+This project uses [Carthage](https://github.com/Carthage/Carthage) to manage dependencies.  Run `carthage update` from the project's root directory to install dependencies.
 
 ## License
 
