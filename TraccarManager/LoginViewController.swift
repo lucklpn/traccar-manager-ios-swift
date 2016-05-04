@@ -8,28 +8,42 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet var serverField: UITextField!
+    @IBOutlet var emailField: UITextField!
+    @IBOutlet var passwordField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // user can't do anything until they're logged-in
+        navigationItem.setHidesBackButton(true, animated: false)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func loginButtonPressed() {
+        Traccar.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
+                // TODO: this is a bit plain
+                UIAlertView(title: "Couldn't Login", message: errorString, delegate: nil, cancelButtonTitle: "OK").show()
+            }, onSuccess: { (user) in
+                // TODO: do something with the user
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        )
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // move between text fields when return button pressed, and login
+    // when you press return on the password field
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == serverField {
+            emailField.becomeFirstResponder()
+        } else if textField == emailField {
+            passwordField.becomeFirstResponder()
+        } else {
+            passwordField.resignFirstResponder()
+            loginButtonPressed()
+        }
+        return true
     }
-    */
 
 }
