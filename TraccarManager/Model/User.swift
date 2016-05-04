@@ -42,7 +42,7 @@ class User: NSObject {
     }
     
     func logout() {
-        // TODO: nuke Alamofire cookies
+        NSHTTPCookieStorage.sharedHTTPCookieStorage().removeCookiesSinceDate(NSDate(timeIntervalSinceReferenceDate: 0))
         email = nil
     }
     
