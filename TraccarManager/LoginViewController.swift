@@ -20,6 +20,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // user can't do anything until they're logged-in
         navigationItem.setHidesBackButton(true, animated: false)
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        emailField!.becomeFirstResponder()
+    }
 
     @IBAction func loginButtonPressed() {
         Traccar.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
