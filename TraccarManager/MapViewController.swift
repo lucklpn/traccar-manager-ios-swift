@@ -26,6 +26,10 @@ class MapViewController: UIViewController {
             assert(CLLocationCoordinate2DIsValid(centerCoordinates), "Map center coordinates aren't valid")
             self.mapView?.setCenterCoordinate(centerCoordinates, animated: true)
             
+            WebService.sharedInstance.fetchDevices(onSuccess: { (devices) in
+                // TODO
+            })
+            
         } else {
             performSegueWithIdentifier("ShowLogin", sender: self)
         }

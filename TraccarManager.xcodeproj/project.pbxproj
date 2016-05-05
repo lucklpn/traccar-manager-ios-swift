@@ -23,6 +23,9 @@
 		D3091C121CD9D86F0017F0DC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C111CD9D86F0017F0DC /* CoreLocation.framework */; };
 		D3091C2D1CD9E8FC0017F0DC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C201CD9E8C30017F0DC /* Alamofire.framework */; };
 		D3091C2E1CD9E8FC0017F0DC /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C201CD9E8C30017F0DC /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
+		D3091CA01CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
+		D3091CA11CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
 		D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
@@ -135,6 +138,7 @@
 		D3091C0D1CD9D0670017F0DC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D3091C111CD9D86F0017F0DC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D3091C151CD9E8C30017F0DC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		D3091C9E1CDB60C00017F0DC /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -236,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				D3091C0D1CD9D0670017F0DC /* User.swift */,
+				D3091C9E1CDB60C00017F0DC /* Device.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -450,6 +455,7 @@
 				D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */,
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
+				D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +467,7 @@
 				D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */,
 				D3091C0F1CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */,
+				D3091CA01CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +478,7 @@
 				D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */,
 				D3091C101CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */,
+				D3091CA11CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
