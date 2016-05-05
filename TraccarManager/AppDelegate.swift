@@ -9,21 +9,12 @@
 import UIKit
 import Alamofire
 
-// manager is used to persist cookies through API requests, it needs to persist
-// for the lifetime of the app
-private var manager: Alamofire.Manager?
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        let cfg = NSURLSessionConfiguration.defaultSessionConfiguration()
-        cfg.HTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        manager = Alamofire.Manager(configuration: cfg)
-        
         return true
     }
 
