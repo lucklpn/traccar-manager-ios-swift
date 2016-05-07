@@ -33,4 +33,23 @@ class Device: NSObject {
             super.setValue(value, forKey: key)
         }
     }
+    
+    // returns the time of this device's last update time, as a relative
+    // string... something like "about 1 minute ago"
+    var lastUpdateString: String {
+        get {
+            let formatter = NSDateComponentsFormatter()
+            formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
+            formatter.includesApproximationPhrase = true
+            formatter.includesTimeRemainingPhrase = false
+            formatter.allowedUnits = [.Year, .Month, .WeekOfMonth, .Day, .Hour, .Minute, .Second]
+            formatter.maximumUnitCount = 1
+            
+            if let dateRelativeString = formatter.stringFromDate(lastUpdate!, toDate: NSDate()) {
+                return dateRelativeString
+            }
+            return ""
+        }
+    }
+    
 }
