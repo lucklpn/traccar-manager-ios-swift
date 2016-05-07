@@ -19,6 +19,9 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // don't let user open devices view until the devices have been loaded
+        self.navigationItem.rightBarButtonItem?.enabled = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -61,6 +64,7 @@ class MapViewController: UIViewController {
     
     func refreshDevices() {
         WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
+            self.navigationItem.rightBarButtonItem?.enabled = true
             self.devices = newDevices
         })
     }
