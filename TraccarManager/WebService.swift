@@ -168,63 +168,11 @@ class WebService {
         return true
     }
     
-    
-    static func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
-        
-        guard (serverURL.lowercaseString.hasPrefix("http://") || serverURL.lowercaseString.hasPrefix("https://")) else {
-            if let fail = onFailure {
-                fail("Server URL must begin with either http:// or https://")
-            }
-            return false
-        }
-        
-        var url = serverURL
-        if !serverURL.hasSuffix("/") {
-            url = url + "/"
-        }
-        
-        url = url + "api/session"
-        
-        let parameters = [
-            "email" : email,
-            "password": password
-        ]
-        
-        Alamofire.request(.POST, url, parameters: parameters).responseJSON(completionHandler: { response in
-                switch response.result {
-                    
-                case .Success(let JSON):
-                    if response.response!.statusCode != 200 {
-                        if let fail = onFailure {
-                            fail("Invalid email and/or password")
-                        }
-                    } else {
-                        if let data = JSON as? [String : AnyObject] {
-                            let u = User.sharedInstance
-                            u.setValuesForKeysWithDictionary(data)
-                            onSuccess(u)
-                        } else {
-                            if let fail = onFailure {
-                                fail("Server response was invalid")
-                            }
-                        }
-                    }
-                    
-                case .Failure(let error):
-                    if let fail = onFailure {
-                        fail(error.description)
-                    }
-            }
-        })
-        
-        return true
-    }
-    
     // utility function to get a position by ID
-    func positionById(id: Int) -> Position? {
+    func positionById(id: NSNumber) -> Position? {
         if let positions = allPositions {
             for p in positions {
-                if p.id?.integerValue == id {
+                if p.id == id {
                     return p
                 }
             }
@@ -233,10 +181,10 @@ class WebService {
     }
     
     // utility function to get a device by ID
-    func deviceById(id: Int) -> Device? {
+    func deviceById(id: NSNumber) -> Device? {
         if let devices = allDevices {
             for d in devices {
-                if d.id?.integerValue == id {
+                if d.id == id {
                     return d
                 }
             }

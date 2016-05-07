@@ -54,5 +54,13 @@ class DevicesViewController: UITableViewController {
 
         return cell
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let dvc = segue.destinationViewController as? DeviceInfoViewController {
+            let idxp = tableView.indexPathForSelectedRow
+            if let d = devices {
+                dvc.device = d[idxp!.row]
+            }
+        }
+    }
 }

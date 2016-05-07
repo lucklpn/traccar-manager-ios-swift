@@ -29,6 +29,7 @@
 		D3091CA91CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
+		D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */; };
 		D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
@@ -143,6 +144,7 @@
 		D3091C151CD9E8C30017F0DC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		D3091C9E1CDB60C00017F0DC /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +216,7 @@
 				CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */,
 				CE0721141C86EB9800D057CE /* MapViewController.swift */,
 				CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */,
+				D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */,
 				CE0721161C86EB9800D057CE /* Main.storyboard */,
 				CE0721191C86EB9800D057CE /* Assets.xcassets */,
 				CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */,
@@ -457,6 +460,7 @@
 			files = (
 				CEE848D61CCDCF34000B1E9D /* LoginViewController.swift in Sources */,
 				D3091C0E1CD9D0670017F0DC /* User.swift in Sources */,
+				D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */,
 				D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */,
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
