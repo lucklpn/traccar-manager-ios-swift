@@ -61,6 +61,52 @@ class WebService {
         return true
     }
     
+    func fetchPositions(onFailure: ((String) -> Void)? = nil, onSuccess: ([Position]) -> Void) -> Bool {
+        guard serverURL != nil else {
+            return false
+        }
+        
+        let url = serverURL! + "api/positions"
+        
+        Alamofire.request(.GET, url).responseJSON(completionHandler: { response in
+            switch response.result {
+                
+            case .Success(let JSON):
+                if response.response!.statusCode != 200 {
+                    if let fail = onFailure {
+                        fail("Invalid server response")
+                    }
+                } else {
+                    if let data = JSON as? [[String : AnyObject]] {
+                        
+                        var positions = [Position]()
+                        
+                        for p in data {
+                            let pp = Position()
+                            pp.setValuesForKeysWithDictionary(p)
+                            positions.append(pp)
+                        }
+                        
+                        onSuccess(positions)
+                        
+                    } else {
+                        if let fail = onFailure {
+                            fail("Server response was invalid")
+                        }
+                    }
+                }
+                
+            case .Failure(let error):
+                if let fail = onFailure {
+                    fail(error.description)
+                }
+            }
+        })
+        
+        return true
+    }
+
+    
     func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
         
         guard (serverURL.lowercaseString.hasPrefix("http://") || serverURL.lowercaseString.hasPrefix("https://")) else {

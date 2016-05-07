@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="131" y="131"/>
         </scene>
-        <!--Traccar Manager-->
+        <!--Map-->
         <scene sceneID="FRy-Pp-NJF">
             <objects>
                 <viewController id="roU-eq-rb0" customClass="MapViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,7 +49,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="uwH-5m-y4X" secondAttribute="trailing" constant="-20" id="cah-ki-ElH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Traccar Manager" id="cGN-1x-HtD">
+                    <navigationItem key="navigationItem" title="Map" id="cGN-1x-HtD">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="No2-KM-6Na">
                             <connections>
                                 <action selector="logoutButtonPressed" destination="roU-eq-rb0" id="zbx-wG-2YX"/>
@@ -156,7 +156,7 @@
             </objects>
             <point key="canvasLocation" x="131" y="931"/>
         </scene>
-        <!--Devices View Controller-->
+        <!--Devices-->
         <scene sceneID="XIQ-b3-NUJ">
             <objects>
                 <tableViewController id="LWQ-11-nBo" customClass="DevicesViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
@@ -195,6 +195,7 @@
                             <outlet property="delegate" destination="LWQ-11-nBo" id="cdz-MQ-Wgw"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Devices" id="Je6-1Z-5ra"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wIi-aN-Lqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

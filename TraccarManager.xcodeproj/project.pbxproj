@@ -26,6 +26,9 @@
 		D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
 		D3091CA01CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
 		D3091CA11CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
+		D3091CA91CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
+		D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
+		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
@@ -139,6 +142,7 @@
 		D3091C111CD9D86F0017F0DC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D3091C151CD9E8C30017F0DC /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		D3091C9E1CDB60C00017F0DC /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,6 +245,7 @@
 			children = (
 				D3091C0D1CD9D0670017F0DC /* User.swift */,
 				D3091C9E1CDB60C00017F0DC /* Device.swift */,
+				D3091CA81CDDE2900017F0DC /* Position.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 				D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */,
+				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +473,7 @@
 				D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */,
 				D3091C0F1CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */,
+				D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */,
 				D3091CA01CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,6 +485,7 @@
 				D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */,
 				D3091C101CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */,
+				D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */,
 				D3091CA11CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,10 +622,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = TraccarManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Debug;
 		};

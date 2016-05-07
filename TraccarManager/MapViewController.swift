@@ -9,13 +9,15 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet var mapView: MKMapView?
     
     private var updateTimer: NSTimer?
     
     private var devices: [Device] = []
+    
+    private var positions: [Position] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,7 @@ class MapViewController: UIViewController {
         
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(30.0,
                                                              target: self,
-                                                             selector: #selector(MapViewController.refreshDevices),
+                                                             selector: #selector(MapViewController.refresh),
                                                              userInfo: nil,
                                                              repeats: true)
 
@@ -40,7 +42,7 @@ class MapViewController: UIViewController {
             self.mapView?.setCenterCoordinate(centerCoordinates, animated: true)
             
             // called on a timer anyway, but we'll try and load devices ASAP after a login
-            refreshDevices()
+            refresh()
             
         } else {
             performSegueWithIdentifier("ShowLogin", sender: self)
@@ -62,10 +64,27 @@ class MapViewController: UIViewController {
         performSegueWithIdentifier("ShowDevices", sender: self)
     }
     
-    func refreshDevices() {
+    func refresh() {
+        
+        // devices
         WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
             self.navigationItem.rightBarButtonItem?.enabled = true
             self.devices = newDevices
+        })
+        
+        // positions of devices
+        WebService.sharedInstance.fetchPositions(onSuccess: { (newPositions) in
+            self.positions = newPositions
+            
+            self.mapView?.removeAnnotations((self.mapView?.annotations)!)
+            for p in newPositions {
+                
+                let a = MKPointAnnotation()
+                a.coordinate = p.coordinate
+                a.title = p.title
+                
+                self.mapView?.addAnnotation(a)
+            }
         })
     }
     
@@ -73,6 +92,23 @@ class MapViewController: UIViewController {
         if let dvc = segue.destinationViewController as? DevicesViewController {
             dvc.devices = self.devices
         }
+    }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation.isKindOfClass(MKUserLocation.self) {
+            return nil
+        }
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("Pin")
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+            pinView!.canShowCallout = true
+        }
+        
+        pinView!.annotation = annotation
+        
+        return pinView
     }
     
 }
