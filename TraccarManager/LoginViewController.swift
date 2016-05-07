@@ -8,6 +8,9 @@
 
 import UIKit
 
+let TCDefaultsServerKey = "DefaultsServerKey"
+let TCDefaultsEmailKey = "DefaultsEmailKey"
+
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var serverField: UITextField!
@@ -24,6 +27,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        let d = NSUserDefaults.standardUserDefaults()
+        if let s = d.stringForKey(TCDefaultsServerKey) {
+            self.serverField.text = s
+        }
+        if let e = d.stringForKey(TCDefaultsEmailKey) {
+            self.emailField.text = e
+        }
+        
+        if self.serverField.text?.characters.count > 0 && self.emailField.text?.characters.count > 0 {
+            self.passwordField.becomeFirstResponder()
+        }
+        
         emailField!.becomeFirstResponder()
     }
 
@@ -32,7 +47,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 // TODO: this is a bit plain
                 UIAlertView(title: "Couldn't Login", message: errorString, delegate: nil, cancelButtonTitle: "OK").show()
             }, onSuccess: { (user) in
-                // TODO: do something with the user
+                
+                // save server, user
+                let d = NSUserDefaults.standardUserDefaults()
+                d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
+                d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
+                d.synchronize()
+                
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         )
