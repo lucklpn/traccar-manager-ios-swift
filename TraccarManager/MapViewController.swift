@@ -19,6 +19,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     private var positions: [Position] = []
     
+    // controls whether the map view should center on user's default location
+    // when the view appears. we use this variable to prevent re-centering the
+    // map every single time this view appears
+    private var shouldCenterOnAppear: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,9 +42,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         if User.sharedInstance.isAuthenticated {
             
-            let centerCoordinates = User.sharedInstance.mapCenter
-            assert(CLLocationCoordinate2DIsValid(centerCoordinates), "Map center coordinates aren't valid")
-            self.mapView?.setCenterCoordinate(centerCoordinates, animated: true)
+            if shouldCenterOnAppear {
+                let centerCoordinates = User.sharedInstance.mapCenter
+                assert(CLLocationCoordinate2DIsValid(centerCoordinates), "Map center coordinates aren't valid")
+                self.mapView?.setCenterCoordinate(centerCoordinates, animated: true)
+                
+                shouldCenterOnAppear = false
+            }
             
             // called on a timer anyway, but we'll try and load devices ASAP after a login
             refresh()
@@ -57,6 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func logoutButtonPressed() {
         User.sharedInstance.logout()
+        shouldCenterOnAppear = true
         performSegueWithIdentifier("ShowLogin", sender: self)
     }
 
