@@ -24,4 +24,13 @@ class Device: NSObject {
         print("Tried to set property '\(key)' that doesn't exist on the model")
     }
     
+    override func setValue(value: AnyObject?, forKey key: String) {
+        if key == "lastUpdate" {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
+            self.lastUpdate = dateFormatter.dateFromString(value as! String)
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }
