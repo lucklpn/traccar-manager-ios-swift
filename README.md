@@ -10,6 +10,10 @@ Website - [https://www.traccar.org](https://www.traccar.org)
 
 Coming soon...
 
+## Contributing
+
+This project uses [Carthage](https://github.com/Carthage/Carthage) to manage dependencies.  Run `carthage update --platform ios` from the project's root directory to install dependencies.
+
 ## License
 
     Apache License, Version 2.0
