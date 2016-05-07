@@ -16,6 +16,10 @@ class WebService {
     // url for the server, has a trailing slash
     var serverURL: String?
     
+    private var allDevices: [Device]?
+    
+    private var allPositions: [Position]?
+    
     func fetchDevices(onFailure: ((String) -> Void)? = nil, onSuccess: ([Device]) -> Void) -> Bool {
         guard serverURL != nil else {
             return false
@@ -41,6 +45,8 @@ class WebService {
                             dd.setValuesForKeysWithDictionary(d)
                             devices.append(dd)
                         }
+                        
+                        self.allDevices = devices
                         
                         onSuccess(devices)
                         
@@ -86,6 +92,8 @@ class WebService {
                             pp.setValuesForKeysWithDictionary(p)
                             positions.append(pp)
                         }
+                        
+                        self.allPositions = positions
                         
                         onSuccess(positions)
                         
@@ -212,6 +220,29 @@ class WebService {
         return true
     }
     
+    // utility function to get a position by ID
+    func positionById(id: Int) -> Position? {
+        if let positions = allPositions {
+            for p in positions {
+                if p.id?.integerValue == id {
+                    return p
+                }
+            }
+        }
+        return nil
+    }
+    
+    // utility function to get a device by ID
+    func deviceById(id: Int) -> Device? {
+        if let devices = allDevices {
+            for d in devices {
+                if d.id?.integerValue == id {
+                    return d
+                }
+            }
+        }
+        return nil
+    }
 
     
 }

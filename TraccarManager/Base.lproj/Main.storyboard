@@ -35,18 +35,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uwH-5m-y4X">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                                 <connections>
                                     <outlet property="delegate" destination="roU-eq-rb0" id="RNY-xd-wGy"/>
                                 </connections>
                             </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w25-Xm-NlZ">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="gLL-R1-8An"/>
+                                    <barButtonItem title="Zoom to All" id="Lkz-KX-i48">
+                                        <connections>
+                                            <action selector="zoomToAllButtonPressed" destination="roU-eq-rb0" id="iAo-fr-F5Z"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="HWl-0Z-9nB"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uwH-5m-y4X" firstAttribute="top" secondItem="GYh-lf-PG6" secondAttribute="bottom" id="GCm-jd-N3S"/>
-                            <constraint firstItem="FaA-1D-289" firstAttribute="top" secondItem="uwH-5m-y4X" secondAttribute="bottom" id="GH6-ct-uG4"/>
+                            <constraint firstItem="FaA-1D-289" firstAttribute="top" secondItem="uwH-5m-y4X" secondAttribute="bottom" constant="44" id="GH6-ct-uG4"/>
                             <constraint firstItem="uwH-5m-y4X" firstAttribute="leading" secondItem="xel-Rt-4qR" secondAttribute="leadingMargin" constant="-20" id="OhG-Ud-neH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uwH-5m-y4X" secondAttribute="trailing" constant="-20" id="cah-ki-ElH"/>
+                            <constraint firstItem="FaA-1D-289" firstAttribute="top" secondItem="w25-Xm-NlZ" secondAttribute="bottom" id="kry-BM-YpR"/>
+                            <constraint firstItem="w25-Xm-NlZ" firstAttribute="leading" secondItem="xel-Rt-4qR" secondAttribute="leadingMargin" constant="-20" id="myY-VT-LuC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="w25-Xm-NlZ" secondAttribute="trailing" constant="-20" id="zif-nV-cDZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="cGN-1x-HtD">

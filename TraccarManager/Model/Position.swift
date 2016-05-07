@@ -50,6 +50,12 @@ class Position: NSObject {
     var deviceTime: NSDate?
     var fixTime: NSDate?
     
+    var device: Device? {
+        get {
+            return WebService.sharedInstance.deviceById((deviceId?.integerValue)!)
+        }
+    }
+    
     var coordinate: CLLocationCoordinate2D {
         guard let lat = latitude else {
             return kCLLocationCoordinate2DInvalid
@@ -60,16 +66,24 @@ class Position: NSObject {
         return CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue)
     }
     
-    var title: String {
+    var annotationTitle: String {
         get {
-            // todo: show device name?
+            if let d = device {
+                return d.name!
+            }
+            return "Device \(deviceId!.intValue)"
+        }
+    }
+    
+    var annotationSubtitle: String {
+        get {
             return address! as String
         }
     }
     
     // implemented so we don't crash if the model changes
     override func setValue(value: AnyObject?, forUndefinedKey key: String) {
-        print("Tried to set property '\(key)' that doesn't exist on the model")
+        print("Tried to set property '\(key)' that doesn't exist on the Position model")
     }
     
     override func setValue(value: AnyObject?, forKey key: String) {
@@ -77,6 +91,10 @@ class Position: NSObject {
             self.positionProtocol = value as? String
         } else if key == "type" {
             self.positionType = value as? String
+        } else if key == "valid" {
+            self.valid = value as? Bool
+        } else if key == "outdated" {
+            self.outdated = value as? Bool
         } else if key == "serverTime" {
             if value != nil {
                 let dateFormatter = NSDateFormatter()

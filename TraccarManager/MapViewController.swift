@@ -64,6 +64,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         performSegueWithIdentifier("ShowDevices", sender: self)
     }
     
+    @IBAction func zoomToAllButtonPressed() {
+        let region = coordinateRegionForAllPositions()
+        mapView?.setRegion(region, animated: true)
+    }
+    
     func refresh() {
         
         // devices
@@ -81,7 +86,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 let a = MKPointAnnotation()
                 a.coordinate = p.coordinate
-                a.title = p.title
+                a.title = p.annotationTitle
+                a.subtitle = p.annotationSubtitle
                 
                 self.mapView?.addAnnotation(a)
             }
@@ -109,6 +115,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         pinView!.annotation = annotation
         
         return pinView
+    }
+    
+    func coordinateRegionForAllPositions() -> MKCoordinateRegion {
+        var r = MKMapRectNull
+        for position in self.positions {
+            let point = MKMapPointForCoordinate(position.coordinate)
+            r = MKMapRectUnion(r, MKMapRectMake(point.x, point.y, 0, 0))
+        }
+        return MKCoordinateRegionForMapRect(r)
     }
     
 }

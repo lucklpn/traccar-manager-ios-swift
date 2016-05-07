@@ -21,7 +21,7 @@ class Device: NSObject {
     
     // implemented so we don't crash if the model changes
     override func setValue(value: AnyObject?, forUndefinedKey key: String) {
-        print("Tried to set property '\(key)' that doesn't exist on the model")
+        print("Tried to set property '\(key)' that doesn't exist on the Device model")
     }
     
     override func setValue(value: AnyObject?, forKey key: String) {
@@ -31,6 +31,12 @@ class Device: NSObject {
             self.lastUpdate = dateFormatter.dateFromString(value as! String)
         } else {
             super.setValue(value, forKey: key)
+        }
+    }
+    
+    var position: Position? {
+        get {
+            return WebService.sharedInstance.positionById((positionId?.integerValue)!)
         }
     }
     
