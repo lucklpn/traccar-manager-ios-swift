@@ -8,17 +8,40 @@
 
 import Foundation
 import Alamofire
+import SocketRocket
 
-class WebService {
+class WebService: NSObject, SRWebSocketDelegate {
     
     static let sharedInstance = WebService()
     
     // url for the server, has a trailing slash
     var serverURL: String?
     
+    private var socket: SRWebSocket?
+    
     private var allDevices: [Device]?
     
     private var allPositions: [Position]?
+    
+// MARK: websocket
+    
+    private func enableWebSocket() {
+        socket = SRWebSocket(URL: NSURL(string: serverURL! + "socket"))
+        socket?.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: serverURL!)!)
+        socket?.delegate = self
+    }
+    
+    private func disableWebSocket() {
+        if let s = socket {
+            s.close()
+        }
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+        
+    }
+  
+// MARK: fetch
     
     func fetchDevices(onFailure: ((String) -> Void)? = nil, onSuccess: ([Device]) -> Void) -> Bool {
         guard serverURL != nil else {
@@ -113,7 +136,32 @@ class WebService {
         
         return true
     }
-
+    
+    // utility function to get a position by ID
+    func positionByDeviceId(deviceId: NSNumber) -> Position? {
+        if let positions = allPositions {
+            for p in positions {
+                if p.deviceId == deviceId {
+                    return p
+                }
+            }
+        }
+        return nil
+    }
+    
+    // utility function to get a device by ID
+    func deviceById(id: NSNumber) -> Device? {
+        if let devices = allDevices {
+            for d in devices {
+                if d.id == id {
+                    return d
+                }
+            }
+        }
+        return nil
+    }
+    
+// MARK: auth
     
     func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
         
@@ -151,6 +199,7 @@ class WebService {
                         let u = User.sharedInstance
                         u.setValuesForKeysWithDictionary(data)
                         onSuccess(u)
+                        self.enableWebSocket()
                     } else {
                         if let fail = onFailure {
                             fail("Server response was invalid")
@@ -167,30 +216,5 @@ class WebService {
         
         return true
     }
-    
-    // utility function to get a position by ID
-    func positionByDeviceId(deviceId: NSNumber) -> Position? {
-        if let positions = allPositions {
-            for p in positions {
-                if p.deviceId == deviceId {
-                    return p
-                }
-            }
-        }
-        return nil
-    }
-    
-    // utility function to get a device by ID
-    func deviceById(id: NSNumber) -> Device? {
-        if let devices = allDevices {
-            for d in devices {
-                if d.id == id {
-                    return d
-                }
-            }
-        }
-        return nil
-    }
-
     
 }
