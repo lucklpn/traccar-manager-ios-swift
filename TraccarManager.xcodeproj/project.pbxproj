@@ -33,8 +33,8 @@
 		D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
 		D397E3AF1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
 		D397E3B01CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
-		D3091C781CD9F3D40017F0DC /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C711CD9F3CA0017F0DC /* SocketRocket.framework */; };
-		D3091C791CD9F3D40017F0DC /* SocketRocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C711CD9F3CA0017F0DC /* SocketRocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D397E3D91CDEC5B4001DBCA3 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D397E3D21CDEC5A9001DBCA3 /* SocketRocket.framework */; };
+		D397E3DA1CDEC5B4001DBCA3 /* SocketRocket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D397E3D21CDEC5A9001DBCA3 /* SocketRocket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 		D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
@@ -111,51 +111,51 @@
 			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
 			remoteInfo = "Alamofire iOS";
 		};
-		D3091C6C1CD9F3CA0017F0DC /* PBXContainerItemProxy */ = {
+		D397E3CD1CDEC5A9001DBCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+			containerPortal = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F6B2082D1450F597009315AF;
 			remoteInfo = SocketRocket;
 		};
-		D3091C6E1CD9F3CA0017F0DC /* PBXContainerItemProxy */ = {
+		D397E3CF1CDEC5A9001DBCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+			containerPortal = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F668C880153E91210044DBAC;
 			remoteInfo = SocketRocketOSX;
 		};
-		D3091C701CD9F3CA0017F0DC /* PBXContainerItemProxy */ = {
+		D397E3D11CDEC5A9001DBCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+			containerPortal = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 2D4227621BB4358C000C1A6C;
 			remoteInfo = "SocketRocket-iOS";
 		};
-		D3091C721CD9F3CA0017F0DC /* PBXContainerItemProxy */ = {
+		D397E3D31CDEC5A9001DBCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+			containerPortal = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 3345DC901C52ACD70083CCB8;
 			remoteInfo = "SocketRocket-tvOS";
 		};
-		D3091C741CD9F3CA0017F0DC /* PBXContainerItemProxy */ = {
+		D397E3D51CDEC5A9001DBCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+			containerPortal = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F6BDA802145900D200FE3253;
 			remoteInfo = SRWebSocketTests;
 		};
-		D3091C761CD9F3CA0017F0DC /* PBXContainerItemProxy */ = {
+		D397E3D71CDEC5A9001DBCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+			containerPortal = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F62417E314D52F3C003CE997;
 			remoteInfo = TestChat;
 		};
-		D3091C7A1CD9F3D40017F0DC /* PBXContainerItemProxy */ = {
+		D397E3DB1CDEC5B4001DBCA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+			containerPortal = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D4227611BB4358C000C1A6C;
 			remoteInfo = "SocketRocket-iOS";
@@ -170,7 +170,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D3091C2E1CD9E8FC0017F0DC /* Alamofire.framework in Embed Frameworks */,
-				D3091C791CD9F3D40017F0DC /* SocketRocket.framework in Embed Frameworks */,
+				D397E3DA1CDEC5B4001DBCA3 /* SocketRocket.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,7 +201,7 @@
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D397E3AD1CDEC176001DBCA3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = Carthage/Checkouts/SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
+		D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = Carthage/Checkouts/SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
 		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,7 +213,7 @@
 				D3091C121CD9D86F0017F0DC /* CoreLocation.framework in Frameworks */,
 				D3091C2D1CD9E8FC0017F0DC /* Alamofire.framework in Frameworks */,
 				CEE848D21CCDCD53000B1E9D /* MapKit.framework in Frameworks */,
-				D3091C781CD9F3D40017F0DC /* SocketRocket.framework in Frameworks */,
+				D397E3D91CDEC5B4001DBCA3 /* SocketRocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +246,7 @@
 		CE0721061C86EB9800D057CE = {
 			isa = PBXGroup;
 			children = (
-				D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */,
+				D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */,
 				D3091C151CD9E8C30017F0DC /* Alamofire.xcodeproj */,
 				CE0721111C86EB9800D057CE /* TraccarManager */,
 				CE0721261C86EB9800D057CE /* TraccarManagerTests */,
@@ -327,15 +327,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D3091C5E1CD9F3C90017F0DC /* Products */ = {
+		D397E3C51CDEC5A9001DBCA3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D3091C6D1CD9F3CA0017F0DC /* libSocketRocket.a */,
-				D3091C6F1CD9F3CA0017F0DC /* SocketRocket.framework */,
-				D3091C711CD9F3CA0017F0DC /* SocketRocket.framework */,
-				D3091C731CD9F3CA0017F0DC /* SocketRocket.framework */,
-				D3091C751CD9F3CA0017F0DC /* SRWebSocketTests.xctest */,
-				D3091C771CD9F3CA0017F0DC /* TestChat.app */,
+				D397E3CE1CDEC5A9001DBCA3 /* libSocketRocket.a */,
+				D397E3D01CDEC5A9001DBCA3 /* SocketRocket.framework */,
+				D397E3D21CDEC5A9001DBCA3 /* SocketRocket.framework */,
+				D397E3D41CDEC5A9001DBCA3 /* SocketRocket.framework */,
+				D397E3D61CDEC5A9001DBCA3 /* SRWebSocketTests.xctest */,
+				D397E3D81CDEC5A9001DBCA3 /* TestChat.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -356,7 +356,7 @@
 			);
 			dependencies = (
 				D3091C301CD9E8FC0017F0DC /* PBXTargetDependency */,
-				D3091C7B1CD9F3D40017F0DC /* PBXTargetDependency */,
+				D397E3DC1CDEC5B4001DBCA3 /* PBXTargetDependency */,
 			);
 			name = TraccarManager;
 			productName = TraccarManager;
@@ -439,8 +439,8 @@
 					ProjectRef = D3091C151CD9E8C30017F0DC /* Alamofire.xcodeproj */;
 				},
 				{
-					ProductGroup = D3091C5E1CD9F3C90017F0DC /* Products */;
-					ProjectRef = D3091C5D1CD9F3C90017F0DC /* SocketRocket.xcodeproj */;
+					ProductGroup = D397E3C51CDEC5A9001DBCA3 /* Products */;
+					ProjectRef = D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -502,46 +502,46 @@
 			remoteRef = D3091C2B1CD9E8C30017F0DC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D3091C6D1CD9F3CA0017F0DC /* libSocketRocket.a */ = {
+		D397E3CE1CDEC5A9001DBCA3 /* libSocketRocket.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libSocketRocket.a;
-			remoteRef = D3091C6C1CD9F3CA0017F0DC /* PBXContainerItemProxy */;
+			remoteRef = D397E3CD1CDEC5A9001DBCA3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D3091C6F1CD9F3CA0017F0DC /* SocketRocket.framework */ = {
+		D397E3D01CDEC5A9001DBCA3 /* SocketRocket.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SocketRocket.framework;
-			remoteRef = D3091C6E1CD9F3CA0017F0DC /* PBXContainerItemProxy */;
+			remoteRef = D397E3CF1CDEC5A9001DBCA3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D3091C711CD9F3CA0017F0DC /* SocketRocket.framework */ = {
+		D397E3D21CDEC5A9001DBCA3 /* SocketRocket.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SocketRocket.framework;
-			remoteRef = D3091C701CD9F3CA0017F0DC /* PBXContainerItemProxy */;
+			remoteRef = D397E3D11CDEC5A9001DBCA3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D3091C731CD9F3CA0017F0DC /* SocketRocket.framework */ = {
+		D397E3D41CDEC5A9001DBCA3 /* SocketRocket.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SocketRocket.framework;
-			remoteRef = D3091C721CD9F3CA0017F0DC /* PBXContainerItemProxy */;
+			remoteRef = D397E3D31CDEC5A9001DBCA3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D3091C751CD9F3CA0017F0DC /* SRWebSocketTests.xctest */ = {
+		D397E3D61CDEC5A9001DBCA3 /* SRWebSocketTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = SRWebSocketTests.xctest;
-			remoteRef = D3091C741CD9F3CA0017F0DC /* PBXContainerItemProxy */;
+			remoteRef = D397E3D51CDEC5A9001DBCA3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D3091C771CD9F3CA0017F0DC /* TestChat.app */ = {
+		D397E3D81CDEC5A9001DBCA3 /* TestChat.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = TestChat.app;
-			remoteRef = D3091C761CD9F3CA0017F0DC /* PBXContainerItemProxy */;
+			remoteRef = D397E3D71CDEC5A9001DBCA3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -635,10 +635,10 @@
 			name = "Alamofire iOS";
 			targetProxy = D3091C2F1CD9E8FC0017F0DC /* PBXContainerItemProxy */;
 		};
-		D3091C7B1CD9F3D40017F0DC /* PBXTargetDependency */ = {
+		D397E3DC1CDEC5B4001DBCA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SocketRocket-iOS";
-			targetProxy = D3091C7A1CD9F3D40017F0DC /* PBXContainerItemProxy */;
+			targetProxy = D397E3DB1CDEC5B4001DBCA3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

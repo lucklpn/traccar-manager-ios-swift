@@ -26,9 +26,12 @@ class WebService: NSObject, SRWebSocketDelegate {
 // MARK: websocket
     
     private func enableWebSocket() {
-        socket = SRWebSocket(URL: NSURL(string: serverURL! + "socket"))
-        socket?.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: serverURL!)!)
-        socket?.delegate = self
+        socket = SRWebSocket(URL: NSURL(string: serverURL! + "api/socket"))
+        if let s = socket {
+            s.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: serverURL!)!)
+            s.delegate = self
+            s.open()
+        }
     }
     
     private func disableWebSocket() {
@@ -37,8 +40,29 @@ class WebService: NSObject, SRWebSocketDelegate {
         }
     }
     
+    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+        print("Web socket failed: \(error.localizedDescription)")
+    }
+    
+    func webSocketDidOpen(webSocket: SRWebSocket!) {
+        print("Web socket opened")
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didReceivePong pongPayload: NSData!) {
+        print("Web socket pong")
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+        print("Web socket closed")
+    }
+    
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        
+        print("Web socket got message")
+    }
+    
+    func webSocketShouldConvertTextFrameToString(webSocket: SRWebSocket!) -> Bool {
+        print("Web socket should convert stuff?")
+        return true
     }
   
 // MARK: fetch
@@ -195,11 +219,13 @@ class WebService: NSObject, SRWebSocketDelegate {
                         fail("Invalid email and/or password")
                     }
                 } else {
+                    
+                    self.enableWebSocket()
+                    
                     if let data = JSON as? [String : AnyObject] {
                         let u = User.sharedInstance
                         u.setValuesForKeysWithDictionary(data)
                         onSuccess(u)
-                        self.enableWebSocket()
                     } else {
                         if let fail = onFailure {
                             fail("Server response was invalid")
