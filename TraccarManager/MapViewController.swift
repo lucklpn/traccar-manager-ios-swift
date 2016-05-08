@@ -75,8 +75,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func zoomToAllButtonPressed() {
-        let region = coordinateRegionForAllPositions()
-        mapView?.setRegion(region, animated: true)
+        mapView?.showAnnotations((mapView?.annotations)!, animated: true)
     }
     
     func refresh() {
@@ -125,15 +124,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         pinView!.annotation = annotation
         
         return pinView
-    }
-    
-    func coordinateRegionForAllPositions() -> MKCoordinateRegion {
-        var r = MKMapRectNull
-        for position in self.positions {
-            let point = MKMapPointForCoordinate(position.coordinate)
-            r = MKMapRectUnion(r, MKMapRectMake(point.x, point.y, 0, 0))
-        }
-        return MKCoordinateRegionForMapRect(r)
     }
     
 }
