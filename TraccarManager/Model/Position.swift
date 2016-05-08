@@ -59,6 +59,28 @@ class Position: NSObject {
         }
     }
     
+    // used to format the latitude and longitudes to 5 dp (fixed),
+    // this gives about 10cm resolution and is plenty
+    private var latLonFormatter: NSNumberFormatter
+    
+    var latitudeString: String? {
+        get {
+            if let l = latitude {
+                return latLonFormatter.stringFromNumber(l)
+            }
+            return nil
+        }
+    }
+    
+    var longitudeString: String? {
+        get {
+            if let l = longitude {
+                return latLonFormatter.stringFromNumber(l)
+            }
+            return nil
+        }
+    }
+    
     var coordinate: CLLocationCoordinate2D {
         guard let lat = latitude else {
             return kCLLocationCoordinate2DInvalid
@@ -82,6 +104,14 @@ class Position: NSObject {
         get {
             return address! as String
         }
+    }
+    
+    override init() {
+        self.latLonFormatter = NSNumberFormatter()
+        self.latLonFormatter.numberStyle = .DecimalStyle
+        self.latLonFormatter.minimumFractionDigits = 5
+        
+        super.init()
     }
     
     // implemented so we don't crash if the model changes
