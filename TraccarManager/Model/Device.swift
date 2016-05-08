@@ -36,7 +36,7 @@ class Device: NSObject {
     
     var position: Position? {
         get {
-            return WebService.sharedInstance.positionById(positionId!)
+            return WebService.sharedInstance.positionByDeviceId(id!)
         }
     }
     

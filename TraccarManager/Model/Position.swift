@@ -43,8 +43,11 @@ class Position: NSObject {
     var address: NSString?
     var altitude: NSNumber?
     
-    var outdated: Bool?
-    var valid: Bool?
+    // outdated is reserved
+    var isOutdated: Bool?
+    
+    // valid is reserved
+    var isValid: Bool?
     
     var serverTime: NSDate?
     var deviceTime: NSDate?
@@ -86,15 +89,19 @@ class Position: NSObject {
         print("Tried to set property '\(key)' that doesn't exist on the Position model")
     }
     
+    override func valueForUndefinedKey(key: String) -> AnyObject? {
+        return nil
+    }
+    
     override func setValue(value: AnyObject?, forKey key: String) {
         if key == "protocol" {
             self.positionProtocol = value as? String
         } else if key == "type" {
             self.positionType = value as? String
         } else if key == "valid" {
-            self.valid = value as? Bool
+            self.isValid = value as? Bool
         } else if key == "outdated" {
-            self.outdated = value as? Bool
+            self.isOutdated = value as? Bool
         } else if key == "serverTime" {
             if value != nil {
                 let dateFormatter = NSDateFormatter()

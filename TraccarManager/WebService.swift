@@ -169,10 +169,10 @@ class WebService {
     }
     
     // utility function to get a position by ID
-    func positionById(id: NSNumber) -> Position? {
+    func positionByDeviceId(deviceId: NSNumber) -> Position? {
         if let positions = allPositions {
             for p in positions {
-                if p.id == id {
+                if p.deviceId == deviceId {
                     return p
                 }
             }

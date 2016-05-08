@@ -21,13 +21,17 @@ class DeviceInfoViewController: UITableViewController {
     private var positionProperties: [String] = [
         "Latitude",
         "Longitude",
-        "Valid",
+        /*
+         TODO: something weird going on here, can't get the values
+         for these two via KVC
+         
+        "Is Valid",
+        "Is Outdated",
+        */
         "Altitude",
         "Speed",
         "Course",
-        "Address",
-        "Status",
-        "IP"
+        "Address"
     ]
     
     override func viewWillAppear(animated: Bool) {
@@ -67,7 +71,8 @@ class DeviceInfoViewController: UITableViewController {
                 let property = deviceProperties[indexPath.row]
                 cell.textLabel!.text = property
                 
-                if let value = d.valueForKey(property.lowercaseString) {
+                if let value = d.valueForKey(property.camelCasedString) {
+                    
                     cell.detailTextLabel!.text = "\(value)"
                 } else {
                     cell.detailTextLabel!.text = "–"
@@ -77,12 +82,14 @@ class DeviceInfoViewController: UITableViewController {
                 cell.textLabel!.text = property
                 
                 if let position = d.position {
-                    if let value = position.valueForKey(property.lowercaseString) {
+                    
+                    if let value = position.valueForKey(property.camelCasedString) {
                         cell.detailTextLabel!.text = "\(value)"
                     } else {
                         cell.detailTextLabel!.text = "–"
                     }
                 }
+                
             }
             
         }
