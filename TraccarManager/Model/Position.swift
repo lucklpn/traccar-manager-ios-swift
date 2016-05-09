@@ -118,7 +118,10 @@ class Position: NSObject {
     
     var annotationSubtitle: String {
         get {
-            return address! as String
+            if let a = address {
+                return a as String
+            }
+            return ""
         }
     }
     
