@@ -72,7 +72,12 @@ class DeviceInfoViewController: UITableViewController {
                 let property = deviceProperties[indexPath.row]
                 cell.textLabel!.text = property
                 
-                if let value = d.valueForKey(property.camelCasedString) {
+                var keyPath = property.camelCasedString
+                if property == "Status" {
+                    keyPath = "statusString"
+                }
+                
+                if let value = d.valueForKey(keyPath) {
                     cell.detailTextLabel!.text = "\(value)"
                 } else {
                     cell.detailTextLabel!.text = "–"
@@ -90,6 +95,8 @@ class DeviceInfoViewController: UITableViewController {
                         keyPath = "latitudeString"
                     } else if property == "Longitude" {
                         keyPath = "longitudeString"
+                    } else if property == "Course" {
+                        keyPath = "courseDirectionString"
                     }
                     
                     if let value = position.valueForKey(keyPath) {

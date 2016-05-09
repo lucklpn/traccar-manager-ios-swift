@@ -59,6 +59,22 @@ class Position: NSObject {
         }
     }
     
+    // logic derived from public domain code by Martin R, copied on 9 May 2016
+    // http://stackoverflow.com/a/13220694/336419
+    static let compassDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+    "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+    
+    // returns the course of this position as a compass direction
+    var courseDirectionString : String? {
+        get {
+            if let c = course {
+                let idx = ((c.doubleValue + 11.25) / 22.5) % 16
+                return "\(Position.compassDirections[Int(idx)]), \(c) º"
+            }
+            return nil
+        }
+    }
+    
     // used to format the latitude and longitudes to 5 dp (fixed),
     // this gives about 10cm resolution and is plenty
     private var latLonFormatter: NSNumberFormatter

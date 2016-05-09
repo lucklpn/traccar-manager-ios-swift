@@ -40,6 +40,15 @@ class Device: NSObject {
         }
     }
     
+    var statusString: String? {
+        get {
+            if let s = status {
+                return s.capitalizedString
+            }
+            return nil
+        }
+    }
+    
     // returns the time of this device's last update time, as a relative
     // string... something like "about 1 minute ago"
     var lastUpdateString: String {
