@@ -26,9 +26,14 @@ class WebService: NSObject, SRWebSocketDelegate {
 // MARK: websocket
     
     private func enableWebSocket() {
-        socket = SRWebSocket(URL: NSURL(string: serverURL! + "api/socket"))
+        
+        let host = serverURL!.componentsSeparatedByString("://")[1]
+        let urlString = "ws://\(host)api/socket"
+        
+        socket = SRWebSocket(URL: NSURL(string: urlString))
         if let s = socket {
-            s.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: serverURL!)!)
+            let cookiePath = "\(serverURL!)api"
+            s.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: cookiePath)!)
             s.delegate = self
             s.open()
         }
@@ -59,11 +64,7 @@ class WebService: NSObject, SRWebSocketDelegate {
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         print("Web socket got message")
     }
-    
-    func webSocketShouldConvertTextFrameToString(webSocket: SRWebSocket!) -> Bool {
-        print("Web socket should convert stuff?")
-        return true
-    }
+
   
 // MARK: fetch
     
