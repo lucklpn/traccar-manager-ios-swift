@@ -97,6 +97,8 @@ class DeviceInfoViewController: UITableViewController {
                         keyPath = "longitudeString"
                     } else if property == "Course" {
                         keyPath = "courseDirectionString"
+                    } else if property == "Speed" {
+                        keyPath = "speedString"
                     }
                     
                     if let value = position.valueForKey(keyPath) {

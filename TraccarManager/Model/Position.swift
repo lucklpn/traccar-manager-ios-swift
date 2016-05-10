@@ -75,6 +75,27 @@ class Position: NSObject {
         }
     }
     
+    var speedString: String? {
+        get {
+            if let s = speed {
+                
+                // format speed to 1 dp
+                let speedFormatter = NSNumberFormatter()
+                speedFormatter.numberStyle = .DecimalStyle
+                speedFormatter.maximumFractionDigits = 1
+                let formattedSpeed = speedFormatter.stringFromNumber(s)
+                if let fs = formattedSpeed {
+                    if let u = User.sharedInstance.speedUnit {
+                        return "\(fs) \(u)"
+                    } else {
+                        return fs
+                    }
+                }
+            }
+            return nil
+        }
+    }
+    
     // used to format the latitude and longitudes to 5 dp (fixed),
     // this gives about 10cm resolution and is plenty
     private var latLonFormatter: NSNumberFormatter
