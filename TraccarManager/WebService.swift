@@ -42,7 +42,14 @@ class WebService: NSObject, SRWebSocketDelegate {
     
 // MARK: websocket
     
-    private func enableWebSocket() {
+    private func reconnectWebSocket() {
+        
+        // close and tidy if we already had a socket
+        if let s = socket {
+            s.close()
+            s.delegate = nil
+            socket = nil
+        }
         
         let host = serverURL!.componentsSeparatedByString("://")[1]
         let urlString = "ws://\(host)api/socket"
@@ -113,6 +120,13 @@ class WebService: NSObject, SRWebSocketDelegate {
                         fail("Invalid server response")
                     }
                 } else {
+                    
+                    if let s = self.socket {
+                        if s.readyState != SRReadyState.OPEN {
+                            self.reconnectWebSocket()
+                        }
+                    }
+                    
                     if let data = JSON as? [[String : AnyObject]] {
                         
                         var devices = [Device]()
@@ -234,7 +248,7 @@ class WebService: NSObject, SRWebSocketDelegate {
                     }
                 } else {
                     
-                    self.enableWebSocket()
+                    self.reconnectWebSocket()
                     
                     if let data = JSON as? [String : AnyObject] {
                         let u = User.sharedInstance
