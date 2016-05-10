@@ -43,7 +43,7 @@ class DevicesViewController: UITableViewController {
             
             cell.textLabel!.text = device.name
             
-            var lu = device.lastUpdateString
+            var lu = device.mostRecentPositionTimeString
             if lu.characters.count > 0 {
                 lu = lu.lowercaseString
                 cell.detailTextLabel!.text = "Updated \(lu) ago"

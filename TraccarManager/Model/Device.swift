@@ -18,6 +18,21 @@ class Device: NSObject {
     var status: String?
     var name: String?
     
+    var timeDateRelativeFormatter: NSDateComponentsFormatter
+    
+    
+    override init() {
+        
+        timeDateRelativeFormatter = NSDateComponentsFormatter()
+        timeDateRelativeFormatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
+        timeDateRelativeFormatter.includesApproximationPhrase = true
+        timeDateRelativeFormatter.includesTimeRemainingPhrase = false
+        timeDateRelativeFormatter.allowedUnits = [.Year, .Month, .WeekOfMonth, .Day, .Hour, .Minute, .Second]
+        timeDateRelativeFormatter.maximumUnitCount = 1
+        
+        super.init()
+    }
+    
     
     // implemented so we don't crash if the model changes
     override func setValue(value: AnyObject?, forUndefinedKey key: String) {
@@ -53,15 +68,21 @@ class Device: NSObject {
     // string... something like "about 1 minute ago"
     var lastUpdateString: String {
         get {
-            let formatter = NSDateComponentsFormatter()
-            formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
-            formatter.includesApproximationPhrase = true
-            formatter.includesTimeRemainingPhrase = false
-            formatter.allowedUnits = [.Year, .Month, .WeekOfMonth, .Day, .Hour, .Minute, .Second]
-            formatter.maximumUnitCount = 1
-            
-            if let dateRelativeString = formatter.stringFromDate(lastUpdate!, toDate: NSDate()) {
+            if let dateRelativeString = timeDateRelativeFormatter.stringFromDate(lastUpdate!, toDate: NSDate()) {
                 return dateRelativeString
+            }
+            return ""
+        }
+    }
+    
+    var mostRecentPositionTimeString: String {
+        get {
+            if let p = WebService.sharedInstance.positionByDeviceId(self.id!) {
+                if let dt = p.deviceTime {
+                    if let dateRelativeString = timeDateRelativeFormatter.stringFromDate(dt, toDate: NSDate()) {
+                        return dateRelativeString
+                    }
+                }
             }
             return ""
         }
