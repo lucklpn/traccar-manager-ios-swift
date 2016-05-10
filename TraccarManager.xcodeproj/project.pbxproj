@@ -30,6 +30,9 @@
 		D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */; };
+		D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
+		D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
+		D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
 		D397E3AF1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
 		D397E3B01CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
@@ -200,6 +203,7 @@
 		D3091C9E1CDB60C00017F0DC /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
+		D3394F251CE1C77900795822 /* PositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAnnotation.swift; sourceTree = "<group>"; };
 		D397E3AD1CDEC176001DBCA3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = Carthage/Checkouts/SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
 		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -274,6 +278,7 @@
 				CE0721121C86EB9800D057CE /* AppDelegate.swift */,
 				CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */,
 				CE0721141C86EB9800D057CE /* MapViewController.swift */,
+				D3394F251CE1C77900795822 /* PositionAnnotation.swift */,
 				CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */,
 				D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */,
 				CE0721161C86EB9800D057CE /* Main.storyboard */,
@@ -588,6 +593,7 @@
 				D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */,
 				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
+				D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +606,7 @@
 				D3091C0F1CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */,
 				D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */,
+				D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */,
 				D3091CA01CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,6 +620,7 @@
 				D3091C101CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */,
 				D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */,
+				D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */,
 				D3091CA11CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

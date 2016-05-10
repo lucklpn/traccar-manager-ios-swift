@@ -19,9 +19,26 @@ class WebService: NSObject, SRWebSocketDelegate {
     
     private var socket: SRWebSocket?
     
-    private var allDevices: [Device]?
+    // map of device id (string) -> device
+    private var allDevices: NSMutableDictionary = NSMutableDictionary()
     
-    private var allPositions: [Position]?
+    // map of device id (string) -> position
+    //
+    // this provides an easy way of maintaining only the most-recent position
+    // for each device
+    private var allPositions: NSMutableDictionary = NSMutableDictionary()
+    
+    var positions: [Position] {
+        get {
+            return allPositions.allValues as! [Position]
+        }
+    }
+    
+    var devices: [Device] {
+        get {
+            return allDevices.allValues as! [Device]
+        }
+    }
     
 // MARK: websocket
     
@@ -45,28 +62,40 @@ class WebService: NSObject, SRWebSocketDelegate {
         }
     }
     
-    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
-        print("Web socket failed: \(error.localizedDescription)")
-    }
-    
-    func webSocketDidOpen(webSocket: SRWebSocket!) {
-        print("Web socket opened")
-    }
-    
-    func webSocket(webSocket: SRWebSocket!, didReceivePong pongPayload: NSData!) {
-        print("Web socket pong")
-    }
-    
-    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        print("Web socket closed")
-    }
-    
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        print("Web socket got message")
+        if let s = message as? String {
+            if let data = s.dataUsingEncoding(NSUTF8StringEncoding) {
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+                        
+                    if let p = json["positions"] as? [[String: AnyObject]] {
+                        parsePositionData(p)
+                    }
+                }
+                catch {
+                    print("error parsing JSON")
+                }
+            }
+        }
     }
 
   
 // MARK: fetch
+    
+    private func parsePositionData(data: [[String : AnyObject]]) -> [Position] {
+        
+        var positions = [Position]()
+        
+        for p in data {
+            let pp = Position()
+            pp.setValuesForKeysWithDictionary(p)
+            positions.append(pp)
+            
+            allPositions.setValue(pp, forKey: (pp.deviceId?.stringValue)!)
+        }
+        
+        return positions
+    }
     
     func fetchDevices(onFailure: ((String) -> Void)? = nil, onSuccess: ([Device]) -> Void) -> Bool {
         guard serverURL != nil else {
@@ -92,9 +121,9 @@ class WebService: NSObject, SRWebSocketDelegate {
                             let dd = Device()
                             dd.setValuesForKeysWithDictionary(d)
                             devices.append(dd)
+                            
+                            self.allDevices.setValue(dd, forKey: (dd.id?.stringValue)!)
                         }
-                        
-                        self.allDevices = devices
                         
                         onSuccess(devices)
                         
@@ -133,15 +162,7 @@ class WebService: NSObject, SRWebSocketDelegate {
                 } else {
                     if let data = JSON as? [[String : AnyObject]] {
                         
-                        var positions = [Position]()
-                        
-                        for p in data {
-                            let pp = Position()
-                            pp.setValuesForKeysWithDictionary(p)
-                            positions.append(pp)
-                        }
-                        
-                        self.allPositions = positions
+                        let positions = self.parsePositionData(data)
                         
                         onSuccess(positions)
                         
@@ -162,26 +183,18 @@ class WebService: NSObject, SRWebSocketDelegate {
         return true
     }
     
-    // utility function to get a position by ID
+    // utility function to get a position by device ID
     func positionByDeviceId(deviceId: NSNumber) -> Position? {
-        if let positions = allPositions {
-            for p in positions {
-                if p.deviceId == deviceId {
-                    return p
-                }
-            }
+        if let p = allPositions[deviceId.stringValue] {
+            return p as? Position
         }
         return nil
     }
     
     // utility function to get a device by ID
     func deviceById(id: NSNumber) -> Device? {
-        if let devices = allDevices {
-            for d in devices {
-                if d.id == id {
-                    return d
-                }
-            }
+        if let d = allDevices[id.stringValue] {
+            return d as? Device
         }
         return nil
     }

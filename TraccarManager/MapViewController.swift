@@ -34,9 +34,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(30.0,
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(10.0,
                                                              target: self,
-                                                             selector: #selector(MapViewController.refresh),
+                                                             selector: #selector(MapViewController.refreshPositions),
                                                              userInfo: nil,
                                                              repeats: true)
 
@@ -50,8 +50,30 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 shouldCenterOnAppear = false
             }
             
-            // called on a timer anyway, but we'll try and load devices ASAP after a login
-            refresh()
+            WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
+                self.navigationItem.rightBarButtonItem?.enabled = true
+                self.devices = newDevices
+                
+                // TODO: we only load the devices on login, what if devices are added/removed while logged-in?
+                
+                for d in self.devices {
+                    if let p = WebService.sharedInstance.positionByDeviceId(d.id!) {
+                        let a = PositionAnnotation()
+                        a.coordinate = p.coordinate
+                        a.title = p.annotationTitle
+                        a.subtitle = p.annotationSubtitle
+                        
+                        a.positionId = p.id
+                        a.deviceId = p.deviceId
+                        
+                        self.mapView?.addAnnotation(a)
+                    }
+                }
+                
+            })
+            
+            // called on a timer anyway, but we'll try and load positions ASAP after a login
+            refreshPositions()
             
         } else {
             performSegueWithIdentifier("ShowLogin", sender: self)
@@ -78,29 +100,33 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView?.showAnnotations((mapView?.annotations)!, animated: true)
     }
     
-    func refresh() {
-        
-        // devices
-        WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
-            self.navigationItem.rightBarButtonItem?.enabled = true
-            self.devices = newDevices
-        })
+    func refreshPositions() {
         
         // positions of devices
-        WebService.sharedInstance.fetchPositions(onSuccess: { (newPositions) in
-            self.positions = newPositions
+        self.positions = WebService.sharedInstance.positions
+        
+        // loop through all our current annotations, if the position ID
+        // of each annotation matches a position ID from the webservice
+        // then it's a current position ID, and it shouldn't be modified
+        // else, we update the annotation to match what it should be
+        for existingAnnotation in (self.mapView?.annotations)! {
             
-            self.mapView?.removeAnnotations((self.mapView?.annotations)!)
-            for p in newPositions {
-                
-                let a = MKPointAnnotation()
-                a.coordinate = p.coordinate
-                a.title = p.annotationTitle
-                a.subtitle = p.annotationSubtitle
-                
-                self.mapView?.addAnnotation(a)
+            if let a = existingAnnotation as? PositionAnnotation {
+                if let p = WebService.sharedInstance.positionByDeviceId(a.deviceId!) {
+                    if p.id == a.positionId {
+                        // this annotation is still current, don't change it
+                    } else {
+                        a.coordinate = p.coordinate
+                        a.title = p.annotationTitle
+                        a.subtitle = p.annotationSubtitle
+                        a.positionId = p.id
+                        // device ID will not have changed
+                    }
+                } else {
+                    // there's a problem -- the position for this device has been removed!
+                }
             }
-        })
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
