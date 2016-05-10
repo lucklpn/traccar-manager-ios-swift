@@ -77,6 +77,9 @@ class WebService: NSObject, SRWebSocketDelegate {
                         
                     if let p = json["positions"] as? [[String: AnyObject]] {
                         parsePositionData(p)
+                        
+                        // tell everyone that the positions have been updated
+                        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.PositionUpdateNotificationName, object: nil)
                     }
                 }
                 catch {

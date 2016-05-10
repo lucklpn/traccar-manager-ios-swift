@@ -13,8 +13,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet var mapView: MKMapView?
     
-    private var updateTimer: NSTimer?
-    
     private var devices: [Device] = []
     
     private var positions: [Position] = []
@@ -33,15 +31,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // TODO: update the map on a notification when the WebService web socket pushes a message
-        
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(10.0,
-                                                             target: self,
-                                                             selector: #selector(MapViewController.refreshPositions),
-                                                             userInfo: nil,
-                                                             repeats: true)
 
+        // update the map when we're told that a Position has been updated 
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(MapViewController.refreshPositions),
+                                                         name: Definitions.PositionUpdateNotificationName,
+                                                         object: nil)
+        
         if User.sharedInstance.isAuthenticated {
             
             if shouldCenterOnAppear {
@@ -77,18 +73,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
             })
             
-            // called on a timer anyway, but we'll try and load positions ASAP after a login
-            refreshPositions()
-            
         } else {
             performSegueWithIdentifier("ShowLogin", sender: self)
         }
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        updateTimer?.invalidate()
     }
     
     @IBAction func logoutButtonPressed() {

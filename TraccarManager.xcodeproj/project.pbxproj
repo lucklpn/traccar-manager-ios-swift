@@ -33,6 +33,9 @@
 		D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
+		D3394F351CE2A56600795822 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F341CE2A56600795822 /* Definitions.swift */; };
+		D3394F361CE2A56600795822 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F341CE2A56600795822 /* Definitions.swift */; };
+		D3394F371CE2A56600795822 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F341CE2A56600795822 /* Definitions.swift */; };
 		D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
 		D397E3AF1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
 		D397E3B01CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
@@ -204,6 +207,7 @@
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D3394F251CE1C77900795822 /* PositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAnnotation.swift; sourceTree = "<group>"; };
+		D3394F341CE2A56600795822 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		D397E3AD1CDEC176001DBCA3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D397E3C41CDEC5A9001DBCA3 /* SocketRocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SocketRocket.xcodeproj; path = Carthage/Checkouts/SocketRocket/SocketRocket.xcodeproj; sourceTree = "<group>"; };
 		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */,
 				CE07211E1C86EB9800D057CE /* Info.plist */,
 				D397E3AD1CDEC176001DBCA3 /* Extensions.swift */,
+				D3394F341CE2A56600795822 /* Definitions.swift */,
 			);
 			path = TraccarManager;
 			sourceTree = "<group>";
@@ -587,6 +592,7 @@
 				D3091C0E1CD9D0670017F0DC /* User.swift in Sources */,
 				D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */,
 				D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */,
+				D3394F351CE2A56600795822 /* Definitions.swift in Sources */,
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
@@ -601,6 +607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3394F361CE2A56600795822 /* Definitions.swift in Sources */,
 				D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */,
 				D397E3AF1CDEC176001DBCA3 /* Extensions.swift in Sources */,
 				D3091C0F1CD9D0670017F0DC /* User.swift in Sources */,
@@ -615,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3394F371CE2A56600795822 /* Definitions.swift in Sources */,
 				D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */,
 				D397E3B01CDEC176001DBCA3 /* Extensions.swift in Sources */,
 				D3091C101CD9D0670017F0DC /* User.swift in Sources */,
