@@ -65,6 +65,9 @@ class DeviceInfoViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
+        // default if no info available
+        cell.detailTextLabel!.text = "–"
+        
         if let d = device {
             
             if indexPath.section == 0 {
@@ -79,8 +82,6 @@ class DeviceInfoViewController: UITableViewController {
                 
                 if let value = d.valueForKey(keyPath) {
                     cell.detailTextLabel!.text = "\(value)"
-                } else {
-                    cell.detailTextLabel!.text = "–"
                 }
                 
             } else if indexPath.section == 1 {
@@ -103,8 +104,6 @@ class DeviceInfoViewController: UITableViewController {
                     
                     if let value = position.valueForKey(keyPath) {
                         cell.detailTextLabel!.text = "\(value)"
-                    } else {
-                        cell.detailTextLabel!.text = "–"
                     }
                 }
                 
