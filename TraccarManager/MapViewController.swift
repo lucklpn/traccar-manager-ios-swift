@@ -34,6 +34,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        // TODO: update the map on a notification when the WebService web socket pushes a message
+        
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(10.0,
                                                              target: self,
                                                              selector: #selector(MapViewController.refreshPositions),
@@ -54,7 +56,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 self.navigationItem.rightBarButtonItem?.enabled = true
                 self.devices = newDevices
                 
-                // TODO: we only load the devices on login, what if devices are added/removed while logged-in?
+                // if devices are added/removed from the server while user is logged-in, the
+                // positions will be added/removed from the map here
+                
+                self.mapView?.removeAnnotations((self.mapView?.annotations)!)
                 
                 for d in self.devices {
                     if let p = WebService.sharedInstance.positionByDeviceId(d.id!) {
