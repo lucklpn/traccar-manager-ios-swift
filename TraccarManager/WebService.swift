@@ -42,7 +42,7 @@ class WebService: NSObject, SRWebSocketDelegate {
     
 // MARK: websocket
     
-    private func reconnectWebSocket() {
+    func reconnectWebSocket() {
         
         // if the server URL hasn't been set, there's no point continuing
         guard serverURL != nil else {
