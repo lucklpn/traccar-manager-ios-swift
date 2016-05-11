@@ -44,6 +44,11 @@ class WebService: NSObject, SRWebSocketDelegate {
     
     private func reconnectWebSocket() {
         
+        // if the server URL hasn't been set, there's no point continuing
+        guard serverURL != nil else {
+            return
+        }
+        
         // close and tidy if we already had a socket
         if let s = socket {
             s.close()
@@ -66,6 +71,10 @@ class WebService: NSObject, SRWebSocketDelegate {
         if let s = socket {
             s.close()
         }
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+        reconnectWebSocket()
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
@@ -122,12 +131,6 @@ class WebService: NSObject, SRWebSocketDelegate {
                         fail("Invalid server response")
                     }
                 } else {
-                    
-                    if let s = self.socket {
-                        if s.readyState != SRReadyState.OPEN {
-                            self.reconnectWebSocket()
-                        }
-                    }
                     
                     if let data = JSON as? [[String : AnyObject]] {
                         
@@ -255,6 +258,9 @@ class WebService: NSObject, SRWebSocketDelegate {
                     if let data = JSON as? [String : AnyObject] {
                         let u = User.sharedInstance
                         u.setValuesForKeysWithDictionary(data)
+                        
+                        self.reconnectWebSocket()
+                        
                         onSuccess(u)
                     } else {
                         if let fail = onFailure {
