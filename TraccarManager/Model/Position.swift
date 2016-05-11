@@ -173,22 +173,22 @@ class Position: NSObject {
         } else if key == "outdated" {
             self.isOutdated = value as? Bool
         } else if key == "serverTime" {
-            if value != nil {
+            if let v = value as? String {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                self.serverTime = dateFormatter.dateFromString(value as! String)
+                self.serverTime = dateFormatter.dateFromString(v)
             }
         } else if key == "deviceTime" {
-            if value != nil {
+            if let v = value as? String {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                self.deviceTime = dateFormatter.dateFromString(value as! String)
+                self.deviceTime = dateFormatter.dateFromString(v)
             }
         } else if key == "fixTime" {
-            if value != nil {
+            if let v = value as? String {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                self.fixTime = dateFormatter.dateFromString(value as! String)
+                self.fixTime = dateFormatter.dateFromString(v)
             }
         } else {
             super.setValue(value, forKey: key)
