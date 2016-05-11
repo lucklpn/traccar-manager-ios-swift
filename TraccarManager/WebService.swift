@@ -51,8 +51,7 @@ class WebService: NSObject, SRWebSocketDelegate {
             socket = nil
         }
         
-        let host = serverURL!.componentsSeparatedByString("://")[1]
-        let urlString = "ws://\(host)api/socket"
+        let urlString = "\(serverURL!)api/socket"
         
         socket = SRWebSocket(URL: NSURL(string: urlString))
         if let s = socket {
