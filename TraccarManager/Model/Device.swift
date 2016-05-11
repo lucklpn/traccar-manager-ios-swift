@@ -20,7 +20,6 @@ class Device: NSObject {
     
     var timeDateRelativeFormatter: NSDateComponentsFormatter
     
-    
     override init() {
         
         timeDateRelativeFormatter = NSDateComponentsFormatter()
@@ -41,9 +40,13 @@ class Device: NSObject {
     
     override func setValue(value: AnyObject?, forKey key: String) {
         if key == "lastUpdate" {
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-            self.lastUpdate = dateFormatter.dateFromString(value as! String)
+            if let v = value as? String {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
+                self.lastUpdate = dateFormatter.dateFromString(v)
+            } else {
+                self.lastUpdate = nil
+            }
         } else {
             super.setValue(value, forKey: key)
         }
