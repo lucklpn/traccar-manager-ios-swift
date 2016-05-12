@@ -44,8 +44,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func loginButtonPressed() {
         WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
-                // TODO: this is a bit plain
-                UIAlertView(title: "Couldn't Login", message: errorString, delegate: nil, cancelButtonTitle: "OK").show()
+            
+                let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                ac.addAction(okAction)
+                self.presentViewController(ac, animated: true, completion: nil)
+            
             }, onSuccess: { (user) in
                 
                 // save server, user
