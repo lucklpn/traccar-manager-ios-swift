@@ -43,7 +43,7 @@ class DevicesViewController: UITableViewController {
             
             cell.textLabel!.text = device.name
             
-            var lu = device.lastUpdateString
+            var lu = device.mostRecentPositionTimeString
             if lu.characters.count > 0 {
                 lu = lu.lowercaseString
                 cell.detailTextLabel!.text = "Updated \(lu) ago"
@@ -54,5 +54,17 @@ class DevicesViewController: UITableViewController {
 
         return cell
     }
-
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let dvc = segue.destinationViewController as? DeviceInfoViewController {
+            let idxp = tableView.indexPathForSelectedRow
+            if let d = devices {
+                dvc.device = d[idxp!.row]
+            }
+        }
+    }
 }
