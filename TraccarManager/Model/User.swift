@@ -49,7 +49,7 @@ class User: NSObject {
     override func setValue(value: AnyObject?, forUndefinedKey key: String) {
         // ignore the password, we don't care about it
         if key != "password" {
-            print("Tried to set property '\(key)' that doesn't exist on the model")
+            print("Tried to set property '\(key)' that doesn't exist on the User model")
         }
     }
     
