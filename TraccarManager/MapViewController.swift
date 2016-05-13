@@ -161,21 +161,4 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinView
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        if annotation.isKindOfClass(MKUserLocation.self) {
-            return nil
-        }
-        
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("Pin")
-        if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
-            pinView!.canShowCallout = true
-        }
-        
-        pinView!.annotation = annotation
-        
-        return pinView
-    }
-    
 }
