@@ -43,7 +43,6 @@ class WebService: NSObject, SRWebSocketDelegate {
 // MARK: websocket
     
     func disconnectWebSocket() {
-        
         // close and tidy if we already had a socket
         if let s = socket {
             s.close()
@@ -72,6 +71,11 @@ class WebService: NSObject, SRWebSocketDelegate {
         }
     }
     
+    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+        reconnectWebSocket()
+    }
+    
+
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         if let s = message as? String {
             if let data = s.dataUsingEncoding(NSUTF8StringEncoding) {
@@ -106,7 +110,7 @@ class WebService: NSObject, SRWebSocketDelegate {
         
         // tell everyone that the positions have been updated
         NSNotificationCenter.defaultCenter().postNotificationName(Definitions.PositionUpdateNotificationName, object: nil)
-        
+
         return positions
     }
     
@@ -250,7 +254,7 @@ class WebService: NSObject, SRWebSocketDelegate {
                         fail("Invalid email and/or password")
                     }
                 } else {
-                    
+            
                     if let data = JSON as? [String : AnyObject] {
                         let u = User.sharedInstance
                         u.setValuesForKeysWithDictionary(data)
