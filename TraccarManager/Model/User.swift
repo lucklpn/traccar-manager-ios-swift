@@ -42,8 +42,13 @@ class User: NSObject {
     }
     
     func logout() {
-        NSHTTPCookieStorage.sharedHTTPCookieStorage().removeCookiesSinceDate(NSDate(timeIntervalSinceReferenceDate: 0))
+        
+        WebService.sharedInstance.disconnectWebSocket()
         email = nil
+        NSHTTPCookieStorage.sharedHTTPCookieStorage().removeCookiesSinceDate(NSDate(timeIntervalSinceReferenceDate: 0))
+        
+        // tell everyone that the user has logged out
+        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.LoginStatusChangedNotificationName, object: nil)
     }
     
     override func setValue(value: AnyObject?, forUndefinedKey key: String) {

@@ -6,10 +6,20 @@
 //  Copyright © 2016 Anton Tananaev. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Definitions {
     
+    static let DeviceUpdateNotificationName = "DeviceUpdateNotificationName"
+    
     static let PositionUpdateNotificationName = "PositionUpdateNotificationName"
+    
+    static let LoginStatusChangedNotificationName = "LoginStatusChangedNotificationName"
+    
+    static var isRunningOniPad: Bool {
+        get {
+            return UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+        }
+    }
     
 }

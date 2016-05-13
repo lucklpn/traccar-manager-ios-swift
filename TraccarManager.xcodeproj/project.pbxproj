@@ -28,6 +28,7 @@
 		D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */; };
+		D30ACDB71CE5409700925366 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30ACDB51CE5409700925366 /* Main-iPad.storyboard */; };
 		D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
@@ -96,6 +97,7 @@
 		D3091C9E1CDB60C00017F0DC /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
+		D30ACDB61CE5409700925366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-iPad.storyboard"; sourceTree = "<group>"; };
 		D3394F251CE1C77900795822 /* PositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAnnotation.swift; sourceTree = "<group>"; };
 		D3394F341CE2A56600795822 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		D3394F381CE3D0AD00795822 /* SocketRocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketRocket.framework; path = Carthage/Build/iOS/SocketRocket.framework; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */,
 				D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */,
 				CE0721161C86EB9800D057CE /* Main.storyboard */,
+				D30ACDB51CE5409700925366 /* Main-iPad.storyboard */,
 				CE0721191C86EB9800D057CE /* Assets.xcassets */,
 				CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */,
 				CE07211E1C86EB9800D057CE /* Info.plist */,
@@ -323,6 +326,7 @@
 				CE07211D1C86EB9800D057CE /* LaunchScreen.storyboard in Resources */,
 				CE07211A1C86EB9800D057CE /* Assets.xcassets in Resources */,
 				CE0721181C86EB9800D057CE /* Main.storyboard in Resources */,
+				D30ACDB71CE5409700925366 /* Main-iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +444,14 @@
 				CE07211C1C86EB9800D057CE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D30ACDB51CE5409700925366 /* Main-iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D30ACDB61CE5409700925366 /* Base */,
+			);
+			name = "Main-iPad.storyboard";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

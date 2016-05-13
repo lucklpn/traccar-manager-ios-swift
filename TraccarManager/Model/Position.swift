@@ -69,18 +69,7 @@ class Position: NSObject {
         get {
             if let c = course {
                 let idx = ((c.doubleValue + 11.25) / 22.5) % 16
-                
-                // format course to 1 dp
-                let courseFormatter = NSNumberFormatter()
-                courseFormatter.numberStyle = .DecimalStyle
-                courseFormatter.maximumFractionDigits = 1
-                let formattedCourse = courseFormatter.stringFromNumber(c)
-                
-                if let fc = formattedCourse {
-                    return "\(Position.compassDirections[Int(idx)]), \(fc) º"
-                }
-                
-                return "\(Position.compassDirections[Int(idx)]), \(c) º"
+                return "\(Position.compassDirections[Int(idx)]), \(c.integerValue) º"
             }
             return nil
         }
