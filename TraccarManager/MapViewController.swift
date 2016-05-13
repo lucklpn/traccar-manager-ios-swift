@@ -38,6 +38,32 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                                                          name: Definitions.PositionUpdateNotificationName,
                                                          object: nil)
         
+        // reload Devices and Positions when the user logs in, show login screen when user logs out
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(MapViewController.loginStatusChanged),
+                                                         name: Definitions.LoginStatusChangedNotificationName,
+                                                         object: nil)
+
+        // we need to fire this manually when the view appears
+        loginStatusChanged()
+    }
+    
+    @IBAction func logoutButtonPressed() {
+        User.sharedInstance.logout()
+        mapView?.removeAnnotations((mapView?.annotations)!)
+        shouldCenterOnAppear = true
+    }
+
+    @IBAction func devicesButtonPressed() {
+        performSegueWithIdentifier("ShowDevices", sender: self)
+    }
+    
+    @IBAction func zoomToAllButtonPressed() {
+        mapView?.showAnnotations((mapView?.annotations)!, animated: true)
+    }
+    
+    func loginStatusChanged() {
+        
         if User.sharedInstance.isAuthenticated {
             
             if shouldCenterOnAppear {
@@ -54,42 +80,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 // if devices are added/removed from the server while user is logged-in, the
                 // positions will be added/removed from the map here
-                
-                self.mapView?.removeAnnotations((self.mapView?.annotations)!)
-                
-                for d in self.devices {
-                    if let p = WebService.sharedInstance.positionByDeviceId(d.id!) {
-                        let a = PositionAnnotation()
-                        a.coordinate = p.coordinate
-                        a.title = p.annotationTitle
-                        a.subtitle = p.annotationSubtitle
-                        
-                        a.positionId = p.id
-                        a.deviceId = p.deviceId
-                        
-                        self.mapView?.addAnnotation(a)
-                    }
-                }
-                
+                self.refreshPositions()
             })
             
         } else {
             performSegueWithIdentifier("ShowLogin", sender: self)
         }
-    }
-    
-    @IBAction func logoutButtonPressed() {
-        User.sharedInstance.logout()
-        shouldCenterOnAppear = true
-        performSegueWithIdentifier("ShowLogin", sender: self)
-    }
-
-    @IBAction func devicesButtonPressed() {
-        performSegueWithIdentifier("ShowDevices", sender: self)
-    }
-    
-    @IBAction func zoomToAllButtonPressed() {
-        mapView?.showAnnotations((mapView?.annotations)!, animated: true)
+        
     }
     
     func refreshPositions() {
@@ -97,13 +94,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // positions of devices
         self.positions = WebService.sharedInstance.positions
         
-        // loop through all our current annotations, if the position ID
-        // of each annotation matches a position ID from the webservice
-        // then it's a current position ID, and it shouldn't be modified
-        // else, we update the annotation to match what it should be
-        for existingAnnotation in (self.mapView?.annotations)! {
+        for device in self.devices {
             
-            if let a = existingAnnotation as? PositionAnnotation {
+            var annotationForDevice: PositionAnnotation?
+            for existingAnnotation in (self.mapView?.annotations)! {
+                if let a = existingAnnotation as? PositionAnnotation {
+                    if a.deviceId == device.id {
+                        annotationForDevice = a
+                        break
+                    }
+                }
+            }
+            
+            if let a = annotationForDevice {
+                
                 if let p = WebService.sharedInstance.positionByDeviceId(a.deviceId!) {
                     if p.id == a.positionId {
                         // this annotation is still current, don't change it
@@ -115,16 +119,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         // device ID will not have changed
                     }
                 } else {
-                    // there's a problem -- the position for this device has been removed!
+                    // the position for this device has been removed
+                    self.mapView?.removeAnnotation(a)
                 }
+                
+            } else {
+                
+                // there's no annotation for the device's position, we need to add one
+                
+                if let p = WebService.sharedInstance.positionByDeviceId(device.id!) {
+                    let a = PositionAnnotation()
+                    a.coordinate = p.coordinate
+                    a.title = p.annotationTitle
+                    a.subtitle = p.annotationSubtitle
+                    
+                    a.positionId = p.id
+                    a.deviceId = p.deviceId
+                    
+                    self.mapView?.addAnnotation(a)
+                }
+                
             }
         }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let dvc = segue.destinationViewController as? DevicesViewController {
-            dvc.devices = self.devices
-        }
+        
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {

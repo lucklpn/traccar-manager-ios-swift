@@ -42,18 +42,22 @@ class WebService: NSObject, SRWebSocketDelegate {
     
 // MARK: websocket
     
-    func reconnectWebSocket() {
-        
-        // if the server URL hasn't been set, there's no point continuing
-        guard serverURL != nil else {
-            return
-        }
-        
+    func disconnectWebSocket() {
         // close and tidy if we already had a socket
         if let s = socket {
             s.close()
             s.delegate = nil
             socket = nil
+        }
+    }
+    
+    func reconnectWebSocket() {
+        
+        disconnectWebSocket()
+        
+        // if the server URL hasn't been set, there's no point continuing
+        guard serverURL != nil else {
+            return
         }
         
         let urlString = "\(serverURL!)api/socket"
@@ -67,16 +71,11 @@ class WebService: NSObject, SRWebSocketDelegate {
         }
     }
     
-    private func disableWebSocket() {
-        if let s = socket {
-            s.close()
-        }
-    }
-    
     func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
         reconnectWebSocket()
     }
     
+
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         if let s = message as? String {
             if let data = s.dataUsingEncoding(NSUTF8StringEncoding) {
@@ -85,9 +84,6 @@ class WebService: NSObject, SRWebSocketDelegate {
                         
                     if let p = json["positions"] as? [[String: AnyObject]] {
                         parsePositionData(p)
-                        
-                        // tell everyone that the positions have been updated
-                        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.PositionUpdateNotificationName, object: nil)
                     }
                 }
                 catch {
@@ -112,6 +108,9 @@ class WebService: NSObject, SRWebSocketDelegate {
             allPositions.setValue(pp, forKey: (pp.deviceId?.stringValue)!)
         }
         
+        // tell everyone that the positions have been updated
+        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.PositionUpdateNotificationName, object: nil)
+
         return positions
     }
     
@@ -143,6 +142,9 @@ class WebService: NSObject, SRWebSocketDelegate {
                             
                             self.allDevices.setValue(dd, forKey: (dd.id?.stringValue)!)
                         }
+                        
+                        // tell everyone that the devices have been updated
+                        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.DeviceUpdateNotificationName, object: nil)
                         
                         onSuccess(devices)
                         
@@ -252,14 +254,15 @@ class WebService: NSObject, SRWebSocketDelegate {
                         fail("Invalid email and/or password")
                     }
                 } else {
-                    
-                    self.reconnectWebSocket()
-                    
+            
                     if let data = JSON as? [String : AnyObject] {
                         let u = User.sharedInstance
                         u.setValuesForKeysWithDictionary(data)
                         
                         self.reconnectWebSocket()
+                        
+                        // tell everyone that the user has logged in
+                        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.LoginStatusChangedNotificationName, object: nil)
                         
                         onSuccess(u)
                     } else {
