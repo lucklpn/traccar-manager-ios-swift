@@ -22,6 +22,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // map every single time this view appears
     private var shouldCenterOnAppear: Bool = true
     
+    // if a map pin is tapped by the user, a reference will be stored here 
+    var selectedAnnotation: PositionAnnotation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -154,11 +157,59 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
             pinView!.canShowCallout = true
+            
+            let btn = UIButton(type: .DetailDisclosure)
+            btn.addTarget(self, action: #selector(MapViewController.didTapMapPinDisclosureButton), forControlEvents: UIControlEvents.TouchUpInside)
+            pinView?.rightCalloutAccessoryView = btn
         }
         
         pinView!.annotation = annotation
         
         return pinView
+    }
+    
+    // MARK: handle the tap of a map pin info button
+    
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        if let a = view.annotation as? PositionAnnotation {
+            selectedAnnotation = a
+        }
+    }
+    
+    func didTapMapPinDisclosureButton(sender: UIButton) {
+        if selectedAnnotation != nil {
+            performSegueWithIdentifier("ShowDeviceInfo", sender: self)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // running on iPhone
+        if let dvc = segue.destinationViewController as? DeviceInfoViewController {
+            
+            // set device on the info view
+            if let deviceId = selectedAnnotation?.deviceId {
+                if let device = WebService.sharedInstance.deviceById(deviceId) {
+                    dvc.device = device
+                }
+            }
+            
+        } else if let nc = segue.destinationViewController as? UINavigationController {
+            
+            if let dvc = nc.topViewController as? DeviceInfoViewController {
+                
+                // set device on the info view
+                if let deviceId = selectedAnnotation?.deviceId {
+                    if let device = WebService.sharedInstance.deviceById(deviceId) {
+                        dvc.device = device
+                    }
+                }
+                
+                // show a close button if we're running on an iPad
+                dvc.shouldShowCloseButton = true
+            }
+            
+        }
     }
     
 }
