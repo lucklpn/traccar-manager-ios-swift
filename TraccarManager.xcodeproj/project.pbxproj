@@ -563,8 +563,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/MBProgressHUD/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/MBProgressHUD/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = TraccarManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -582,8 +580,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/MBProgressHUD/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/MBProgressHUD/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = TraccarManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
