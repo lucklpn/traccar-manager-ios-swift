@@ -16,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        WebService.sharedInstance.reconnectWebSocket()
+        if User.sharedInstance.isAuthenticated {
+            WebService.sharedInstance.reconnectWebSocket()
+        }
         
         return true
     }
