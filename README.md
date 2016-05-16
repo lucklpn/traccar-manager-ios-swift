@@ -2,7 +2,7 @@
 
 ## Contacts
 
-Author - Anton Tananaev ([anton.tananaev@gmail.com](mailto:anton.tananaev@gmail.com))
+Authors - Anton Tananaev ([anton.tananaev@gmail.com](mailto:anton.tananaev@gmail.com)) and William Pearse ([w.pearse@gmail.com](mailto:w.pearse@gmail.com))
 
 Website - [https://www.traccar.org](https://www.traccar.org)
 
