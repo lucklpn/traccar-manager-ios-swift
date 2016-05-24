@@ -29,6 +29,7 @@
 		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */; };
 		D30ACDB71CE5409700925366 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30ACDB51CE5409700925366 /* Main-iPad.storyboard */; };
+		D30ACDFD1CE5DE2E00925366 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D30ACDE11CE5DE2E00925366 /* MBProgressHUD.m */; };
 		D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
@@ -98,6 +99,9 @@
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D30ACDB61CE5409700925366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-iPad.storyboard"; sourceTree = "<group>"; };
+		D30ACDE01CE5DE2E00925366 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		D30ACDE11CE5DE2E00925366 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D30ACE041CE5DE7300925366 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = TraccarManager/BridgingHeader.h; sourceTree = "<group>"; };
 		D3394F251CE1C77900795822 /* PositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAnnotation.swift; sourceTree = "<group>"; };
 		D3394F341CE2A56600795822 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		D3394F381CE3D0AD00795822 /* SocketRocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketRocket.framework; path = Carthage/Build/iOS/SocketRocket.framework; sourceTree = "<group>"; };
@@ -149,11 +153,13 @@
 		CE0721061C86EB9800D057CE = {
 			isa = PBXGroup;
 			children = (
+				D30ACE041CE5DE7300925366 /* BridgingHeader.h */,
 				CE0721111C86EB9800D057CE /* TraccarManager */,
 				CE0721261C86EB9800D057CE /* TraccarManagerTests */,
 				CE0721311C86EB9800D057CE /* TraccarManagerUITests */,
 				CE0721101C86EB9800D057CE /* Products */,
 				C47A9C561CBDCB24F2866BD2 /* Frameworks */,
+				D30ACDB81CE5DE2E00925366 /* MBProgressHUD */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,6 +221,16 @@
 				D3091CA81CDDE2900017F0DC /* Position.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D30ACDB81CE5DE2E00925366 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				D30ACDE01CE5DE2E00925366 /* MBProgressHUD.h */,
+				D30ACDE11CE5DE2E00925366 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			path = Carthage/Checkouts/MBProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -382,6 +398,7 @@
 				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
 				D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */,
+				D30ACDFD1CE5DE2E00925366 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +571,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = TraccarManager/BridgingHeader.h;
 			};
 			name = Debug;
 		};
@@ -572,6 +590,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = TraccarManager/BridgingHeader.h;
 			};
 			name = Release;
 		};

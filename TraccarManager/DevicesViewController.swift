@@ -23,7 +23,13 @@ class DevicesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // update the map when we're told that a Position has been updated
+        // update the list when we're told that a Position has been updated (this is the "Updated ... ago" message)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(DevicesViewController.reloadDevices),
+                                                         name: Definitions.PositionUpdateNotificationName,
+                                                         object: nil)
+        
+        // update the list when a Device has been updated (maybe the name has changed, or an addition/removal of a device)
         NSNotificationCenter.defaultCenter().addObserver(self,
                                                          selector: #selector(DevicesViewController.reloadDevices),
                                                          name: Definitions.DeviceUpdateNotificationName,

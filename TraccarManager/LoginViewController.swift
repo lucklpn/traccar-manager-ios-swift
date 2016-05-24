@@ -52,22 +52,35 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func loginButtonPressed() {
+        
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        
         WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
             
-                let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                ac.addAction(okAction)
-                self.presentViewController(ac, animated: true, completion: nil)
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    
+                    let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .Alert)
+                    let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    ac.addAction(okAction)
+                    self.presentViewController(ac, animated: true, completion: nil)
+                })
             
             }, onSuccess: { (user) in
                 
-                // save server, user
-                let d = NSUserDefaults.standardUserDefaults()
-                d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
-                d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
-                d.synchronize()
+                dispatch_async(dispatch_get_main_queue(), {
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                    // save server, user
+                    let d = NSUserDefaults.standardUserDefaults()
+                    d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
+                    d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
+                    d.synchronize()
+                    
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
             }
         )
     }

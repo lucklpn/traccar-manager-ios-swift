@@ -20,6 +20,9 @@ class DeviceInfoViewController: UITableViewController {
     
     var device: Device?
     
+    // set to true to show a Close button in the navigation item 
+    var shouldShowCloseButton: Bool = false
+    
     // list of properties to display for the device
     private var deviceProperties: [String] = [
         "Name",
@@ -42,10 +45,32 @@ class DeviceInfoViewController: UITableViewController {
         "Address"
     ]
     
+    func close() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationItem.title = device!.name
+        if let d = device {
+            self.navigationItem.title = d.name
+        }
+        
+        if shouldShowCloseButton {
+            
+            // it only makes sense to use this on the iPad, when this view is presented modally
+            // direct from the map. this is because on an iPad this view can be displayed direct
+            // from the map as a standalone modal, and without this close button there is no
+            // way of closing the modal
+            //
+            // on an iPhone/iPod device the storyboard is set up so that this view is present using
+            // a navigation controller, so we already have a done button in the top-left corner
+            if Definitions.isRunningOniPad {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done,
+                                                                         target: self,
+                                                                         action: #selector(DeviceInfoViewController.close))
+            }
+        }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
