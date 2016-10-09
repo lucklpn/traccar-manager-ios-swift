@@ -580,6 +580,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = TraccarManager/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;

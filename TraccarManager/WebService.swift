@@ -80,24 +80,22 @@ class WebService: NSObject, SRWebSocketDelegate {
         }
     }
     
-    private func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+    func webSocket(_ webSocket: SRWebSocket, didFailWithError error: Error) {
         reconnectWebSocket()
     }
     
 
-    private func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        if let s = message as? String {
-            if let data = s.data(using: String.Encoding.utf8) {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:AnyObject]
-                        
-                    if let p = json["positions"] as? [[String: AnyObject]] {
-                        parsePositionData(p)
-                    }
+    func webSocket(_ webSocket: SRWebSocket, didReceiveMessageWith string: String) {
+        if let data = string.data(using: String.Encoding.utf8) {
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:AnyObject]
+                
+                if let p = json["positions"] as? [[String: AnyObject]] {
+                    parsePositionData(p)
                 }
-                catch {
-                    print("error parsing JSON")
-                }
+            }
+            catch {
+                print("error parsing JSON")
             }
         }
     }
