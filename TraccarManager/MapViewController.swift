@@ -21,14 +21,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet var mapView: MKMapView?
     
-    private var devices: [Device] = []
+    fileprivate var devices: [Device] = []
     
-    private var positions: [Position] = []
+    fileprivate var positions: [Position] = []
     
     // controls whether the map view should center on user's default location
     // when the view appears. we use this variable to prevent re-centering the
     // map every single time this view appears
-    private var shouldCenterOnAppear: Bool = true
+    fileprivate var shouldCenterOnAppear: Bool = true
     
     // if a map pin is tapped by the user, a reference will be stored here 
     var selectedAnnotation: PositionAnnotation?
@@ -37,22 +37,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // don't let user open devices view until the devices have been loaded
-        self.navigationItem.rightBarButtonItem?.enabled = false
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         // update the map when we're told that a Position has been updated 
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          selector: #selector(MapViewController.refreshPositions),
-                                                         name: Definitions.PositionUpdateNotificationName,
+                                                         name: NSNotification.Name(rawValue: Definitions.PositionUpdateNotificationName),
                                                          object: nil)
         
         // reload Devices and Positions when the user logs in, show login screen when user logs out
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          selector: #selector(MapViewController.loginStatusChanged),
-                                                         name: Definitions.LoginStatusChangedNotificationName,
+                                                         name: NSNotification.Name(rawValue: Definitions.LoginStatusChangedNotificationName),
                                                          object: nil)
 
         // we need to fire this manually when the view appears
@@ -66,7 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
     @IBAction func devicesButtonPressed() {
-        performSegueWithIdentifier("ShowDevices", sender: self)
+        performSegue(withIdentifier: "ShowDevices", sender: self)
     }
     
     @IBAction func zoomToAllButtonPressed() {
@@ -80,13 +80,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if shouldCenterOnAppear {
                 let centerCoordinates = User.sharedInstance.mapCenter
                 assert(CLLocationCoordinate2DIsValid(centerCoordinates), "Map center coordinates aren't valid")
-                self.mapView?.setCenterCoordinate(centerCoordinates, animated: true)
+                self.mapView?.setCenter(centerCoordinates, animated: true)
                 
                 shouldCenterOnAppear = false
             }
             
             WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
-                self.navigationItem.rightBarButtonItem?.enabled = true
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
                 self.devices = newDevices
                 
                 // if devices are added/removed from the server while user is logged-in, the
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             })
             
         } else {
-            performSegueWithIdentifier("ShowLogin", sender: self)
+            performSegue(withIdentifier: "ShowLogin", sender: self)
         }
         
     }
@@ -155,19 +155,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        if annotation.isKindOfClass(MKUserLocation.self) {
+        if annotation.isKind(of: MKUserLocation.self) {
             return nil
         }
         
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("Pin")
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
             pinView!.canShowCallout = true
             
-            let btn = UIButton(type: .DetailDisclosure)
-            btn.addTarget(self, action: #selector(MapViewController.didTapMapPinDisclosureButton), forControlEvents: UIControlEvents.TouchUpInside)
+            let btn = UIButton(type: .detailDisclosure)
+            btn.addTarget(self, action: #selector(MapViewController.didTapMapPinDisclosureButton), for: UIControlEvents.touchUpInside)
             pinView?.rightCalloutAccessoryView = btn
         }
         
@@ -178,22 +178,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: handle the tap of a map pin info button
     
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let a = view.annotation as? PositionAnnotation {
             selectedAnnotation = a
         }
     }
     
-    func didTapMapPinDisclosureButton(sender: UIButton) {
+    func didTapMapPinDisclosureButton(_ sender: UIButton) {
         if selectedAnnotation != nil {
-            performSegueWithIdentifier("ShowDeviceInfo", sender: self)
+            performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // running on iPhone
-        if let dvc = segue.destinationViewController as? DeviceInfoViewController {
+        if let dvc = segue.destination as? DeviceInfoViewController {
             
             // set device on the info view
             if let deviceId = selectedAnnotation?.deviceId {
@@ -202,7 +202,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
             }
             
-        } else if let nc = segue.destinationViewController as? UINavigationController {
+        } else if let nc = segue.destination as? UINavigationController {
             
             if let dvc = nc.topViewController as? DeviceInfoViewController {
                 

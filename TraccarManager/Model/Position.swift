@@ -57,13 +57,13 @@ class Position: NSObject {
     // valid is reserved
     var isValid: Bool?
     
-    var serverTime: NSDate?
-    var deviceTime: NSDate?
-    var fixTime: NSDate?
+    var serverTime: Date?
+    var deviceTime: Date?
+    var fixTime: Date?
     
     var device: Device? {
         get {
-            return WebService.sharedInstance.deviceById((deviceId?.integerValue)!)
+            return WebService.sharedInstance.deviceById(deviceId!)
         }
     }
     
@@ -76,8 +76,8 @@ class Position: NSObject {
     var courseDirectionString : String? {
         get {
             if let c = course {
-                let idx = ((c.doubleValue + 11.25) / 22.5) % 16
-                return "\(Position.compassDirections[Int(idx)]), \(c.integerValue) º"
+                let idx = ((c.doubleValue + 11.25) / 22.5).truncatingRemainder(dividingBy: 16)
+                return "\(Position.compassDirections[Int(idx)]), \(c.intValue) º"
             }
             return nil
         }
@@ -88,10 +88,10 @@ class Position: NSObject {
             if let s = speed {
                 
                 // format speed to 1 dp
-                let speedFormatter = NSNumberFormatter()
-                speedFormatter.numberStyle = .DecimalStyle
+                let speedFormatter = NumberFormatter()
+                speedFormatter.numberStyle = .decimal
                 speedFormatter.maximumFractionDigits = 1
-                let formattedSpeed = speedFormatter.stringFromNumber(s)
+                let formattedSpeed = speedFormatter.string(from: s)
                 if let fs = formattedSpeed {
                     if let u = User.sharedInstance.speedUnit {
                         return "\(fs) \(u)"
@@ -106,12 +106,12 @@ class Position: NSObject {
     
     // used to format the latitude and longitudes to 5 dp (fixed),
     // this gives about 10cm resolution and is plenty
-    private var latLonFormatter: NSNumberFormatter
+    fileprivate var latLonFormatter: NumberFormatter
     
     var latitudeString: String? {
         get {
             if let l = latitude {
-                return latLonFormatter.stringFromNumber(l)
+                return latLonFormatter.string(from: l)
             }
             return nil
         }
@@ -120,7 +120,7 @@ class Position: NSObject {
     var longitudeString: String? {
         get {
             if let l = longitude {
-                return latLonFormatter.stringFromNumber(l)
+                return latLonFormatter.string(from: l)
             }
             return nil
         }
@@ -141,7 +141,7 @@ class Position: NSObject {
             if let d = device {
                 return d.name!
             }
-            return "Device \(deviceId!.intValue)"
+            return "Device \(deviceId!.int32Value)"
         }
     }
     
@@ -155,23 +155,23 @@ class Position: NSObject {
     }
     
     override init() {
-        self.latLonFormatter = NSNumberFormatter()
-        self.latLonFormatter.numberStyle = .DecimalStyle
+        self.latLonFormatter = NumberFormatter()
+        self.latLonFormatter.numberStyle = .decimal
         self.latLonFormatter.minimumFractionDigits = 5
         
         super.init()
     }
     
     // implemented so we don't crash if the model changes
-    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
         print("Tried to set property '\(key)' that doesn't exist on the Position model")
     }
     
-    override func valueForUndefinedKey(key: String) -> AnyObject? {
+    override func value(forUndefinedKey key: String) -> Any? {
         return nil
     }
     
-    override func setValue(value: AnyObject?, forKey key: String) {
+    override func setValue(_ value: Any?, forKey key: String) {
         if key == "protocol" {
             self.positionProtocol = value as? String
         } else if key == "type" {
@@ -182,21 +182,21 @@ class Position: NSObject {
             self.isOutdated = value as? Bool
         } else if key == "serverTime" {
             if let v = value as? String {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                self.serverTime = dateFormatter.dateFromString(v)
+                self.serverTime = dateFormatter.date(from: v)
             }
         } else if key == "deviceTime" {
             if let v = value as? String {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                self.deviceTime = dateFormatter.dateFromString(v)
+                self.deviceTime = dateFormatter.date(from: v)
             }
         } else if key == "fixTime" {
             if let v = value as? String {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                self.fixTime = dateFormatter.dateFromString(v)
+                self.fixTime = dateFormatter.date(from: v)
             }
         } else {
             super.setValue(value, forKey: key)

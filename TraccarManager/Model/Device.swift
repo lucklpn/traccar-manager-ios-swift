@@ -21,20 +21,20 @@ class Device: NSObject {
     var id: NSNumber?
     var uniqueId: String?
     var groupId: NSNumber?
-    var lastUpdate: NSDate?
+    var lastUpdate: Date?
     var positionId: NSNumber?
     var status: String?
     var name: String?
     
-    var timeDateRelativeFormatter: NSDateComponentsFormatter
+    var timeDateRelativeFormatter: DateComponentsFormatter
     
     override init() {
         
-        timeDateRelativeFormatter = NSDateComponentsFormatter()
-        timeDateRelativeFormatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
+        timeDateRelativeFormatter = DateComponentsFormatter()
+        timeDateRelativeFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
         timeDateRelativeFormatter.includesApproximationPhrase = true
         timeDateRelativeFormatter.includesTimeRemainingPhrase = false
-        timeDateRelativeFormatter.allowedUnits = [.Year, .Month, .WeekOfMonth, .Day, .Hour, .Minute, .Second]
+        timeDateRelativeFormatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute, .second]
         timeDateRelativeFormatter.maximumUnitCount = 1
         
         super.init()
@@ -42,16 +42,16 @@ class Device: NSObject {
     
     
     // implemented so we don't crash if the model changes
-    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
         print("Tried to set property '\(key)' that doesn't exist on the Device model")
     }
     
-    override func setValue(value: AnyObject?, forKey key: String) {
+    override func setValue(_ value: Any?, forKey key: String) {
         if key == "lastUpdate" {
             if let v = value as? String {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                self.lastUpdate = dateFormatter.dateFromString(v)
+                self.lastUpdate = dateFormatter.date(from: v)
             } else {
                 self.lastUpdate = nil
             }
@@ -69,7 +69,7 @@ class Device: NSObject {
     var statusString: String? {
         get {
             if let s = status {
-                return s.capitalizedString
+                return s.capitalized
             }
             return nil
         }
@@ -79,7 +79,7 @@ class Device: NSObject {
     // string... something like "about 1 minute ago"
     var lastUpdateString: String {
         get {
-            if let dateRelativeString = timeDateRelativeFormatter.stringFromDate(lastUpdate!, toDate: NSDate()) {
+            if let dateRelativeString = timeDateRelativeFormatter.string(from: lastUpdate!, to: Date()) {
                 return dateRelativeString
             }
             return ""
@@ -90,7 +90,7 @@ class Device: NSObject {
         get {
             if let p = WebService.sharedInstance.positionByDeviceId(self.id!) {
                 if let dt = p.deviceTime {
-                    if let dateRelativeString = timeDateRelativeFormatter.stringFromDate(dt, toDate: NSDate()) {
+                    if let dateRelativeString = timeDateRelativeFormatter.string(from: dt, to: Date()) {
                         return dateRelativeString
                     }
                 }

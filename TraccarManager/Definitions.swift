@@ -26,7 +26,7 @@ class Definitions {
     
     static var isRunningOniPad: Bool {
         get {
-            return UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+            return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
         }
     }
     

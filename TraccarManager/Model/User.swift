@@ -53,13 +53,13 @@ class User: NSObject {
         
         WebService.sharedInstance.disconnectWebSocket()
         email = nil
-        NSHTTPCookieStorage.sharedHTTPCookieStorage().removeCookiesSinceDate(NSDate(timeIntervalSinceReferenceDate: 0))
+        HTTPCookieStorage.shared.removeCookies(since: Date(timeIntervalSinceReferenceDate: 0))
         
         // tell everyone that the user has logged out
-        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.LoginStatusChangedNotificationName, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Definitions.LoginStatusChangedNotificationName), object: nil)
     }
     
-    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
         // ignore the password, we don't care about it
         if key != "password" {
             print("Tried to set property '\(key)' that doesn't exist on the User model")

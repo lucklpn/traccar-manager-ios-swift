@@ -24,25 +24,25 @@ class DevicesViewController: UITableViewController {
         super.viewDidLoad()
 
         // update the list when we're told that a Position has been updated (this is the "Updated ... ago" message)
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          selector: #selector(DevicesViewController.reloadDevices),
-                                                         name: Definitions.PositionUpdateNotificationName,
+                                                         name: NSNotification.Name(rawValue: Definitions.PositionUpdateNotificationName),
                                                          object: nil)
         
         // update the list when a Device has been updated (maybe the name has changed, or an addition/removal of a device)
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
                                                          selector: #selector(DevicesViewController.reloadDevices),
-                                                         name: Definitions.DeviceUpdateNotificationName,
+                                                         name: NSNotification.Name(rawValue: Definitions.DeviceUpdateNotificationName),
                                                          object: nil)
         
         if Definitions.isRunningOniPad {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done,
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                                      target: self,
                                                                      action: #selector(DevicesViewController.close))
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reloadDevices()
     }
@@ -53,33 +53,33 @@ class DevicesViewController: UITableViewController {
     }
     
     func close() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let d = devices {
             return d.count
         }
         return 0
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         if let d = devices {
-            let device = d[indexPath.row]
+            let device = d[(indexPath as NSIndexPath).row]
             
             cell.textLabel!.text = device.name
             
             var lu = device.mostRecentPositionTimeString
             if lu.characters.count > 0 {
-                lu = lu.lowercaseString
+                lu = lu.lowercased()
                 cell.detailTextLabel!.text = "Updated \(lu) ago"
             } else {
                 cell.detailTextLabel!.text = ""
@@ -89,15 +89,15 @@ class DevicesViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let dvc = segue.destinationViewController as? DeviceInfoViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dvc = segue.destination as? DeviceInfoViewController {
             let idxp = tableView.indexPathForSelectedRow
             if let d = devices {
-                dvc.device = d[idxp!.row]
+                dvc.device = d[(idxp! as NSIndexPath).row]
             }
         }
     }

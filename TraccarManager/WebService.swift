@@ -26,16 +26,16 @@ class WebService: NSObject, SRWebSocketDelegate {
     // url for the server, has a trailing slash
     var serverURL: String?
     
-    private var socket: SRWebSocket?
+    fileprivate var socket: SRWebSocket?
     
     // map of device id (string) -> device
-    private var allDevices: NSMutableDictionary = NSMutableDictionary()
+    fileprivate var allDevices: NSMutableDictionary = NSMutableDictionary()
     
     // map of device id (string) -> position
     //
     // this provides an easy way of maintaining only the most-recent position
     // for each device
-    private var allPositions: NSMutableDictionary = NSMutableDictionary()
+    fileprivate var allPositions: NSMutableDictionary = NSMutableDictionary()
     
     var positions: [Position] {
         get {
@@ -71,25 +71,25 @@ class WebService: NSObject, SRWebSocketDelegate {
         
         let urlString = "\(serverURL!)api/socket"
         
-        socket = SRWebSocket(URL: NSURL(string: urlString))
+        socket = SRWebSocket(url: URL(string: urlString)!)
         if let s = socket {
             let cookiePath = "\(serverURL!)api"
-            s.requestCookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookiesForURL(NSURL(string: cookiePath)!)
+            s.requestCookies = HTTPCookieStorage.shared.cookies(for: URL(string: cookiePath)!)
             s.delegate = self
             s.open()
         }
     }
     
-    func webSocket(webSocket: SRWebSocket!, didFailWithError error: NSError!) {
+    private func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: NSError!) {
         reconnectWebSocket()
     }
     
 
-    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+    private func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         if let s = message as? String {
-            if let data = s.dataUsingEncoding(NSUTF8StringEncoding) {
+            if let data = s.data(using: String.Encoding.utf8) {
                 do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+                    let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:AnyObject]
                         
                     if let p = json["positions"] as? [[String: AnyObject]] {
                         parsePositionData(p)
@@ -105,35 +105,33 @@ class WebService: NSObject, SRWebSocketDelegate {
   
 // MARK: fetch
     
-    private func parsePositionData(data: [[String : AnyObject]]) -> [Position] {
+    fileprivate func parsePositionData(_ data: [[String : AnyObject]]) {
         
         var positions = [Position]()
         
         for p in data {
             let pp = Position()
-            pp.setValuesForKeysWithDictionary(p)
+            pp.setValuesForKeys(p)
             positions.append(pp)
             
             allPositions.setValue(pp, forKey: (pp.deviceId?.stringValue)!)
         }
         
         // tell everyone that the positions have been updated
-        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.PositionUpdateNotificationName, object: nil)
-
-        return positions
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Definitions.PositionUpdateNotificationName), object: nil)
     }
     
-    func fetchDevices(onFailure: ((String) -> Void)? = nil, onSuccess: ([Device]) -> Void) -> Bool {
+    func fetchDevices(_ onFailure: ((String) -> Void)? = nil, onSuccess: @escaping ([Device]) -> Void) {
         guard serverURL != nil else {
-            return false
+            return
         }
         
         let url = serverURL! + "api/devices"
         
-        Alamofire.request(.GET, url).responseJSON(completionHandler: { response in
+        Alamofire.request(url).responseJSON(completionHandler: { response in
             switch response.result {
                 
-            case .Success(let JSON):
+            case .success(let JSON):
                 if response.response!.statusCode != 200 {
                     if let fail = onFailure {
                         fail("Invalid server response")
@@ -146,14 +144,14 @@ class WebService: NSObject, SRWebSocketDelegate {
                         
                         for d in data {
                             let dd = Device()
-                            dd.setValuesForKeysWithDictionary(d)
+                            dd.setValuesForKeys(d)
                             devices.append(dd)
                             
                             self.allDevices.setValue(dd, forKey: (dd.id?.stringValue)!)
                         }
                         
                         // tell everyone that the devices have been updated
-                        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.DeviceUpdateNotificationName, object: nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Definitions.DeviceUpdateNotificationName), object: nil)
                         
                         onSuccess(devices)
                         
@@ -164,57 +162,16 @@ class WebService: NSObject, SRWebSocketDelegate {
                     }
                 }
                 
-            case .Failure(let error):
+            case .failure(let error):
                 if let fail = onFailure {
-                    fail(error.description)
+                    fail(error.localizedDescription)
                 }
             }
         })
-        
-        return true
-    }
-    
-    func fetchPositions(onFailure: ((String) -> Void)? = nil, onSuccess: ([Position]) -> Void) -> Bool {
-        guard serverURL != nil else {
-            return false
-        }
-        
-        let url = serverURL! + "api/positions"
-        
-        Alamofire.request(.GET, url).responseJSON(completionHandler: { response in
-            switch response.result {
-                
-            case .Success(let JSON):
-                if response.response!.statusCode != 200 {
-                    if let fail = onFailure {
-                        fail("Invalid server response")
-                    }
-                } else {
-                    if let data = JSON as? [[String : AnyObject]] {
-                        
-                        let positions = self.parsePositionData(data)
-                        
-                        onSuccess(positions)
-                        
-                    } else {
-                        if let fail = onFailure {
-                            fail("Server response was invalid")
-                        }
-                    }
-                }
-                
-            case .Failure(let error):
-                if let fail = onFailure {
-                    fail(error.description)
-                }
-            }
-        })
-        
-        return true
     }
     
     // utility function to get a position by device ID
-    func positionByDeviceId(deviceId: NSNumber) -> Position? {
+    func positionByDeviceId(_ deviceId: NSNumber) -> Position? {
         if let p = allPositions[deviceId.stringValue] {
             return p as? Position
         }
@@ -222,7 +179,7 @@ class WebService: NSObject, SRWebSocketDelegate {
     }
     
     // utility function to get a device by ID
-    func deviceById(id: NSNumber) -> Device? {
+    func deviceById(_ id: NSNumber) -> Device? {
         if let d = allDevices[id.stringValue] {
             return d as? Device
         }
@@ -231,13 +188,13 @@ class WebService: NSObject, SRWebSocketDelegate {
     
 // MARK: auth
     
-    func authenticate(serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: (User) -> Void) -> Bool {
+    func authenticate(_ serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: @escaping (User) -> Void) {
         
-        guard (serverURL.lowercaseString.hasPrefix("http://") || serverURL.lowercaseString.hasPrefix("https://")) else {
+        guard (serverURL.lowercased().hasPrefix("http://") || serverURL.lowercased().hasPrefix("https://")) else {
             if let fail = onFailure {
                 fail("Server URL must begin with either http:// or https://")
             }
-            return false
+            return
         }
         
         var url = serverURL
@@ -254,10 +211,10 @@ class WebService: NSObject, SRWebSocketDelegate {
             "password": password
         ]
         
-        Alamofire.request(.POST, url, parameters: parameters).responseJSON(completionHandler: { response in
+        Alamofire.request(url, method: .post, parameters: parameters).responseJSON(completionHandler: { response in
             switch response.result {
                 
-            case .Success(let JSON):
+            case .success(let JSON):
                 if response.response!.statusCode != 200 {
                     if let fail = onFailure {
                         fail("Invalid email and/or password")
@@ -266,12 +223,12 @@ class WebService: NSObject, SRWebSocketDelegate {
             
                     if let data = JSON as? [String : AnyObject] {
                         let u = User.sharedInstance
-                        u.setValuesForKeysWithDictionary(data)
+                        u.setValuesForKeys(data)
                         
                         self.reconnectWebSocket()
                         
                         // tell everyone that the user has logged in
-                        NSNotificationCenter.defaultCenter().postNotificationName(Definitions.LoginStatusChangedNotificationName, object: nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Definitions.LoginStatusChangedNotificationName), object: nil)
                         
                         onSuccess(u)
                     } else {
@@ -281,14 +238,12 @@ class WebService: NSObject, SRWebSocketDelegate {
                     }
                 }
                 
-            case .Failure(let error):
+            case .failure(let error):
                 if let fail = onFailure {
-                    fail(error.description)
+                    fail(error.localizedDescription)
                 }
             }
         })
-        
-        return true
     }
     
 }

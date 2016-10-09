@@ -24,12 +24,12 @@ class DeviceInfoViewController: UITableViewController {
     var shouldShowCloseButton: Bool = false
     
     // list of properties to display for the device
-    private var deviceProperties: [String] = [
+    fileprivate var deviceProperties: [String] = [
         "Name",
         "Status"
     ]
     
-    private var positionProperties: [String] = [
+    fileprivate var positionProperties: [String] = [
         "Latitude",
         "Longitude",
         /*
@@ -46,10 +46,10 @@ class DeviceInfoViewController: UITableViewController {
     ]
     
     func close() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if let d = device {
@@ -66,18 +66,18 @@ class DeviceInfoViewController: UITableViewController {
             // on an iPhone/iPod device the storyboard is set up so that this view is present using
             // a navigation controller, so we already have a done button in the top-left corner
             if Definitions.isRunningOniPad {
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done,
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                                          target: self,
                                                                          action: #selector(DeviceInfoViewController.close))
             }
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return deviceProperties.count
         } else if section == 1 {
@@ -86,7 +86,7 @@ class DeviceInfoViewController: UITableViewController {
         return 0
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Device"
         } else if section == 1 {
@@ -95,17 +95,17 @@ class DeviceInfoViewController: UITableViewController {
         return nil
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         // default if no info available
         cell.detailTextLabel!.text = "–"
         
         if let d = device {
             
-            if indexPath.section == 0 {
+            if (indexPath as NSIndexPath).section == 0 {
                 
-                let property = deviceProperties[indexPath.row]
+                let property = deviceProperties[(indexPath as NSIndexPath).row]
                 cell.textLabel!.text = property
                 
                 var keyPath = property.camelCasedString
@@ -113,13 +113,13 @@ class DeviceInfoViewController: UITableViewController {
                     keyPath = "statusString"
                 }
                 
-                if let value = d.valueForKey(keyPath) {
+                if let value = d.value(forKey: keyPath) {
                     cell.detailTextLabel!.text = "\(value)"
                 }
                 
-            } else if indexPath.section == 1 {
+            } else if (indexPath as NSIndexPath).section == 1 {
                 
-                let property = positionProperties[indexPath.row]
+                let property = positionProperties[(indexPath as NSIndexPath).row]
                 cell.textLabel!.text = property
                 
                 if let position = d.position {
@@ -135,7 +135,7 @@ class DeviceInfoViewController: UITableViewController {
                         keyPath = "speedString"
                     }
                     
-                    if let value = position.valueForKey(keyPath) {
+                    if let value = position.value(forKey: keyPath) {
                         cell.detailTextLabel!.text = "\(value)"
                     }
                 }

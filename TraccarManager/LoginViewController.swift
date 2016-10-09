@@ -16,6 +16,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 let TCDefaultsServerKey = "DefaultsServerKey"
 let TCDefaultsEmailKey = "DefaultsEmailKey"
@@ -33,14 +53,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         navigationItem.setHidesBackButton(true, animated: false)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let d = NSUserDefaults.standardUserDefaults()
-        if let s = d.stringForKey(TCDefaultsServerKey) {
+        let d = UserDefaults.standard
+        if let s = d.string(forKey: TCDefaultsServerKey) {
             self.serverField.text = s
         }
-        if let e = d.stringForKey(TCDefaultsEmailKey) {
+        if let e = d.string(forKey: TCDefaultsEmailKey) {
             self.emailField.text = e
         }
         
@@ -53,33 +73,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func loginButtonPressed() {
         
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        MBProgressHUD.showAdded(to: view, animated: true)
         
         WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
             
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    MBProgressHUD.hide(for: self.view, animated: true)
                     
-                    let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .Alert)
-                    let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     ac.addAction(okAction)
-                    self.presentViewController(ac, animated: true, completion: nil)
+                    self.present(ac, animated: true, completion: nil)
                 })
             
             }, onSuccess: { (user) in
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                 
                     // save server, user
-                    let d = NSUserDefaults.standardUserDefaults()
+                    let d = UserDefaults.standard
                     d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
                     d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
                     d.synchronize()
                     
-                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    MBProgressHUD.hide(for: self.view, animated: true)
                 
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 })
             }
         )
@@ -87,7 +107,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // move between text fields when return button pressed, and login
     // when you press return on the password field
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == serverField {
             emailField.becomeFirstResponder()
         } else if textField == emailField {
