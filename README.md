@@ -1,18 +1,17 @@
 # [Traccar Manager for iOS](https://www.traccar.org)
 
-## Contacts
-
-Authors - Anton Tananaev ([anton.tananaev@gmail.com](mailto:anton.tananaev@gmail.com)) and William Pearse ([w.pearse@gmail.com](mailto:w.pearse@gmail.com))
-
-Website - [https://www.traccar.org](https://www.traccar.org)
-
 ## Overview
 
-Coming soon...
+Traccar Manager is a mobile application to manage GPS tracking devices. It requires a Traccar server instance to work.
 
 ## Contributing
 
 This project uses [Carthage](https://github.com/Carthage/Carthage) to manage dependencies.  Run `carthage update --platform ios` from the project's root directory to install dependencies.
+
+## Team
+
+- Anton Tananaev ([anton@traccar.org](mailto:anton@traccar.org))
+- William Pearse ([w.pearse@gmail.com](mailto:w.pearse@gmail.com))
 
 ## License
 
