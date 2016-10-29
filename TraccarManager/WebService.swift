@@ -185,9 +185,13 @@ class WebService: NSObject, SRWebSocketDelegate {
     }
     
 // MARK: auth
-    
+
     func authenticate(_ serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: @escaping (User) -> Void) {
-        
+		
+        // clear any devices/positions from the previous session
+        allPositions = NSMutableDictionary()
+        allDevices = NSMutableDictionary()
+
         guard (serverURL.lowercased().hasPrefix("http://") || serverURL.lowercased().hasPrefix("https://")) else {
             if let fail = onFailure {
                 fail("Server URL must begin with either http:// or https://")
