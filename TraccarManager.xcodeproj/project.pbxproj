@@ -48,7 +48,6 @@
 		CE07212E1C86EB9800D057CE /* TraccarManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraccarManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0721321C86EB9800D057CE /* TraccarManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraccarManagerUITests.swift; sourceTree = "<group>"; };
 		CE0721341C86EB9800D057CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE4BBC081DE83EEE0074B0CC /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		CE4BBC0A1DE844300074B0CC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -134,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				CE4BBC0A1DE844300074B0CC /* WebKit.framework */,
-				CE4BBC081DE83EEE0074B0CC /* SafariServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
