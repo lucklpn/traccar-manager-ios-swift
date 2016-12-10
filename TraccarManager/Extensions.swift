@@ -22,7 +22,7 @@ extension String {
     var camelCasedString: String {
         let source = self
         if source.characters.contains(" ") {
-            let first = source.substring(to: source.characters.index(source.startIndex, offsetBy: 1))
+            let first = source.substring(to: source.characters.index(source.startIndex, offsetBy: 1)).lowercased()
             let cammel = NSString(format: "%@", (source as NSString).capitalized.replacingOccurrences(of: " ", with: "", options: [], range: nil)) as String
             let rest = String(cammel.characters.dropFirst())
             return "\(first)\(rest)"
