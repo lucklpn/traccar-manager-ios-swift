@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
+            <point key="canvasLocation" x="-173" y="36"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="whf-0X-3TE">
@@ -87,7 +87,7 @@
                     <connections>
                         <outlet property="serverField" destination="WfE-A8-W7r" id="nBY-dK-Or7"/>
                         <outlet property="startButton" destination="ckZ-jN-Z0U" id="LdZ-nP-rd4"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="StartSegue" animates="NO" id="RxQ-MZ-D8N"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="StartSegue" id="tec-MM-viG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="itY-CK-Gab" userLabel="First Responder" sceneMemberID="firstResponder"/>

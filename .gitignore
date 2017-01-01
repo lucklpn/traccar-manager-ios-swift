@@ -2,3 +2,4 @@ xcuserdata
 TraccarManager.xcworkspace/contents.xcworkspacedata
 Carthage
 Cartfile.resolved
+.DS_Store
