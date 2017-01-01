@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Q9M-Zf-myH">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -23,6 +24,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
+        </scene>
+        <!--Start View Controller-->
+        <scene sceneID="whf-0X-3TE">
+            <objects>
+                <viewController id="Q9M-Zf-myH" customClass="StartViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UFS-Tw-BJG"/>
+                        <viewControllerLayoutGuide type="bottom" id="bNZ-fd-5Ma"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D6D-xb-gGA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Traccar Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4v6-sD-Gsd" userLabel="Title">
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://demo.traccar.org" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WfE-A8-W7r" userLabel="ServerField">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9rJ-sw-k3E" userLabel="ServerLabel">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="ZQp-m5-TCg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6K-5s-OQ0" userLabel="Info">
+                                <string key="text">This screen will be shown only once. After you click the button, server address will be saved in preferences. To change it, clear app data from application manager.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckZ-jN-Z0U">
+                                <state key="normal" title="Start"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9rJ-sw-k3E" firstAttribute="centerY" secondItem="WfE-A8-W7r" secondAttribute="centerY" id="7id-wi-ozd"/>
+                            <constraint firstItem="f6K-5s-OQ0" firstAttribute="top" secondItem="WfE-A8-W7r" secondAttribute="bottom" constant="16" id="G3a-uH-V1g"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="f6K-5s-OQ0" secondAttribute="leading" id="GfA-rD-F7W"/>
+                            <constraint firstItem="4v6-sD-Gsd" firstAttribute="centerX" secondItem="D6D-xb-gGA" secondAttribute="centerX" id="LHu-BP-868"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="f6K-5s-OQ0" secondAttribute="trailing" id="bPa-fy-183"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="9rJ-sw-k3E" secondAttribute="leading" id="fqw-lk-1rP"/>
+                            <constraint firstItem="ckZ-jN-Z0U" firstAttribute="centerX" secondItem="D6D-xb-gGA" secondAttribute="centerX" id="g59-PN-uRI"/>
+                            <constraint firstItem="WfE-A8-W7r" firstAttribute="leading" secondItem="9rJ-sw-k3E" secondAttribute="trailing" constant="8" symbolic="YES" id="h7M-yP-wcj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WfE-A8-W7r" secondAttribute="trailing" id="mJU-da-huV"/>
+                            <constraint firstItem="ckZ-jN-Z0U" firstAttribute="top" secondItem="f6K-5s-OQ0" secondAttribute="bottom" constant="16" id="rvS-DQ-Khu"/>
+                            <constraint firstItem="WfE-A8-W7r" firstAttribute="top" secondItem="4v6-sD-Gsd" secondAttribute="bottom" constant="16" id="tQi-uH-PIg"/>
+                            <constraint firstItem="4v6-sD-Gsd" firstAttribute="top" secondItem="UFS-Tw-BJG" secondAttribute="bottom" constant="16" id="we9-DS-mrK"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="itY-CK-Gab" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-706.39999999999998" y="35.532233883058474"/>
         </scene>
     </scenes>
 </document>

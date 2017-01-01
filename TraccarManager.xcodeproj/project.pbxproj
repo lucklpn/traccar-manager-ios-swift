@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
-		CE0721151C86EB9800D057CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721141C86EB9800D057CE /* ViewController.swift */; };
+		CE0721151C86EB9800D057CE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721141C86EB9800D057CE /* MainViewController.swift */; };
 		CE0721181C86EB9800D057CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0721161C86EB9800D057CE /* Main.storyboard */; };
 		CE07211A1C86EB9800D057CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0721191C86EB9800D057CE /* Assets.xcassets */; };
 		CE07211D1C86EB9800D057CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */; };
 		CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721271C86EB9800D057CE /* TraccarManagerTests.swift */; };
 		CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721321C86EB9800D057CE /* TraccarManagerUITests.swift */; };
 		CE4BBC0B1DE844300074B0CC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4BBC0A1DE844300074B0CC /* WebKit.framework */; };
+		CE850DB61E18EF0A00F4F73A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE850DB51E18EF0A00F4F73A /* StartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +38,7 @@
 /* Begin PBXFileReference section */
 		CE07210F1C86EB9800D057CE /* TraccarManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraccarManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0721121C86EB9800D057CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE0721141C86EB9800D057CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE0721141C86EB9800D057CE /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CE0721171C86EB9800D057CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE0721191C86EB9800D057CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE07211C1C86EB9800D057CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +50,7 @@
 		CE0721321C86EB9800D057CE /* TraccarManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraccarManagerUITests.swift; sourceTree = "<group>"; };
 		CE0721341C86EB9800D057CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4BBC0A1DE844300074B0CC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		CE850DB51E18EF0A00F4F73A /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				CE0721121C86EB9800D057CE /* AppDelegate.swift */,
-				CE0721141C86EB9800D057CE /* ViewController.swift */,
+				CE850DB51E18EF0A00F4F73A /* StartViewController.swift */,
+				CE0721141C86EB9800D057CE /* MainViewController.swift */,
 				CE0721161C86EB9800D057CE /* Main.storyboard */,
 				CE0721191C86EB9800D057CE /* Assets.xcassets */,
 				CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */,
@@ -274,7 +277,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE0721151C86EB9800D057CE /* ViewController.swift in Sources */,
+				CE850DB61E18EF0A00F4F73A /* StartViewController.swift in Sources */,
+				CE0721151C86EB9800D057CE /* MainViewController.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

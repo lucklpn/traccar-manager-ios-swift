@@ -17,7 +17,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKUIDelegate {
+class MainViewController: UIViewController, WKUIDelegate {
     
     var webView: WKWebView!
 
