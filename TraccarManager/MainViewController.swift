@@ -35,7 +35,7 @@ class MainViewController: UIViewController, WKUIDelegate {
         
         view.addSubview(webView)
         
-        if let url = URL(string: "http://demo.traccar.org") {
+        if let url = URL(string: UserDefaults.standard.object(forKey: "url") as! String) {
             self.webView.load(URLRequest(url: url))
         }
     }
