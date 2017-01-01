@@ -10,7 +10,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="BYZ-38-t0r" customClass="MainViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -63,6 +63,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckZ-jN-Z0U">
                                 <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="onStart:" destination="Q9M-Zf-myH" eventType="touchUpInside" id="RiW-Jv-7UH"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -81,6 +84,11 @@
                             <constraint firstItem="4v6-sD-Gsd" firstAttribute="top" secondItem="UFS-Tw-BJG" secondAttribute="bottom" constant="16" id="we9-DS-mrK"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="serverField" destination="WfE-A8-W7r" id="nBY-dK-Or7"/>
+                        <outlet property="startButton" destination="ckZ-jN-Z0U" id="LdZ-nP-rd4"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="StartSegue" animates="NO" id="RxQ-MZ-D8N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="itY-CK-Gab" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
