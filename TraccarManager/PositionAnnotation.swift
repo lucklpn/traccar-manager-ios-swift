@@ -1,5 +1,6 @@
 //
 // Copyright 2016 William Pearse (w.pearse@gmail.com)
+// Copyright 2017 Sergey Kruzhkov (s.kruzhkov@gmail.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,5 +22,9 @@ class PositionAnnotation: MKPointAnnotation {
 
     var positionId: NSNumber?
     var deviceId: NSNumber?
+    var status: String?
+    var course: NSNumber?
+    var speed: NSNumber?
+    var category: String?
     
 }

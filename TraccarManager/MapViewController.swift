@@ -40,6 +40,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -63,6 +67,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         User.sharedInstance.logout()
         mapView?.removeAnnotations((mapView?.annotations)!)
         shouldCenterOnAppear = true
+        
+        performSegue(withIdentifier: "ShowLogin", sender: self)
+        self.dismiss(animated: true){}
     }
 
     @IBAction func devicesButtonPressed() {
@@ -93,11 +100,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 // positions will be added/removed from the map here
                 self.refreshPositions()
             })
-            
-        } else {
-            performSegue(withIdentifier: "ShowLogin", sender: self)
         }
-        
     }
     
     func refreshPositions() {
