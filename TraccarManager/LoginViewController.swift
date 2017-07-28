@@ -1,6 +1,7 @@
 //
 // Copyright 2016 Anton Tananaev (anton.tananaev@gmail.com)
 // Copyright 2016 William Pearse (w.pearse@gmail.com)
+// Copyright 2017 Sergey Kruzhkov (s.kruzhkov@gmail.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,45 +17,50 @@
 //
 
 import UIKit
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
 
 let TCDefaultsServerKey = "DefaultsServerKey"
 let TCDefaultsEmailKey = "DefaultsEmailKey"
+let TCDefaultsPassKey = "DefaultsPassKey"
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet var serverField: UITextField!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
+    @IBOutlet var loginButton: UIButton!
+    @IBOutlet var rememberSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // user can't do anything until they're logged-in
         navigationItem.setHidesBackButton(true, animated: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         
         let d = UserDefaults.standard
         if let s = d.string(forKey: TCDefaultsServerKey) {
@@ -65,43 +71,57 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         if self.serverField.text?.characters.count > 0 && self.emailField.text?.characters.count > 0 {
-            self.passwordField.becomeFirstResponder()
+            if let p = KeychainWrapper.standard.string(forKey: TCDefaultsPassKey) {
+                self.passwordField.text = p
+                self.loginButton.becomeFirstResponder()
+            } else {
+                self.passwordField.becomeFirstResponder()
+            }
         }
         
-        emailField!.becomeFirstResponder()
     }
-
+    
     @IBAction func loginButtonPressed() {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
         WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
             
-                DispatchQueue.main.async(execute: {
-                    
-                    MBProgressHUD.hide(for: self.view, animated: true)
-                    
-                    let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    ac.addAction(okAction)
-                    self.present(ac, animated: true, completion: nil)
-                })
+            DispatchQueue.main.async(execute: {
+                
+                MBProgressHUD.hide(for: self.view, animated: true)
+                
+                let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                ac.addAction(okAction)
+                self.present(ac, animated: true, completion: nil)
+            })
             
-            }, onSuccess: { (user) in
+        }, onSuccess: { (user) in
+            
+            DispatchQueue.main.async(execute: {
                 
-                DispatchQueue.main.async(execute: {
+                // save server, user
+                let d = UserDefaults.standard
+                d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
+                d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
+                d.synchronize()
                 
-                    // save server, user
-                    let d = UserDefaults.standard
-                    d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
-                    d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
-                    d.synchronize()
-                    
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                //save password to keychain
+                if self.rememberSwitch.isOn {
+                    KeychainWrapper.standard.set(self.passwordField.text!, forKey: TCDefaultsPassKey)
+                } else {
+                    KeychainWrapper.standard.removeObject(forKey: TCDefaultsPassKey)
+                }
                 
-                    self.dismiss(animated: true, completion: nil)
-                })
-            }
+                
+                MBProgressHUD.hide(for: self.view, animated: true)
+                
+                self.dismiss(animated: true, completion: nil)
+                
+                self.performSegue(withIdentifier: "ShowMap", sender: self)
+            })
+        }
         )
     }
     
@@ -118,5 +138,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-
+    
 }
