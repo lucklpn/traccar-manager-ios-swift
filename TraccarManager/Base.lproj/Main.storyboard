@@ -82,7 +82,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="uwH-5m-y4X" id="ITx-qS-a6H"/>
-                        <segue destination="wTg-2z-vTv" kind="presentation" identifier="ShowLogin" modalTransitionStyle="crossDissolve" id="XYS-oF-p7B"/>
+                        <segue destination="wTg-2z-vTv" kind="show" identifier="ShowLogin" id="XYS-oF-p7B"/>
                         <segue destination="Num-Wr-CHX" kind="show" identifier="ShowDeviceInfo" id="dmN-yn-fbi"/>
                     </connections>
                 </viewController>
