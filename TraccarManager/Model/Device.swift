@@ -25,6 +25,7 @@ class Device: NSObject {
     var positionId: NSNumber?
     var status: String?
     var name: String?
+    var category: String?
     
     var timeDateRelativeFormatter: DateComponentsFormatter
     
