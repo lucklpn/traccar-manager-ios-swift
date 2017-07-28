@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B0B9EDD1F2B043A002A99DC /* KeychainAttrRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDB1F2B043A002A99DC /* KeychainAttrRepresentable.swift */; };
+		4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */; };
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
 		CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721141C86EB9800D057CE /* MapViewController.swift */; };
 		CE0721181C86EB9800D057CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0721161C86EB9800D057CE /* Main.storyboard */; };
@@ -77,6 +79,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B0B9EDB1F2B043A002A99DC /* KeychainAttrRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainAttrRepresentable.swift; path = Utils/KeychainWrapper/KeychainAttrRepresentable.swift; sourceTree = "<group>"; };
+		4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Utils/KeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
 		CE07210F1C86EB9800D057CE /* TraccarManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraccarManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0721121C86EB9800D057CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE0721141C86EB9800D057CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +143,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B0B9ED71F2B03AF002A99DC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4B0B9EDA1F2B042B002A99DC /* KeychainWrapper */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		4B0B9EDA1F2B042B002A99DC /* KeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				4B0B9EDB1F2B043A002A99DC /* KeychainAttrRepresentable.swift */,
+				4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */,
+			);
+			name = KeychainWrapper;
+			sourceTree = "<group>";
+		};
 		C47A9C561CBDCB24F2866BD2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +199,7 @@
 			children = (
 				D3091C0C1CD9D0560017F0DC /* Model */,
 				D3B7E1E11CD9C9910096D11A /* WebService.swift */,
+				4B0B9ED71F2B03AF002A99DC /* Utils */,
 				CE0721121C86EB9800D057CE /* AppDelegate.swift */,
 				CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */,
 				CE0721141C86EB9800D057CE /* MapViewController.swift */,
@@ -390,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE848D61CCDCF34000B1E9D /* LoginViewController.swift in Sources */,
+				4B0B9EDD1F2B043A002A99DC /* KeychainAttrRepresentable.swift in Sources */,
 				D3091C0E1CD9D0670017F0DC /* User.swift in Sources */,
 				D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */,
 				D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */,
@@ -397,6 +420,7 @@
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
+				4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */,
 				D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */,
 				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
