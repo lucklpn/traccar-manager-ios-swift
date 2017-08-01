@@ -10,6 +10,7 @@
 		4B0B9EDD1F2B043A002A99DC /* KeychainAttrRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDB1F2B043A002A99DC /* KeychainAttrRepresentable.swift */; };
 		4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */; };
 		4B0B9EE01F2B10F2002A99DC /* CustomPositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDF1F2B10F2002A99DC /* CustomPositionAnnotation.swift */; };
+		4B1827CB1F30554C001772B7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4B1827CA1F30554C001772B7 /* README.md */; };
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
 		CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721141C86EB9800D057CE /* MapViewController.swift */; };
 		CE0721181C86EB9800D057CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0721161C86EB9800D057CE /* Main.storyboard */; };
@@ -83,6 +84,7 @@
 		4B0B9EDB1F2B043A002A99DC /* KeychainAttrRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainAttrRepresentable.swift; path = Utils/KeychainWrapper/KeychainAttrRepresentable.swift; sourceTree = "<group>"; };
 		4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Utils/KeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
 		4B0B9EDF1F2B10F2002A99DC /* CustomPositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPositionAnnotation.swift; sourceTree = "<group>"; };
+		4B1827CA1F30554C001772B7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		CE07210F1C86EB9800D057CE /* TraccarManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraccarManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0721121C86EB9800D057CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE0721141C86EB9800D057CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				CE07211E1C86EB9800D057CE /* Info.plist */,
 				D397E3AD1CDEC176001DBCA3 /* Extensions.swift */,
 				D3394F341CE2A56600795822 /* Definitions.swift */,
+				4B1827CA1F30554C001772B7 /* README.md */,
 			);
 			path = TraccarManager;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 				4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */,
+				4B1827CB1F30554C001772B7 /* README.md in Sources */,
 				D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */,
 				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
