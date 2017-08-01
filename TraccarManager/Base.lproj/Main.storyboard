@@ -296,7 +296,7 @@
         <image name="logo" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="jck-hU-uJU"/>
         <segue reference="qW2-w8-8yJ"/>
-        <segue reference="XYS-oF-p7B"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,5 +26,6 @@ class PositionAnnotation: MKPointAnnotation {
     var course: NSNumber?
     var speed: NSNumber?
     var category: String?
+    var selected: Bool?
     
 }

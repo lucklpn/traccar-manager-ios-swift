@@ -33,9 +33,12 @@ class CustomPositionAnnotation: MKAnnotationView {
         
         let frameWidth = 70.0
         let frameHeight = 30.0
-        let radiusCircle = 10.0
         let angle = Double(pa.course!) - 90.0
         let imageName = "point_" + ((pa.category != nil) ? pa.category! : "default")
+        var radiusCircle = 10.0
+        if pa.selected != nil && pa.selected! {
+            radiusCircle = 15.0
+        }
         
         var circleColor = UIColor.green.cgColor
         if pa.status == "unknown" {
@@ -48,7 +51,6 @@ class CustomPositionAnnotation: MKAnnotationView {
         self.canShowCallout = true
         self.frame = CGRect.init(x: 0, y: 0, width: frameWidth, height: frameHeight)
         if ((UIImage(named: imageName)) != nil) {
-        //if let imageCar = UIImage(named: ) {
             self.imgView = UIImageView(image: UIImage(named: imageName))
         } else {
             self.imgView = UIImageView(image: UIImage(named: "point_" + "default") )
@@ -60,7 +62,6 @@ class CustomPositionAnnotation: MKAnnotationView {
         //lbl.text = pa.
         //lbl.backgroundColor = UIColor.clear
         //self.addSubview(lbl)
-        
         
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: frameWidth / 2, y: frameHeight / 2), radius: CGFloat(radiusCircle), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
         
