@@ -26,7 +26,8 @@ class DeviceInfoViewController: UITableViewController {
     // list of properties to display for the device
     fileprivate var deviceProperties: [String] = [
         "Name",
-        "Status"
+        "Status",
+        "Time"
     ]
     
     fileprivate var positionProperties: [String] = [
@@ -113,7 +114,15 @@ class DeviceInfoViewController: UITableViewController {
                     keyPath = "statusString"
                 }
                 
-                if let value = d.value(forKey: keyPath) {
+                if property == "Time" {
+                    if let value = d.value(forKey: "lastUpdate") {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "dd.MM.yy HH:mm:ss"
+                        let dt = dateFormatter.string(from: value as! Date)
+                        
+                        cell.detailTextLabel!.text = dt
+                    }
+                } else if let value = d.value(forKey: keyPath) {
                     cell.detailTextLabel!.text = "\(value)"
                 }
                 
