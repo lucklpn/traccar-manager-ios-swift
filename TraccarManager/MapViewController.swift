@@ -1,5 +1,6 @@
 //
 // Copyright 2016 William Pearse (w.pearse@gmail.com)
+// Copyright 2017 Sergey Kruzhkov (s.kruzhkov@gmail.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,12 +33,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // if a map pin is tapped by the user, a reference will be stored here 
     var selectedAnnotation: PositionAnnotation?
+    var selectedDevice: Device?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // don't let user open devices view until the devices have been loaded
         self.navigationItem.rightBarButtonItem?.isEnabled = false
+        mapView?.isRotateEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +52,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         // update the map when we're told that a Position has been updated 
         NotificationCenter.default.addObserver(self,
-                                                         selector: #selector(MapViewController.refreshPositions),
+                                                         selector: #selector(MapViewController.refreshDevices),
                                                          name: NSNotification.Name(rawValue: Definitions.PositionUpdateNotificationName),
                                                          object: nil)
         
@@ -92,15 +95,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 shouldCenterOnAppear = false
             }
             
-            WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
-                self.navigationItem.rightBarButtonItem?.isEnabled = true
-                self.devices = newDevices
-                
-                // if devices are added/removed from the server while user is logged-in, the
-                // positions will be added/removed from the map here
-                self.refreshPositions()
-            })
+            refreshDevices()
         }
+    }
+    
+    func refreshDevices() {
+        
+        WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.devices = newDevices
+            
+            // if devices are added/removed from the server while user is logged-in, the
+            // positions will be added/removed from the map here
+            self.refreshPositions()
+        })
+        
     }
     
     func refreshPositions() {
@@ -123,14 +132,37 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if let a = annotationForDevice {
                 
                 if let p = WebService.sharedInstance.positionByDeviceId(a.deviceId!) {
-                    if p.id == a.positionId {
+                    if p.id == a.positionId
+                        && device.status == a.status
+                        && device.category == a.category
+                        && p.course == a.course {
                         // this annotation is still current, don't change it
                     } else {
+                        self.mapView?.removeAnnotation(a)
+                        
+                        let a = PositionAnnotation()
+                        
                         a.coordinate = p.coordinate
                         a.title = p.annotationTitle
                         a.subtitle = p.annotationSubtitle
                         a.positionId = p.id
+                        
+                        a.deviceId = p.deviceId
+                        a.status = device.status
+                        a.course = p.course
+                        a.speed = p.speed
+                        a.category = device.category
+                        
+//                        if device.id == selectedDevice?.id {
+//                            a.selected = true
+//                        } else {
+//                            a.selected = false
+//                        }
+                        
+                        self.mapView?.addAnnotation(a)
+                        
                         // device ID will not have changed
+                        // changed status, cource
                     }
                 } else {
                     // the position for this device has been removed
@@ -146,9 +178,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     a.coordinate = p.coordinate
                     a.title = p.annotationTitle
                     a.subtitle = p.annotationSubtitle
-                    
                     a.positionId = p.id
                     a.deviceId = p.deviceId
+                    
+                    a.status = device.status
+                    a.course = p.course
+                    a.speed = p.speed
+                    a.category = device.category
                     
                     self.mapView?.addAnnotation(a)
                 }
@@ -164,17 +200,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             return nil
         }
         
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
-        if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
-            pinView!.canShowCallout = true
+        //var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+        //if pinView == nil {
+            //pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+            let pinView = CustomPositionAnnotation(annotation: annotation, reuseIdentifier: "Pin")
+            pinView.canShowCallout = true
             
             let btn = UIButton(type: .detailDisclosure)
             btn.addTarget(self, action: #selector(MapViewController.didTapMapPinDisclosureButton), for: UIControlEvents.touchUpInside)
-            pinView?.rightCalloutAccessoryView = btn
-        }
+            pinView.rightCalloutAccessoryView = btn
+        //}
         
-        pinView!.annotation = annotation
+        pinView.annotation = annotation
         
         return pinView
     }
@@ -218,7 +255,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 // show a close button if we're running on an iPad
                 dvc.shouldShowCloseButton = true
+            } else if let dvc = nc.topViewController as? DevicesViewController {
+                dvc.delegate = self
             }
+            
+        } else if let dvc = segue.destination as? DevicesViewController {
+            dvc.delegate = self
+        }
+    }
+    
+    func zoomDevice() {
+        if let p = WebService.sharedInstance.positionByDeviceId((selectedDevice?.id)!) {
+            let userCoordinate = p.coordinate
+            let longitudeDeltaDegrees : CLLocationDegrees = 0.03
+            let latitudeDeltaDegrees : CLLocationDegrees = 0.03
+            let userSpan = MKCoordinateSpanMake(latitudeDeltaDegrees, longitudeDeltaDegrees)
+            let userRegion = MKCoordinateRegionMake(userCoordinate, userSpan)
+            
+            mapView?.setRegion(userRegion, animated: true)
+            
+            refreshDevices()
             
         }
     }
