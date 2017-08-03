@@ -305,13 +305,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func zoomDevice() {
         if let p = WebService.sharedInstance.positionByDeviceId((selectedDevice?.id)!) {
             let userCoordinate = p.coordinate
-            let longitudeDeltaDegrees : CLLocationDegrees = 0.03
-            let latitudeDeltaDegrees : CLLocationDegrees = 0.03
+            let longitudeDeltaDegrees : CLLocationDegrees = 0.014
+            let latitudeDeltaDegrees : CLLocationDegrees = 0.014
             let userSpan = MKCoordinateSpanMake(latitudeDeltaDegrees, longitudeDeltaDegrees)
             let userRegion = MKCoordinateRegionMake(userCoordinate, userSpan)
             
             mapView?.setRegion(userRegion, animated: true)
             
+            for existingAnnotation in (self.mapView?.annotations)! {
+                if let a = existingAnnotation as? PositionAnnotation {
+                    if a.deviceId == selectedDevice?.id {
+                        mapView?.selectAnnotation(a, animated: true)
+                        break
+                    }
+                }
+            }
+
             refreshDevices()
             
         }
