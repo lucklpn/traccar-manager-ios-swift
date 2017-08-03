@@ -47,9 +47,15 @@
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="gLL-R1-8An"/>
-                                    <barButtonItem title="Zoom to All" id="Lkz-KX-i48">
+                                    <barButtonItem image="Image_zoom" id="Lkz-KX-i48">
                                         <connections>
                                             <action selector="zoomToAllButtonPressed" destination="roU-eq-rb0" id="iAo-fr-F5Z"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="CtC-j1-VZ0"/>
+                                    <barButtonItem image="Image_layers" id="aXv-8S-5dZ">
+                                        <connections>
+                                            <action selector="switchLayers:" destination="roU-eq-rb0" id="dq8-LL-67q"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HWl-0Z-9nB"/>
@@ -290,7 +296,6 @@
         <!--Navigation Controller-->
         <scene sceneID="5Jh-sH-uOH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mWJ-UZ-J2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s8S-hY-bZc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9sA-zq-Pvq">
@@ -302,6 +307,7 @@
                         <segue destination="LWQ-11-nBo" kind="relationship" relationship="rootViewController" id="2FT-8o-cSx"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mWJ-UZ-J2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="910" y="931"/>
         </scene>
@@ -370,6 +376,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Image_layers" width="24" height="24"/>
+        <image name="Image_zoom" width="24" height="24"/>
         <image name="logo" width="120" height="120"/>
     </resources>
     <inferredMetricsTieBreakers>
