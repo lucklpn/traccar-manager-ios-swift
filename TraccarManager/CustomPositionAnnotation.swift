@@ -33,7 +33,7 @@ class CustomPositionAnnotation: MKAnnotationView {
         
         let frameWidth = 70.0
         let frameHeight = 30.0
-        let angle = Double(pa.course!) - 90.0
+        let angle = Double(truncating: pa.course!) - 90.0
         let imageName = "point_" + ((pa.category != nil) ? pa.category! : "default")
         var radiusCircle = 10.0
         if pa.selected != nil && pa.selected! {

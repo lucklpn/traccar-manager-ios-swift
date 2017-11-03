@@ -18,10 +18,33 @@
 import UIKit
 import MapKit
 
+//extension UISegmentedControl {
+//    func goVertical() {
+//        self.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
+//        for segment in self.subviews {
+//            for segmentSubview in segment.subviews {
+//                if segmentSubview is UILabel {
+//                    (segmentSubview as! UILabel).transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
+//                }
+//            }
+//        }
+//    }
+////    func restoreHorizontal() {
+////        self.transform = CGAffineTransform 
+////        for segment in self.subviews {
+////            for segmentSubview in segment.subviews {
+////                if segmentSubview is UILabel {
+////                    (segmentSubview as! UILabel).transform = CGAffineTransformIdentity
+////                }
+////            }
+////        }
+////    }
+//}
+
 extension UIViewController {
-    
+
     func showToast(message : String) {
-        
+
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
@@ -43,10 +66,12 @@ extension UIViewController {
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet var mapView: MKMapView?
+    @IBOutlet var buttonReport: UIBarButtonItem!
     
     fileprivate var devices: [Device] = []
     
     fileprivate var positions: [Position] = []
+    
     
     // controls whether the map view should center on user's default location
     // when the view appears. we use this variable to prevent re-centering the
@@ -59,6 +84,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapView?.showsScale = true
+        mapView?.setUserTrackingMode(.follow, animated: true)
         
         // don't let user open devices view until the devices have been loaded
         self.navigationItem.rightBarButtonItem?.isEnabled = false
@@ -97,6 +125,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.dismiss(animated: true){}
     }
 
+    @IBAction func reportButtonPressed(_ sender: Any) {
+   
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "ReportListViewStoryboard")  as! ReportListViewController
+        navigationController!.pushViewController(vc, animated: true)
+        
+    }
+    
     @IBAction func devicesButtonPressed() {
         performSegue(withIdentifier: "ShowDevices", sender: self)
     }
@@ -105,7 +140,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView?.showAnnotations((mapView?.annotations)!, animated: true)
     }
     
-    func loginStatusChanged() {
+    @objc func loginStatusChanged() {
         
         if User.sharedInstance.isAuthenticated {
             
@@ -121,10 +156,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func refreshDevices() {
+    @objc func refreshDevices() {
         
         WebService.sharedInstance.fetchDevices(onSuccess: { (newDevices) in
             self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.buttonReport.isEnabled = true
             self.devices = newDevices
             
             // if devices are added/removed from the server while user is logged-in, the
@@ -246,7 +282,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func didTapMapPinDisclosureButton(_ sender: UIButton) {
+    @objc func didTapMapPinDisclosureButton(_ sender: UIButton) {
         if selectedAnnotation != nil {
             performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
         }

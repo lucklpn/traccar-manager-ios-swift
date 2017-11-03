@@ -49,12 +49,12 @@ class DevicesViewController: UITableViewController {
         reloadDevices()
     }
     
-    func reloadDevices() {
+    @objc func reloadDevices() {
         devices = WebService.sharedInstance.devices
         tableView.reloadData()
     }
     
-    func close() {
+    @objc func close() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -77,7 +77,7 @@ class DevicesViewController: UITableViewController {
         if let d = devices {
             let device = d[(indexPath as NSIndexPath).row]
             
-            cell.textLabel!.text = device.name
+            cell.textLabel!.text = device.name!
             
             var lu = device.mostRecentPositionTimeString
             if lu.characters.count > 0 {

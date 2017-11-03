@@ -17,6 +17,8 @@
 //
 
 import UIKit
+import MBProgressHUD
+import LGAlertView
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
@@ -43,13 +45,15 @@ let TCDefaultsServerKey = "DefaultsServerKey"
 let TCDefaultsEmailKey = "DefaultsEmailKey"
 let TCDefaultsPassKey = "DefaultsPassKey"
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, LGAlertViewDelegate {
     
     @IBOutlet var serverField: UITextField!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var rememberSwitch: UISwitch!
+    
+    var trustDomain = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +74,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.emailField.text = e
         }
         
-        if self.serverField.text?.characters.count > 0 && self.emailField.text?.characters.count > 0 {
+        if self.serverField.text?.count > 0 && self.emailField.text?.count > 0 {
             if let p = KeychainWrapper.standard.string(forKey: TCDefaultsPassKey) {
                 self.passwordField.text = p
                 self.loginButton.becomeFirstResponder()
@@ -85,16 +89,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         MBProgressHUD.showAdded(to: view, animated: true)
         
-        WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { errorString in
+        WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { error in
             
             DispatchQueue.main.async(execute: {
                 
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
-                let ac = UIAlertController(title: "Couldn't Login", message: errorString, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                ac.addAction(okAction)
-                self.present(ac, animated: true, completion: nil)
+                if error.code == -1202 {
+                    self.trustDomain = (URL(string: self.serverField.text!)?.host)!
+                    let dialog = LGAlertView.init(viewAndTitle: "Error", message: error.localizedDescription, style: LGAlertViewStyle.alert, view: nil, buttonTitles: ["Allow"], cancelButtonTitle: nil, destructiveButtonTitle: "Cancel")
+                    dialog.delegate = self
+                    dialog.showAnimated()
+                } else {
+                    let dialog = LGAlertView.init(viewAndTitle: "Error", message: error.localizedDescription, style: LGAlertViewStyle.alert, view: nil, buttonTitles: ["OK"], cancelButtonTitle: nil, destructiveButtonTitle: nil)
+                    dialog.showAnimated()
+                }
+                
             })
             
         }, onSuccess: { (user) in
@@ -125,6 +135,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         )
     }
     
+    func alertView(_ alertView: LGAlertView, clickedButtonAt index: UInt, title: String?) {
+        let d = UserDefaults.standard
+        d.setValue(trustDomain, forKey: Definitions.TCDefaultsTrustDomain)
+        d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
+        d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
+        d.synchronize()
+        
+        //save password to keychain
+        if self.rememberSwitch.isOn {
+            KeychainWrapper.standard.set(self.passwordField.text!, forKey: TCDefaultsPassKey)
+        } else {
+            KeychainWrapper.standard.removeObject(forKey: TCDefaultsPassKey)
+        }
+        
+        let dialog = LGAlertView.init(viewAndTitle: "", message: trustDomain + " add to trusted domains. Restart application", style: LGAlertViewStyle.alert, view: nil, buttonTitles: ["OK"], cancelButtonTitle: nil, destructiveButtonTitle: nil)
+        dialog.showAnimated()
+    }
     // move between text fields when return button pressed, and login
     // when you press return on the password field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

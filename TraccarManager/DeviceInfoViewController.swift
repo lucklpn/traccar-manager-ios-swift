@@ -46,7 +46,7 @@ class DeviceInfoViewController: UITableViewController {
         "Address"
     ]
     
-    func close() {
+    @objc func close() {
         dismiss(animated: true, completion: nil)
     }
     

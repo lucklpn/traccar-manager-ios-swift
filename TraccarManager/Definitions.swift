@@ -24,6 +24,8 @@ class Definitions {
     
     static let LoginStatusChangedNotificationName = "LoginStatusChangedNotificationName"
     
+    static let TCDefaultsTrustDomain = "TCDefaultsTrustDomain"
+    
     static var isRunningOniPad: Bool {
         get {
             return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad

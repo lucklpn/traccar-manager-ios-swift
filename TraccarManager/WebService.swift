@@ -18,6 +18,7 @@
 import Foundation
 import Alamofire
 import SocketRocket
+import SwiftyJSON
 
 class WebService: NSObject, SRWebSocketDelegate {
     
@@ -71,13 +72,16 @@ class WebService: NSObject, SRWebSocketDelegate {
         
         let urlString = "\(serverURL!)api/socket"
         
-        socket = SRWebSocket(url: URL(string: urlString)!)
+        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        
+        socket = SRWebSocket(urlRequest: request as URLRequest, protocols: nil, allowsUntrustedSSLCertificates: true)
+      
         if let s = socket {
-            let cookiePath = "\(serverURL!)api"
-            s.requestCookies = HTTPCookieStorage.shared.cookies(for: URL(string: cookiePath)!)
-            s.delegate = self
-            s.open()
-        }
+                        let cookiePath = "\(serverURL!)api"
+                        s.requestCookies = HTTPCookieStorage.shared.cookies(for: URL(string: cookiePath)!)
+                        s.delegate = self
+                        s.open()
+                    }
     }
     
     func webSocket(_ webSocket: SRWebSocket, didFailWithError error: Error) {
@@ -125,8 +129,9 @@ class WebService: NSObject, SRWebSocketDelegate {
         }
         
         let url = serverURL! + "api/devices"
+        //let url = serverURL! + "api/reports/summary"
         
-        Alamofire.request(url).responseJSON(completionHandler: { response in
+        WebService.Manager.request(url).responseJSON(completionHandler: { response in
             switch response.result {
                 
             case .success(let JSON):
@@ -186,7 +191,7 @@ class WebService: NSObject, SRWebSocketDelegate {
     
 // MARK: auth
 
-    func authenticate(_ serverURL: String, email: String, password: String, onFailure: ((String) -> Void)? = nil, onSuccess: @escaping (User) -> Void) {
+    func authenticate(_ serverURL: String, email: String, password: String, onFailure: ((NSError) -> Void)? = nil, onSuccess: @escaping (User) -> Void) {
 		
         // clear any devices/positions from the previous session
         allPositions = NSMutableDictionary()
@@ -194,7 +199,8 @@ class WebService: NSObject, SRWebSocketDelegate {
 
         guard (serverURL.lowercased().hasPrefix("http://") || serverURL.lowercased().hasPrefix("https://")) else {
             if let fail = onFailure {
-                fail("Server URL must begin with either http:// or https://")
+                let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Server URL must begin with either http:// or https://"])
+                fail(error)
             }
             return
         }
@@ -213,13 +219,14 @@ class WebService: NSObject, SRWebSocketDelegate {
             "password": password
         ]
         
-        Alamofire.request(url, method: .post, parameters: parameters).responseJSON(completionHandler: { response in
+        WebService.Manager.request(url, method: .post, parameters: parameters).responseJSON(completionHandler: { response in
             switch response.result {
                 
             case .success(let JSON):
                 if response.response!.statusCode != 200 {
                     if let fail = onFailure {
-                        fail("Invalid email and/or password")
+                        let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Invalid email and/or password"])
+                        fail(error)
                     }
                 } else {
             
@@ -235,9 +242,57 @@ class WebService: NSObject, SRWebSocketDelegate {
                         onSuccess(u)
                     } else {
                         if let fail = onFailure {
-                            fail("Server response was invalid")
+                            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Server response was invalid"])
+                            fail(error)
                         }
                     }
+                }
+                
+            case .failure(let error):
+                if let fail = onFailure {
+                    fail(error as NSError)
+                }
+            }
+        })
+    }
+    
+    func getSummaryData(filter: String, urlPoint: String, onFailure: ((String) -> Void)? = nil, onSuccess: @escaping ([Summary]) -> Void) {
+        
+        let d = UserDefaults.standard
+        //let s = d.string(forKey: TCDefaultsServerKey)
+        let e = d.string(forKey: TCDefaultsEmailKey)
+        let p = KeychainWrapper.standard.string(forKey: TCDefaultsPassKey)
+        
+        //serverURL = s
+        var url = serverURL
+        if !(serverURL?.hasSuffix("/"))! {
+            url = url! + "/"
+        }
+        
+        self.serverURL = url
+        
+        url = url! + "api/reports/summary" + filter //urlPoint
+        
+        let UserPass = (e! + ":" + p!).data(using: String.Encoding.utf8)!.base64EncodedString()
+        let auth = "Basic \(UserPass)"
+        
+        let urls = URL(string: url!)
+        
+        var request = URLRequest(url: urls!)
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue(auth, forHTTPHeaderField: "Authorization")
+        
+        WebService.Manager.request(request).responseArray(Summary.self) { response in
+            switch response.result {
+                
+            case .success(let model):
+                if response.response!.statusCode != 200 {
+                    if let fail = onFailure {
+                        fail("Unknown error")
+                    }
+                } else {
+                    let u = model
+                    onSuccess(u)
                 }
                 
             case .failure(let error):
@@ -245,7 +300,32 @@ class WebService: NSObject, SRWebSocketDelegate {
                     fail(error.localizedDescription)
                 }
             }
-        })
+        }
+        
     }
+    
+    private static var Manager: Alamofire.SessionManager = {
+        
+        // Create the server trust policies
+        var domainTrust = ""
+        let d = UserDefaults.standard
+        if let s = d.string(forKey: Definitions.TCDefaultsTrustDomain) {
+            domainTrust =  s
+        }
+        
+        let serverTrustPolicies: [String: ServerTrustPolicy] = [
+            domainTrust: .disableEvaluation
+        ]
+        
+        // Create custom manager
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
+        let manager = Alamofire.SessionManager(
+            configuration: URLSessionConfiguration.default,
+            serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
+        )
+        
+        return manager
+    }()
     
 }
