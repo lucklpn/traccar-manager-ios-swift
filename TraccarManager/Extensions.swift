@@ -21,14 +21,14 @@ extension String {
     // authored by https://gist.github.com/cemolcay and taken from https://gist.github.com/stevenschobert/540dd33e828461916c11 on 8 May 2016
     var camelCasedString: String {
         let source = self
-        if source.characters.contains(" ") {
-            let first = source.substring(to: source.characters.index(source.startIndex, offsetBy: 1)).lowercased()
+        if source.contains(" ") {
+            let first = source.substring(to: source.index(source.startIndex, offsetBy: 1)).lowercased()
             let cammel = NSString(format: "%@", (source as NSString).capitalized.replacingOccurrences(of: " ", with: "", options: [], range: nil)) as String
-            let rest = String(cammel.characters.dropFirst())
+            let rest = String(cammel.dropFirst())
             return "\(first)\(rest)"
         } else {
-            let first = (source as NSString).lowercased.substring(to: source.characters.index(source.startIndex, offsetBy: 1))
-            let rest = String(source.characters.dropFirst())
+            let first = (source as NSString).lowercased.substring(to: source.index(source.startIndex, offsetBy: 1))
+            let rest = String(source.dropFirst())
             return "\(first)\(rest)"
         }
     }

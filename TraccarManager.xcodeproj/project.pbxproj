@@ -17,8 +17,7 @@
 		4B34CEF41FAC649A00709B17 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF31FAC649A00709B17 /* Extensions.swift */; };
 		4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF71FAC9EAB00709B17 /* WebService.swift */; };
 		4B34CEFA1FACC91600709B17 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF91FACC91600709B17 /* Event.swift */; };
-		4B34CEFD1FACF28500709B17 /* ProgressBarDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEFC1FACF28500709B17 /* ProgressBarDraw.swift */; };
-		4B34CEFF1FACF2B300709B17 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEFE1FACF2B300709B17 /* ProgressBarView.swift */; };
+		4B471C161FAE5C6F00228C0E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C151FAE5C6F00228C0E /* Device.swift */; };
 		4B8E31781F80D622007AF70D /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E31771F80D622007AF70D /* FilterViewController.swift */; };
 		4BACB9521F8017D70074A6AB /* ReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACB9511F8017D70074A6AB /* ReportListViewController.swift */; };
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
@@ -35,9 +34,6 @@
 		D3091C0F1CD9D0670017F0DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C0D1CD9D0670017F0DC /* User.swift */; };
 		D3091C101CD9D0670017F0DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C0D1CD9D0670017F0DC /* User.swift */; };
 		D3091C121CD9D86F0017F0DC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C111CD9D86F0017F0DC /* CoreLocation.framework */; };
-		D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
-		D3091CA01CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
-		D3091CA11CDB60C00017F0DC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C9E1CDB60C00017F0DC /* Device.swift */; };
 		D3091CA91CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
@@ -95,8 +91,7 @@
 		4B34CEF31FAC649A00709B17 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B34CEF71FAC9EAB00709B17 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		4B34CEF91FACC91600709B17 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		4B34CEFC1FACF28500709B17 /* ProgressBarDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarDraw.swift; sourceTree = "<group>"; };
-		4B34CEFE1FACF2B300709B17 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		4B471C151FAE5C6F00228C0E /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4B6348A51F7EAA6F00B55821 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		4B8E31771F80D622007AF70D /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4B9B953E1F7EE8E6002D0AD5 /* LGAlertView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LGAlertView.framework; path = Carthage/Build/iOS/LGAlertView.framework; sourceTree = "<group>"; };
@@ -119,7 +114,6 @@
 		CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D3091C0D1CD9D0670017F0DC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D3091C111CD9D86F0017F0DC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		D3091C9E1CDB60C00017F0DC /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D30ACDB61CE5409700925366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-iPad.storyboard"; sourceTree = "<group>"; };
@@ -164,7 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				4B0B9EDA1F2B042B002A99DC /* KeychainWrapper */,
-				4B34CEFB1FACF26400709B17 /* ProgressBar */,
 				4B30B15C1F80C73F0032CB91 /* formatNumber.swift */,
 				4B34CEF71FAC9EAB00709B17 /* WebService.swift */,
 			);
@@ -178,15 +171,6 @@
 				4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */,
 			);
 			name = KeychainWrapper;
-			sourceTree = "<group>";
-		};
-		4B34CEFB1FACF26400709B17 /* ProgressBar */ = {
-			isa = PBXGroup;
-			children = (
-				4B34CEFC1FACF28500709B17 /* ProgressBarDraw.swift */,
-				4B34CEFE1FACF2B300709B17 /* ProgressBarView.swift */,
-			);
-			name = ProgressBar;
 			sourceTree = "<group>";
 		};
 		C47A9C561CBDCB24F2866BD2 /* Frameworks */ = {
@@ -274,8 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				D3091C0D1CD9D0670017F0DC /* User.swift */,
-				D3091C9E1CDB60C00017F0DC /* Device.swift */,
 				4B30B1511F803C610032CB91 /* Summary.swift */,
+				4B471C151FAE5C6F00228C0E /* Device.swift */,
 				4B34CEF91FACC91600709B17 /* Event.swift */,
 				D3091CA81CDDE2900017F0DC /* Position.swift */,
 			);
@@ -453,8 +437,7 @@
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 				4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */,
 				4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */,
-				D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */,
-				4B34CEFF1FACF2B300709B17 /* ProgressBarView.swift in Sources */,
+				4B471C161FAE5C6F00228C0E /* Device.swift in Sources */,
 				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
 				4B34CEFA1FACC91600709B17 /* Event.swift in Sources */,
@@ -462,7 +445,6 @@
 				4B30B1501F80258F0032CB91 /* ReportViewController.swift in Sources */,
 				4BACB9521F8017D70074A6AB /* ReportListViewController.swift in Sources */,
 				D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */,
-				4B34CEFD1FACF28500709B17 /* ProgressBarDraw.swift in Sources */,
 				4B30B15D1F80C73F0032CB91 /* formatNumber.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,7 +458,6 @@
 				CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */,
 				D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */,
 				D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */,
-				D3091CA01CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,7 +470,6 @@
 				CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */,
 				D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */,
 				D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */,
-				D3091CA11CDB60C00017F0DC /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

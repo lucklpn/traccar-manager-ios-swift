@@ -21,7 +21,7 @@ import MapKit
 class PositionAnnotation: MKPointAnnotation {
 
     var positionId: NSNumber?
-    var deviceId: NSNumber?
+    var deviceId: Int?
     var status: String?
     var course: NSNumber?
     var speed: NSNumber?

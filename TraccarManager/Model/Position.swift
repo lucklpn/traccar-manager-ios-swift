@@ -34,7 +34,7 @@ import CoreLocation
 class Position: NSObject {
     
     var id: NSNumber?
-    var deviceId: NSNumber?
+    var deviceId: Int?
     
     var attributes: [String : AnyObject]?
     
@@ -141,7 +141,7 @@ class Position: NSObject {
             if let d = device {
                 return d.name!
             }
-            return "Device \(deviceId!.int32Value)"
+            return "Device \(deviceId!)"
         }
     }
     
@@ -174,6 +174,8 @@ class Position: NSObject {
     override func setValue(_ value: Any?, forKey key: String) {
         if key == "protocol" {
             self.positionProtocol = value as? String
+        } else if key == "deviceId" {
+            self.deviceId = value as? Int
         } else if key == "type" {
             self.positionType = value as? String
         } else if key == "valid" {

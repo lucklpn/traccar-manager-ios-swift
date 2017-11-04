@@ -108,47 +108,29 @@ class DeviceInfoViewController: UITableViewController {
                 
                 let property = deviceProperties[(indexPath as NSIndexPath).row]
                 cell.textLabel!.text = property
-                
-                var keyPath = property.camelCasedString
-                if property == "Status" {
-                    keyPath = "statusString"
-                }
-                
-                if property == "Time" {
-                    if let value = d.value(forKey: "lastUpdate") {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "dd.MM.yy HH:mm:ss"
-                        let dt = dateFormatter.string(from: value as! Date)
-                        
-                        cell.detailTextLabel!.text = dt
-                    }
-                } else if let value = d.value(forKey: keyPath) {
-                    cell.detailTextLabel!.text = "\(value)"
-                }
+                cell.detailTextLabel!.text = d.valueString(forKey: property.camelCasedString)
                 
             } else if (indexPath as NSIndexPath).section == 1 {
                 
                 let property = positionProperties[(indexPath as NSIndexPath).row]
                 cell.textLabel!.text = property
-                
-                if let position = d.position {
+                let position = d.position
                     
-                    var keyPath = property.camelCasedString
-                    if property == "Latitude" {
-                        keyPath = "latitudeString"
-                    } else if property == "Longitude" {
-                        keyPath = "longitudeString"
-                    } else if property == "Course" {
-                        keyPath = "courseDirectionString"
-                    } else if property == "Speed" {
-                        keyPath = "speedString"
-                    }
-                    
-                    if let value = position.value(forKey: keyPath) {
-                        cell.detailTextLabel!.text = "\(value)"
-                    }
+                var keyPath = property.camelCasedString
+                if property == "Latitude" {
+                    keyPath = "latitudeString"
+                } else if property == "Longitude" {
+                    keyPath = "longitudeString"
+                } else if property == "Course" {
+                    keyPath = "courseDirectionString"
+                } else if property == "Speed" {
+                    keyPath = "speedString"
                 }
-                
+                    
+                if let value = position.value(forKey: keyPath) {
+                    cell.detailTextLabel!.text = "\(value)"
+                }
+
             }
             
         }
