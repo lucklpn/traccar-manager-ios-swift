@@ -1,5 +1,3 @@
 github "SwiftyJSON/SwiftyJSON"
-github "hkellaway/Gloss"
 github "tananaev/SocketRocket" "temporary"
-github "jdg/MBProgressHUD"
-github "Friend-LGA/LGAlertView"
+github "Alamofire/Alamofire" ~> 4.5

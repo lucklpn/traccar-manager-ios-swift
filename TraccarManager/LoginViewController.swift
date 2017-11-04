@@ -17,8 +17,6 @@
 //
 
 import UIKit
-import MBProgressHUD
-import LGAlertView
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
@@ -45,13 +43,14 @@ let TCDefaultsServerKey = "DefaultsServerKey"
 let TCDefaultsEmailKey = "DefaultsEmailKey"
 let TCDefaultsPassKey = "DefaultsPassKey"
 
-class LoginViewController: UIViewController, UITextFieldDelegate, LGAlertViewDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var serverField: UITextField!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var rememberSwitch: UISwitch!
+    @IBOutlet var progressView: UIActivityIndicatorView!
     
     var trustDomain = ""
     
@@ -87,22 +86,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LGAlertViewDel
     
     @IBAction func loginButtonPressed() {
         
-        MBProgressHUD.showAdded(to: view, animated: true)
+        progressView.startAnimating()
         
         WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { error in
             
             DispatchQueue.main.async(execute: {
                 
-                MBProgressHUD.hide(for: self.view, animated: true)
+                self.progressView.stopAnimating()
                 
                 if error.code == -1202 {
                     self.trustDomain = (URL(string: self.serverField.text!)?.host)!
-                    let dialog = LGAlertView.init(viewAndTitle: "Error", message: error.localizedDescription, style: LGAlertViewStyle.alert, view: nil, buttonTitles: ["Allow"], cancelButtonTitle: nil, destructiveButtonTitle: "Cancel")
-                    dialog.delegate = self
-                    dialog.showAnimated()
+                    
+                    let ac = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    let btnAllow = UIAlertAction(title: "Allow", style: .default, handler: {action in
+                        self.saveDefaults()
+                        let at = UIAlertController(title: "", message: self.trustDomain + " add to trusted domains. Restart application", preferredStyle: .alert)
+                        at.addAction(UIAlertAction(title: "ОК", style: .cancel, handler: nil))
+                        self.present(at, animated: true, completion: nil)
+                        
+                    })
+                    ac.addAction(btnAllow)
+                    self.present(ac, animated: true, completion: nil)
                 } else {
-                    let dialog = LGAlertView.init(viewAndTitle: "Error", message: error.localizedDescription, style: LGAlertViewStyle.alert, view: nil, buttonTitles: ["OK"], cancelButtonTitle: nil, destructiveButtonTitle: nil)
-                    dialog.showAnimated()
+                    let ac = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(ac, animated: true, completion: nil)
                 }
                 
             })
@@ -111,21 +120,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LGAlertViewDel
             
             DispatchQueue.main.async(execute: {
                 
-                // save server, user
-                let d = UserDefaults.standard
-                d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
-                d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
-                d.synchronize()
+                self.saveDefaults()
                 
-                //save password to keychain
-                if self.rememberSwitch.isOn {
-                    KeychainWrapper.standard.set(self.passwordField.text!, forKey: TCDefaultsPassKey)
-                } else {
-                    KeychainWrapper.standard.removeObject(forKey: TCDefaultsPassKey)
-                }
-                
-                
-                MBProgressHUD.hide(for: self.view, animated: true)
+                self.progressView.stopAnimating()
                 
                 self.dismiss(animated: true, completion: nil)
                 
@@ -135,11 +132,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LGAlertViewDel
         )
     }
     
-    func alertView(_ alertView: LGAlertView, clickedButtonAt index: UInt, title: String?) {
+    func saveDefaults() {
         let d = UserDefaults.standard
-        d.setValue(trustDomain, forKey: Definitions.TCDefaultsTrustDomain)
         d.setValue(self.serverField!.text!, forKey: TCDefaultsServerKey)
         d.setValue(self.emailField!.text!, forKey: TCDefaultsEmailKey)
+        if trustDomain != "" {
+            d.setValue(trustDomain, forKey: Definitions.TCDefaultsTrustDomain)
+        }
         d.synchronize()
         
         //save password to keychain
@@ -148,10 +147,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LGAlertViewDel
         } else {
             KeychainWrapper.standard.removeObject(forKey: TCDefaultsPassKey)
         }
-        
-        let dialog = LGAlertView.init(viewAndTitle: "", message: trustDomain + " add to trusted domains. Restart application", style: LGAlertViewStyle.alert, view: nil, buttonTitles: ["OK"], cancelButtonTitle: nil, destructiveButtonTitle: nil)
-        dialog.showAnimated()
     }
+    
     // move between text fields when return button pressed, and login
     // when you press return on the password field
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

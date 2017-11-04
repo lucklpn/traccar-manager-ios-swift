@@ -12,13 +12,14 @@
 		4B0B9EE01F2B10F2002A99DC /* CustomPositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDF1F2B10F2002A99DC /* CustomPositionAnnotation.swift */; };
 		4B30B1501F80258F0032CB91 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30B14F1F80258F0032CB91 /* ReportViewController.swift */; };
 		4B30B1521F803C610032CB91 /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30B1511F803C610032CB91 /* Summary.swift */; };
-		4B30B1561F8040C10032CB91 /* Gloss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B30B1551F8040C10032CB91 /* Gloss.framework */; };
 		4B30B1571F8041280032CB91 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B30B1531F803EA30032CB91 /* SwiftyJSON.framework */; };
-		4B30B1591F8042110032CB91 /* AlamofireGloss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30B1581F8042110032CB91 /* AlamofireGloss.swift */; };
 		4B30B15D1F80C73F0032CB91 /* formatNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30B15C1F80C73F0032CB91 /* formatNumber.swift */; };
-		4B6348A61F7EAA6F00B55821 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6348A51F7EAA6F00B55821 /* MBProgressHUD.framework */; };
+		4B34CEF41FAC649A00709B17 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF31FAC649A00709B17 /* Extensions.swift */; };
+		4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF71FAC9EAB00709B17 /* WebService.swift */; };
+		4B34CEFA1FACC91600709B17 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF91FACC91600709B17 /* Event.swift */; };
+		4B34CEFD1FACF28500709B17 /* ProgressBarDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEFC1FACF28500709B17 /* ProgressBarDraw.swift */; };
+		4B34CEFF1FACF2B300709B17 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEFE1FACF2B300709B17 /* ProgressBarView.swift */; };
 		4B8E31781F80D622007AF70D /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E31771F80D622007AF70D /* FilterViewController.swift */; };
-		4B9B953F1F7EE8E6002D0AD5 /* LGAlertView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9B953E1F7EE8E6002D0AD5 /* LGAlertView.framework */; };
 		4BACB9521F8017D70074A6AB /* ReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACB9511F8017D70074A6AB /* ReportListViewController.swift */; };
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
 		CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721141C86EB9800D057CE /* MapViewController.swift */; };
@@ -42,7 +43,6 @@
 		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */; };
 		D30ACDB71CE5409700925366 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30ACDB51CE5409700925366 /* Main-iPad.storyboard */; };
-		D30ACDFD1CE5DE2E00925366 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D30ACDE11CE5DE2E00925366 /* MBProgressHUD.m */; };
 		D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
@@ -51,12 +51,6 @@
 		D3394F371CE2A56600795822 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F341CE2A56600795822 /* Definitions.swift */; };
 		D3394F3A1CE3D0AD00795822 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3394F381CE3D0AD00795822 /* SocketRocket.framework */; };
 		D3394F3B1CE3D0AD00795822 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3394F391CE3D0AD00795822 /* Alamofire.framework */; };
-		D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
-		D397E3AF1CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
-		D397E3B01CDEC176001DBCA3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397E3AD1CDEC176001DBCA3 /* Extensions.swift */; };
-		D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
-		D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
-		D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B7E1E11CD9C9910096D11A /* WebService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,8 +91,12 @@
 		4B30B1511F803C610032CB91 /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
 		4B30B1531F803EA30032CB91 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4B30B1551F8040C10032CB91 /* Gloss.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gloss.framework; path = Carthage/Build/iOS/Gloss.framework; sourceTree = "<group>"; };
-		4B30B1581F8042110032CB91 /* AlamofireGloss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireGloss.swift; sourceTree = "<group>"; };
 		4B30B15C1F80C73F0032CB91 /* formatNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = formatNumber.swift; sourceTree = "<group>"; };
+		4B34CEF31FAC649A00709B17 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4B34CEF71FAC9EAB00709B17 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		4B34CEF91FACC91600709B17 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		4B34CEFC1FACF28500709B17 /* ProgressBarDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarDraw.swift; sourceTree = "<group>"; };
+		4B34CEFE1FACF2B300709B17 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		4B6348A51F7EAA6F00B55821 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		4B8E31771F80D622007AF70D /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4B9B953E1F7EE8E6002D0AD5 /* LGAlertView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LGAlertView.framework; path = Carthage/Build/iOS/LGAlertView.framework; sourceTree = "<group>"; };
@@ -125,15 +123,11 @@
 		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D30ACDB61CE5409700925366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-iPad.storyboard"; sourceTree = "<group>"; };
-		D30ACDE01CE5DE2E00925366 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		D30ACDE11CE5DE2E00925366 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		D30ACE041CE5DE7300925366 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = TraccarManager/BridgingHeader.h; sourceTree = "<group>"; };
 		D3394F251CE1C77900795822 /* PositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAnnotation.swift; sourceTree = "<group>"; };
 		D3394F341CE2A56600795822 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		D3394F381CE3D0AD00795822 /* SocketRocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketRocket.framework; path = Carthage/Build/iOS/SocketRocket.framework; sourceTree = "<group>"; };
 		D3394F391CE3D0AD00795822 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		D397E3AD1CDEC176001DBCA3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D3B7E1E11CD9C9910096D11A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,13 +135,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B30B1561F8040C10032CB91 /* Gloss.framework in Frameworks */,
 				D3394F3A1CE3D0AD00795822 /* SocketRocket.framework in Frameworks */,
 				D3394F3B1CE3D0AD00795822 /* Alamofire.framework in Frameworks */,
 				D3091C121CD9D86F0017F0DC /* CoreLocation.framework in Frameworks */,
 				CEE848D21CCDCD53000B1E9D /* MapKit.framework in Frameworks */,
-				4B6348A61F7EAA6F00B55821 /* MBProgressHUD.framework in Frameworks */,
-				4B9B953F1F7EE8E6002D0AD5 /* LGAlertView.framework in Frameworks */,
 				4B30B1571F8041280032CB91 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,8 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				4B0B9EDA1F2B042B002A99DC /* KeychainWrapper */,
-				4B30B1581F8042110032CB91 /* AlamofireGloss.swift */,
+				4B34CEFB1FACF26400709B17 /* ProgressBar */,
 				4B30B15C1F80C73F0032CB91 /* formatNumber.swift */,
+				4B34CEF71FAC9EAB00709B17 /* WebService.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -186,6 +178,15 @@
 				4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */,
 			);
 			name = KeychainWrapper;
+			sourceTree = "<group>";
+		};
+		4B34CEFB1FACF26400709B17 /* ProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				4B34CEFC1FACF28500709B17 /* ProgressBarDraw.swift */,
+				4B34CEFE1FACF2B300709B17 /* ProgressBarView.swift */,
+			);
+			name = ProgressBar;
 			sourceTree = "<group>";
 		};
 		C47A9C561CBDCB24F2866BD2 /* Frameworks */ = {
@@ -212,7 +213,6 @@
 				CE0721311C86EB9800D057CE /* TraccarManagerUITests */,
 				CE0721101C86EB9800D057CE /* Products */,
 				C47A9C561CBDCB24F2866BD2 /* Frameworks */,
-				D30ACDB81CE5DE2E00925366 /* MBProgressHUD */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,14 +230,13 @@
 			isa = PBXGroup;
 			children = (
 				D3091C0C1CD9D0560017F0DC /* Model */,
-				D3B7E1E11CD9C9910096D11A /* WebService.swift */,
 				4B0B9ED71F2B03AF002A99DC /* Utils */,
 				CE0721121C86EB9800D057CE /* AppDelegate.swift */,
 				CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */,
 				CE0721141C86EB9800D057CE /* MapViewController.swift */,
 				4BACB9511F8017D70074A6AB /* ReportListViewController.swift */,
-				4B8E31771F80D622007AF70D /* FilterViewController.swift */,
 				4B30B14F1F80258F0032CB91 /* ReportViewController.swift */,
+				4B8E31771F80D622007AF70D /* FilterViewController.swift */,
 				D3394F251CE1C77900795822 /* PositionAnnotation.swift */,
 				4B0B9EDF1F2B10F2002A99DC /* CustomPositionAnnotation.swift */,
 				CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */,
@@ -247,8 +246,8 @@
 				CE0721191C86EB9800D057CE /* Assets.xcassets */,
 				CE07211B1C86EB9800D057CE /* LaunchScreen.storyboard */,
 				CE07211E1C86EB9800D057CE /* Info.plist */,
-				D397E3AD1CDEC176001DBCA3 /* Extensions.swift */,
 				D3394F341CE2A56600795822 /* Definitions.swift */,
+				4B34CEF31FAC649A00709B17 /* Extensions.swift */,
 			);
 			path = TraccarManager;
 			sourceTree = "<group>";
@@ -277,19 +276,10 @@
 				D3091C0D1CD9D0670017F0DC /* User.swift */,
 				D3091C9E1CDB60C00017F0DC /* Device.swift */,
 				4B30B1511F803C610032CB91 /* Summary.swift */,
+				4B34CEF91FACC91600709B17 /* Event.swift */,
 				D3091CA81CDDE2900017F0DC /* Position.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		D30ACDB81CE5DE2E00925366 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				D30ACDE01CE5DE2E00925366 /* MBProgressHUD.h */,
-				D30ACDE11CE5DE2E00925366 /* MBProgressHUD.m */,
-			);
-			name = MBProgressHUD;
-			path = Carthage/Checkouts/MBProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,9 +425,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SocketRocket.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/LGAlertView.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Gloss.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			name = "Run Script";
@@ -460,22 +447,23 @@
 				D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */,
 				4B0B9EE01F2B10F2002A99DC /* CustomPositionAnnotation.swift in Sources */,
 				4B30B1521F803C610032CB91 /* Summary.swift in Sources */,
-				D3B7E1E21CD9C9910096D11A /* WebService.swift in Sources */,
 				D3394F351CE2A56600795822 /* Definitions.swift in Sources */,
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
-				D397E3AE1CDEC176001DBCA3 /* Extensions.swift in Sources */,
+				4B34CEF41FAC649A00709B17 /* Extensions.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
-				4B30B1591F8042110032CB91 /* AlamofireGloss.swift in Sources */,
+				4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */,
 				4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */,
 				D3091C9F1CDB60C00017F0DC /* Device.swift in Sources */,
+				4B34CEFF1FACF2B300709B17 /* ProgressBarView.swift in Sources */,
 				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
+				4B34CEFA1FACC91600709B17 /* Event.swift in Sources */,
 				4B8E31781F80D622007AF70D /* FilterViewController.swift in Sources */,
 				4B30B1501F80258F0032CB91 /* ReportViewController.swift in Sources */,
 				4BACB9521F8017D70074A6AB /* ReportListViewController.swift in Sources */,
 				D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */,
+				4B34CEFD1FACF28500709B17 /* ProgressBarDraw.swift in Sources */,
 				4B30B15D1F80C73F0032CB91 /* formatNumber.swift in Sources */,
-				D30ACDFD1CE5DE2E00925366 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,8 +472,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3394F361CE2A56600795822 /* Definitions.swift in Sources */,
-				D3B7E1E31CD9C9910096D11A /* WebService.swift in Sources */,
-				D397E3AF1CDEC176001DBCA3 /* Extensions.swift in Sources */,
 				D3091C0F1CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */,
 				D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */,
@@ -499,8 +485,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3394F371CE2A56600795822 /* Definitions.swift in Sources */,
-				D3B7E1E41CD9C9910096D11A /* WebService.swift in Sources */,
-				D397E3B01CDEC176001DBCA3 /* Extensions.swift in Sources */,
 				D3091C101CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */,
 				D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */,
@@ -711,7 +695,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TraccarManager.app/TraccarManager";
 			};
@@ -725,7 +709,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TraccarManager.app/TraccarManager";
 			};
@@ -738,7 +722,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManagerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = TraccarManager;
 				USES_XCTRUNNER = YES;
@@ -752,7 +736,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.traccar.TraccarManagerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = TraccarManager;
 				USES_XCTRUNNER = YES;
