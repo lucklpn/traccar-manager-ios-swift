@@ -27,7 +27,10 @@ class DeviceInfoViewController: UITableViewController {
     fileprivate var deviceProperties: [String] = [
         "Name",
         "Status",
-        "Time"
+        "Time",
+        "Phone",
+        "Model",
+        "Contact"
     ]
     
     fileprivate var positionProperties: [String] = [

@@ -53,21 +53,24 @@ extension Device {
     
     func valueString(forKey: String) -> String {
         switch forKey.localizedLowercase {
-        case "id": return String(self.id!)
-        case "uniqueId": return self.uniqueId!
-        case "groupId": return String(self.groupId!)
-        case "lastUpdate":
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yy HH:mm:ss"
-            return dateFormatter.string(from: self.lastUpdate!)
-        case "time":
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yy HH:mm:ss"
-            return dateFormatter.string(from: self.lastUpdate!)
-        case "positionId": return String(self.positionId!)
-        case "status": return self.status!.capitalized
-        case "name": return self.name!
-        case "category": return self.category!
+            case "id": return String(self.id!)
+            case "uniqueId": return self.uniqueId!
+            case "groupId": return String(self.groupId!)
+            case "lastUpdate":
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd.MM.yy HH:mm:ss"
+                return dateFormatter.string(from: self.lastUpdate!)
+            case "time":
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd.MM.yy HH:mm:ss"
+                return dateFormatter.string(from: self.lastUpdate!)
+            case "positionId": return String(self.positionId!)
+            case "status": return self.status!.capitalized
+            case "name": return self.name!
+            case "category": return self.category!
+            case "phone": return self.phone!
+            case "model": return self.model!
+            case "contact": return self.contact!
         default: fatalError("Invalid key")
         }
     }
