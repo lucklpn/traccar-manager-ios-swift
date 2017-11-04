@@ -21,7 +21,6 @@ struct Device: Codable {
     let contact: String?
     let category: String?
     let geofenceIds: [Int]?
-    
 }
 
 extension Device {
