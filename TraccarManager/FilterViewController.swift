@@ -8,9 +8,8 @@
 
 import Foundation
 import UIKit
-import LGAlertView
 
-class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LGAlertViewDelegate {
+class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var devices: [Device] = []
     var fromDate = Date()
@@ -38,46 +37,57 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func pressButtonFromPeriod(_ sender: Any) {
-    
-        let datePicker = UIDatePicker(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: 110))
+
+        let alert = UIAlertController(title: "From", message: "", preferredStyle: .alert)
+        
+        let datePicker = UIDatePicker(frame: CGRect.init(x: 10, y: 50, width: 250, height: 120))
         datePicker.datePickerMode = UIDatePickerMode.date
         datePicker.date = fromDate
         
-        let dialog = LGAlertView.init(viewAndTitle: "From", message: nil, style: LGAlertViewStyle.alert, view:datePicker, buttonTitles: ["OK"], cancelButtonTitle: "Отмена", destructiveButtonTitle: nil)
+        alert.view.addSubview(datePicker)
         
-        dialog.tag = 1
-        dialog.delegate = self
-        dialog.showAnimated()
+        let consh = NSLayoutConstraint(item: alert.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: datePicker, attribute: NSLayoutAttribute.height, multiplier: 1.00, constant: 130)
+        alert.view.addConstraint(consh)
         
+        let consw = NSLayoutConstraint(item: alert.view, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: datePicker, attribute: NSLayoutAttribute.width, multiplier: 1.00, constant: 20)
+        alert.view.addConstraint(consw)
+        
+        let btnOK = UIAlertAction(title: "OK", style: .default, handler: {action in
+            self.fromDate = datePicker.date
+            self.setButtonTitle()
+        })
+        alert.addAction(btnOK)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+
     }
     
     @IBAction func pressButtonToPeriod(_ sender: Any) {
-     
-        //let v = UIView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: 140))
-        let datePicker = UIDatePicker(frame: CGRect.init(x: 0, y: 0, width: self.view.frame.size.width, height: 110))
+        
+        let alert = UIAlertController(title: "To", message: "", preferredStyle: .alert)
+        
+        let datePicker = UIDatePicker(frame: CGRect.init(x: 10, y: 50, width: 250, height: 120))
         datePicker.datePickerMode = UIDatePickerMode.date
         datePicker.date = toDate
         
-        ///v.addSubview(datePicker)
+        alert.view.addSubview(datePicker)
         
-        //let tm = UITextView.init()
+        let consh = NSLayoutConstraint(item: alert.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: datePicker, attribute: NSLayoutAttribute.height, multiplier: 1.00, constant: 130)
+        alert.view.addConstraint(consh)
         
-        let dialog = LGAlertView.init(viewAndTitle: "To", message: nil, style: LGAlertViewStyle.alert, view: datePicker, buttonTitles: ["OK"], cancelButtonTitle: "Отмена", destructiveButtonTitle: nil)
+        let consw = NSLayoutConstraint(item: alert.view, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: datePicker, attribute: NSLayoutAttribute.width, multiplier: 1.00, constant: 20)
+        alert.view.addConstraint(consw)
         
-        dialog.tag = 2
-        dialog.delegate = self
-        dialog.showAnimated()
+        let btnOK = UIAlertAction(title: "OK", style: .default, handler: {action in
+            self.toDate = datePicker.date
+            self.setButtonTitle()
+        })
+        alert.addAction(btnOK)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-    }
-    
-    func alertView(_ alertView: LGAlertView, clickedButtonAt index: UInt, title: String?) {
-        let dtv = alertView.innerView as? UIDatePicker
-        if alertView.tag == 1 {
-            fromDate = (dtv?.date)!
-        } else {
-            toDate = (dtv?.date)!
-        }
-        setButtonTitle()
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

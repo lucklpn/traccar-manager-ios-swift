@@ -31,6 +31,8 @@ class WebService: NSObject, SRWebSocketDelegate {
     // for each device
     fileprivate var allPositions: NSMutableDictionary = NSMutableDictionary()
     
+    fileprivate var allGeofences: NSMutableDictionary = NSMutableDictionary()
+    
     var positions: [Position] {
         get {
             return allPositions.allValues as! [Position]
@@ -40,6 +42,12 @@ class WebService: NSObject, SRWebSocketDelegate {
     var devices: [Device] {
         get {
             return allDevices.allValues as! [Device]
+        }
+    }
+    
+    var geofence: [Geofence] {
+        get {
+            return allGeofences.allValues as! [Geofence]
         }
     }
     
@@ -120,6 +128,14 @@ class WebService: NSObject, SRWebSocketDelegate {
     func positionByDeviceId(_ deviceId: Int) -> Position? {
         if let p = allPositions[String(deviceId)] {
             return p as? Position
+        }
+        return nil
+    }
+    
+    // utility function to get a geofence by geofence ID
+    func geofenceById(_ geofinceId: Int) -> Geofence? {
+        if let g = allGeofences[String(geofinceId)] {
+            return g as? Geofence
         }
         return nil
     }
@@ -226,6 +242,30 @@ class WebService: NSObject, SRWebSocketDelegate {
 
         })
 
+    }
+    
+    func fetchGeofences(_ onFailure: ((String) -> Void)? = nil, onSuccess: @escaping ([Geofence]) -> Void) {
+        
+        WebService.sharedInstance.getDataServer(filter: "", urlPoint: "geofences", onFailure: { errorString in
+            
+            if let fail = onFailure {
+                fail(errorString)
+            }
+            
+        }, onSuccess: { (data) in
+            let decoder = JSONDecoder()
+            let gs: [Geofence] = try! decoder.decode([Geofence].self, from: data)
+            for g in gs {
+                self.allGeofences.setValue(g, forKey: String(g.id!))
+            }
+            
+            // tell everyone that the devices have been updated
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Definitions.DeviceUpdateNotificationName), object: nil)
+            
+            onSuccess(gs)
+            
+        })
+        
     }
     
     func getDataServer (filter: String, urlPoint: String, onFailure: ((String) -> Void)? = nil, onSuccess: @escaping (Data) -> Void) {

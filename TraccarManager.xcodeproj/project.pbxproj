@@ -19,6 +19,7 @@
 		4B34CEFA1FACC91600709B17 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF91FACC91600709B17 /* Event.swift */; };
 		4B471C161FAE5C6F00228C0E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C151FAE5C6F00228C0E /* Device.swift */; };
 		4B471C181FAE5D1600228C0E /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C171FAE5D1600228C0E /* Attribute.swift */; };
+		4B471C1A1FAE689C00228C0E /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C191FAE689C00228C0E /* Geofence.swift */; };
 		4B8E31781F80D622007AF70D /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E31771F80D622007AF70D /* FilterViewController.swift */; };
 		4BACB9521F8017D70074A6AB /* ReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACB9511F8017D70074A6AB /* ReportListViewController.swift */; };
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
@@ -94,6 +95,7 @@
 		4B34CEF91FACC91600709B17 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4B471C151FAE5C6F00228C0E /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4B471C171FAE5D1600228C0E /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
+		4B471C191FAE689C00228C0E /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
 		4B6348A51F7EAA6F00B55821 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		4B8E31771F80D622007AF70D /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4B9B953E1F7EE8E6002D0AD5 /* LGAlertView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LGAlertView.framework; path = Carthage/Build/iOS/LGAlertView.framework; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				4B471C151FAE5C6F00228C0E /* Device.swift */,
 				4B471C171FAE5D1600228C0E /* Attribute.swift */,
 				4B34CEF91FACC91600709B17 /* Event.swift */,
+				4B471C191FAE689C00228C0E /* Geofence.swift */,
 				D3091CA81CDDE2900017F0DC /* Position.swift */,
 			);
 			path = Model;
@@ -436,6 +439,7 @@
 				4B30B1521F803C610032CB91 /* Summary.swift in Sources */,
 				D3394F351CE2A56600795822 /* Definitions.swift in Sources */,
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
+				4B471C1A1FAE689C00228C0E /* Geofence.swift in Sources */,
 				4B34CEF41FAC649A00709B17 /* Extensions.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 				4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */,

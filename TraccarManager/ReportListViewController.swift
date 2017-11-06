@@ -7,16 +7,23 @@
 //
 
 import Foundation
-import LGAlertView
 import UIKit
+
+enum typeReports: String {
+    case Summary
+    case Route
+    case Events
+    case Trips
+    case Chart
+}
 
 struct list {
     var image: String
     var name: String
-    var ind: Int
+    var type: typeReports
 }
 
-class ReportListViewController: UITableViewController, LGAlertViewDelegate {
+class ReportListViewController: UITableViewController {
     var listItemsOther = [list]()
     
     override func viewDidLoad() {
@@ -41,7 +48,11 @@ class ReportListViewController: UITableViewController, LGAlertViewDelegate {
         
         var lists = [list]()
         //lists.append(list.init(image: UIImage(named: "Image_layers")!, name: "Summary", ind: 0))
-        lists.append(list.init(image: "", name: "Summary", ind: 0))
+        lists.append(list.init(image: "", name: "Summary", type: typeReports.Summary))
+        //lists.append(list.init(image: "", name: "Route", type: typeReports.Route))
+        lists.append(list.init(image: "", name: "Events", type: typeReports.Events))
+        //lists.append(list.init(image: "", name: "Trips", type: typeReports.Trips))
+        //lists.append(list.init(image: "", name: "Chart", type: typeReports.Chart))
         
         return lists
     }
@@ -50,11 +61,8 @@ class ReportListViewController: UITableViewController, LGAlertViewDelegate {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if listItemsOther[indexPath.row].ind == 0 {
-            let vc = self.storyboard!.instantiateViewController(withIdentifier: "ReportViewControllerStoryboard")  as! ReportViewController
-            vc.typeReport = "Summary"
-            navigationController!.pushViewController(vc, animated: true)
-        }
-        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "ReportViewControllerStoryboard")  as! ReportViewController
+        vc.typeReport = listItemsOther[indexPath.row].type
+        navigationController!.pushViewController(vc, animated: true)
     }
 }

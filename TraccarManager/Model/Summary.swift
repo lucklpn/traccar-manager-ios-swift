@@ -7,10 +7,8 @@
 //
 
 import Foundation
-import Gloss
 
-//MARK: - modelFilter
-public struct Summary: Gloss.Decodable {
+public struct Summary: Codable {
     
     public let deviceId : Int?
     public let deviceName : String?
@@ -19,13 +17,19 @@ public struct Summary: Gloss.Decodable {
     public let maxSpeed : Double?
     public let engineHours : Int?
     
-    //MARK: Decodable
-    public init?(json: JSON){
-        deviceId = "deviceId" <~~ json
-        deviceName = "deviceName" <~~ json
-        distance = "distance" <~~ json
-        averageSpeed = "averageSpeed" <~~ json
-        maxSpeed = "maxSpeed" <~~ json
-        engineHours = "engineHours" <~~ json
+}
+
+extension Summary {
+    
+    func valueString(forKey: String) -> String {
+        switch forKey.localizedLowercase {
+            case "deviceid": return String(self.deviceId!)
+            case "devicename": return self.deviceName!
+            case "distance": return formatNumber.sharedInstance.string(from: NSNumber(value: Int(self.distance! / 1000)))!
+            case "averagespeed": return formatNumber.sharedInstance.string(from: NSNumber(value: Int(self.averageSpeed! * 1.852)))!
+            case "maxspeed": return formatNumber.sharedInstance.string(from: NSNumber(value: Int(self.maxSpeed! * 1.852)))!
+            case "enginehours": return formatNumber.sharedInstance.string(from: NSNumber(value: self.engineHours!))!
+            default: fatalError("Invalid key")
+        }
     }
 }
