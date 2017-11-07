@@ -59,6 +59,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // user can't do anything until they're logged-in
         navigationItem.setHidesBackButton(true, animated: false)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +86,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @IBAction func loginButtonPressed() {
