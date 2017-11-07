@@ -63,13 +63,22 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HWl-0Z-9nB"/>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04f-w3-XFE">
+                                <rect key="frame" x="332" y="50" width="24" height="24"/>
+                                <state key="normal" image="Image_mylocation"/>
+                                <connections>
+                                    <action selector="pressButtonMyLocation:" destination="roU-eq-rb0" eventType="touchUpInside" id="iF1-oD-Gpa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="04f-w3-XFE" secondAttribute="trailing" constant="3" id="DhY-mM-UDr"/>
                             <constraint firstItem="uwH-5m-y4X" firstAttribute="top" secondItem="GYh-lf-PG6" secondAttribute="bottom" id="GCm-jd-N3S"/>
                             <constraint firstItem="FaA-1D-289" firstAttribute="top" secondItem="uwH-5m-y4X" secondAttribute="bottom" constant="44" id="GH6-ct-uG4"/>
                             <constraint firstItem="uwH-5m-y4X" firstAttribute="leading" secondItem="xel-Rt-4qR" secondAttribute="leadingMargin" constant="-20" id="OhG-Ud-neH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uwH-5m-y4X" secondAttribute="trailing" constant="-20" id="cah-ki-ElH"/>
+                            <constraint firstItem="04f-w3-XFE" firstAttribute="top" secondItem="GYh-lf-PG6" secondAttribute="bottom" constant="30" id="gGc-x9-uYy"/>
                             <constraint firstItem="FaA-1D-289" firstAttribute="top" secondItem="w25-Xm-NlZ" secondAttribute="bottom" id="kry-BM-YpR"/>
                             <constraint firstItem="w25-Xm-NlZ" firstAttribute="leading" secondItem="xel-Rt-4qR" secondAttribute="leadingMargin" constant="-20" id="myY-VT-LuC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w25-Xm-NlZ" secondAttribute="trailing" constant="-20" id="zif-nV-cDZ"/>
@@ -96,6 +105,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonMyLocation" destination="04f-w3-XFE" id="HVd-PT-H2N"/>
                         <outlet property="buttonReport" destination="W1J-Cw-fVk" id="gll-Kz-t85"/>
                         <outlet property="mapView" destination="uwH-5m-y4X" id="ITx-qS-a6H"/>
                         <segue destination="wTg-2z-vTv" kind="show" identifier="ShowLogin" id="XYS-oF-p7B"/>
@@ -607,6 +617,7 @@
         <image name="Image_menu_car" width="24" height="24"/>
         <image name="Image_menu_logout" width="24" height="24"/>
         <image name="Image_menu_report" width="24" height="24"/>
+        <image name="Image_mylocation" width="24" height="24"/>
         <image name="Image_zoom" width="24" height="24"/>
         <image name="logo" width="120" height="120"/>
     </resources>

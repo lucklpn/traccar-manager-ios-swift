@@ -88,7 +88,6 @@
 		4B30B14F1F80258F0032CB91 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		4B30B1511F803C610032CB91 /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
 		4B30B1531F803EA30032CB91 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		4B30B1551F8040C10032CB91 /* Gloss.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gloss.framework; path = Carthage/Build/iOS/Gloss.framework; sourceTree = "<group>"; };
 		4B30B15C1F80C73F0032CB91 /* formatNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = formatNumber.swift; sourceTree = "<group>"; };
 		4B34CEF31FAC649A00709B17 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B34CEF71FAC9EAB00709B17 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -96,9 +95,7 @@
 		4B471C151FAE5C6F00228C0E /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4B471C171FAE5D1600228C0E /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		4B471C191FAE689C00228C0E /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
-		4B6348A51F7EAA6F00B55821 /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		4B8E31771F80D622007AF70D /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
-		4B9B953E1F7EE8E6002D0AD5 /* LGAlertView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LGAlertView.framework; path = Carthage/Build/iOS/LGAlertView.framework; sourceTree = "<group>"; };
 		4BACB9511F8017D70074A6AB /* ReportListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportListViewController.swift; sourceTree = "<group>"; };
 		CE07210F1C86EB9800D057CE /* TraccarManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraccarManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0721121C86EB9800D057CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -180,10 +177,7 @@
 		C47A9C561CBDCB24F2866BD2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4B30B1551F8040C10032CB91 /* Gloss.framework */,
 				4B30B1531F803EA30032CB91 /* SwiftyJSON.framework */,
-				4B9B953E1F7EE8E6002D0AD5 /* LGAlertView.framework */,
-				4B6348A51F7EAA6F00B55821 /* MBProgressHUD.framework */,
 				D3394F381CE3D0AD00795822 /* SocketRocket.framework */,
 				D3394F391CE3D0AD00795822 /* Alamofire.framework */,
 				CEE848D11CCDCD53000B1E9D /* MapKit.framework */,

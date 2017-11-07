@@ -18,29 +18,6 @@
 import UIKit
 import MapKit
 
-//extension UISegmentedControl {
-//    func goVertical() {
-//        self.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
-//        for segment in self.subviews {
-//            for segmentSubview in segment.subviews {
-//                if segmentSubview is UILabel {
-//                    (segmentSubview as! UILabel).transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
-//                }
-//            }
-//        }
-//    }
-////    func restoreHorizontal() {
-////        self.transform = CGAffineTransform 
-////        for segment in self.subviews {
-////            for segmentSubview in segment.subviews {
-////                if segmentSubview is UILabel {
-////                    (segmentSubview as! UILabel).transform = CGAffineTransformIdentity
-////                }
-////            }
-////        }
-////    }
-//}
-
 extension UIViewController {
 
     func showToast(message : String) {
@@ -63,10 +40,12 @@ extension UIViewController {
     }
 }
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var mapView: MKMapView?
     @IBOutlet var buttonReport: UIBarButtonItem!
+    @IBOutlet var buttonMyLocation: UIButton!
+    
     
     fileprivate var devices: [Device] = []
     
@@ -82,8 +61,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var selectedAnnotation: PositionAnnotation?
     var selectedDevice: Device?
     
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        buttonMyLocation.tintColor = UIColor(red: 85 / 255, green: 155 / 255, blue: 248 / 255, alpha: 1)
         
         mapView?.showsScale = true
         mapView?.setUserTrackingMode(.follow, animated: true)
@@ -91,6 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // don't let user open devices view until the devices have been loaded
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         mapView?.isRotateEnabled = false
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -144,13 +132,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         if User.sharedInstance.isAuthenticated {
             
-            if shouldCenterOnAppear {
-                let centerCoordinates = User.sharedInstance.mapCenter
-                assert(CLLocationCoordinate2DIsValid(centerCoordinates), "Map center coordinates aren't valid")
-                self.mapView?.setCenter(centerCoordinates, animated: true)
-                
-                shouldCenterOnAppear = false
-            }
+//            if shouldCenterOnAppear {
+//                let centerCoordinates = User.sharedInstance.mapCenter
+//                assert(CLLocationCoordinate2DIsValid(centerCoordinates), "Map center coordinates aren't valid")
+//                self.mapView?.setCenter(centerCoordinates, animated: true)
+//
+//                shouldCenterOnAppear = false
+//            }
             
             refreshDevices()
         }
@@ -166,6 +154,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             // if devices are added/removed from the server while user is logged-in, the
             // positions will be added/removed from the map here
             self.refreshPositions()
+            //set region all devices
+            //self.mapView?.showAnnotations((self.mapView?.annotations)!, animated: true)
         })
         
     }
@@ -322,6 +312,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    
+        let cLocation = mapView.centerCoordinate
+        let myLocation = mapView.userLocation.coordinate
+        let delta = 0.001
+        
+        if cLocation.latitude > myLocation.latitude - delta && cLocation.latitude < myLocation.latitude + delta
+            && cLocation.longitude > myLocation.longitude  - delta && cLocation.longitude < myLocation.longitude  + delta{
+            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocationset")
+        } else {
+            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocation")
+        }
+    }
+    
+    func setMyLocation() {
+        let myLocation = mapView?.userLocation.coordinate
+        let viewRegion = MKCoordinateRegionMakeWithDistance(myLocation!, 700, 100)
+        mapView?.setRegion(viewRegion, animated: true)
+        
+    }
     
     @IBAction func switchLayers(_ sender: Any) {
         
@@ -338,7 +348,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    @IBAction func pressButtonMyLocation(_ sender: Any) {
+        setMyLocation()
+    }
+    
     func zoomDevice() {
+        
+        // no devices
+        if selectedDevice == nil {
+            return
+        }
+        
         if let p = WebService.sharedInstance.positionByDeviceId((selectedDevice?.id)!) {
             let userCoordinate = p.coordinate
             let longitudeDeltaDegrees : CLLocationDegrees = 0.014
