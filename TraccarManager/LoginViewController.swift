@@ -92,15 +92,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
+    func setEnabledFields(enabled: Bool) {
+        serverField.isEnabled = enabled
+        emailField.isEnabled = enabled
+        passwordField.isEnabled = enabled
+        loginButton.isEnabled = enabled
+    }
+    
     @IBAction func loginButtonPressed() {
         
         progressView.startAnimating()
+        setEnabledFields(enabled: false)
         
         WebService.sharedInstance.authenticate(serverField!.text!, email: emailField!.text!, password: passwordField!.text!, onFailure: { error in
             
             DispatchQueue.main.async(execute: {
                 
                 self.progressView.stopAnimating()
+                self.setEnabledFields(enabled: true)
                 
                 if error.code == -1202 {
                     self.trustDomain = (URL(string: self.serverField.text!)?.host)!
@@ -131,6 +140,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.saveDefaults()
                 
                 self.progressView.stopAnimating()
+                self.setEnabledFields(enabled: true)
                 
                 self.dismiss(animated: true, completion: nil)
                 
