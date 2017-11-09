@@ -61,6 +61,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     // if a map pin is tapped by the user, a reference will be stored here
     var selectedDevice: Device?
+    var followDevice = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +80,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         mapView?.isRotateEnabled = false
         mapView?.delegate = self
-        
+        let stopFollow = UITapGestureRecognizer(target: self, action: #selector(self.stopFollowDevice))
+        mapView?.addGestureRecognizer(stopFollow)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -234,6 +236,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 } else if isPositionChanged {
                     point?.update(coordinate: p.coordinate)
                 }
+                if point!.selected! && followDevice {
+                    zoomDevice()
+                }
             }
         }
         if isLogin {
@@ -241,6 +246,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             self.mapView?.showAnnotations((self.mapView?.annotations)!, animated: true)
             isLogin = false
         }
+    }
+    
+    @objc func stopFollowDevice(gesture: UIGestureRecognizer) {
+        followDevice = false
+        mapView?.selectedAnnotations = []
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -268,12 +278,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     // MARK: handle the tap of a map pin info button
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let a = view.annotation as? CarAnnotation {
+        if let a: CarAnnotation = view.annotation as? CarAnnotation {
             selectedDevice = WebService.sharedInstance.deviceById(a.deviceId!)
             a.selected = true
+            followDevice = true
         }
     }
     
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        
+        let cLocation = mapView.centerCoordinate
+        let myLocation = mapView.userLocation.coordinate
+        let delta = 0.001
+        
+        if cLocation.latitude > myLocation.latitude - delta && cLocation.latitude < myLocation.latitude + delta
+            && cLocation.longitude > myLocation.longitude  - delta && cLocation.longitude < myLocation.longitude  + delta{
+            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocationset")
+        } else {
+            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocation")
+        }
+    }
+    
+    func setMyLocation() {
+        let myLocation = mapView?.userLocation.coordinate
+        let viewRegion = MKCoordinateRegionMakeWithDistance(myLocation!, 700, 100)
+        mapView?.setRegion(viewRegion, animated: true)
+    }
     
     @objc func didTapMapPinDisclosureButton(_ sender: UIButton) {
         if selectedDevice != nil {
@@ -305,32 +335,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-    
-        let cLocation = mapView.centerCoordinate
-        let myLocation = mapView.userLocation.coordinate
-        let delta = 0.001
-        
-        if cLocation.latitude > myLocation.latitude - delta && cLocation.latitude < myLocation.latitude + delta
-            && cLocation.longitude > myLocation.longitude  - delta && cLocation.longitude < myLocation.longitude  + delta{
-            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocationset")
-        } else {
-            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocation")
-        }
-    }
-    
-    func setMyLocation() {
-        let myLocation = mapView?.userLocation.coordinate
-        let viewRegion = MKCoordinateRegionMakeWithDistance(myLocation!, 700, 100)
-        mapView?.setRegion(viewRegion, animated: true)
-    }
-    
     func zoomDevice() {
         
         // no devices
         if selectedDevice == nil {
             return
         }
+        
+        followDevice = true
         
         if let p = WebService.sharedInstance.positionByDeviceId((selectedDevice?.id)!) {
             let userCoordinate = p.coordinate
@@ -339,8 +351,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let userSpan = MKCoordinateSpanMake(latitudeDeltaDegrees, longitudeDeltaDegrees)
             let userRegion = MKCoordinateRegionMake(userCoordinate, userSpan)
             
-            mapView?.setRegion(userRegion, animated: true)
-    
+            UIView.animate(withDuration: 2.0, animations: {
+                self.mapView?.setRegion(userRegion, animated: true)
+            })
+            
+            for a in (mapView?.annotations)! {
+                if let a = a as? CarAnnotation {
+                    if a.deviceId == selectedDevice?.id {
+                        mapView?.selectedAnnotations = [a as MKAnnotation]
+                        break
+                    }
+                }
+            }
         }
     }
     
