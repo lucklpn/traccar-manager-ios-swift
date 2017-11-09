@@ -271,7 +271,7 @@ class WebService: NSObject, SRWebSocketDelegate {
     func getDataServer (filter: String, urlPoint: String, onFailure: ((String) -> Void)? = nil, onSuccess: @escaping (Data) -> Void) {
         
         let url = serverURL! + "api/" + urlPoint + filter
-       
+        
         WebService.Manager.request(url).responseString(encoding: .utf8, completionHandler: { response in
             
             switch response.result {
@@ -308,8 +308,10 @@ class WebService: NSObject, SRWebSocketDelegate {
         ]
         
         // Create custom manager
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Accept"] = "application/json"
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
+        configuration.httpAdditionalHeaders = headers
         let manager = Alamofire.SessionManager(
             configuration: URLSessionConfiguration.default,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
