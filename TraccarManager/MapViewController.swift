@@ -57,16 +57,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // map every single time this view appears
     fileprivate var shouldCenterOnAppear: Bool = true
     
-    // if a map pin is tapped by the user, a reference will be stored here 
-    var selectedAnnotation: PositionAnnotation?
-    var selectedDevice: Device?
+    var isLogin = true
     
-    let locationManager = CLLocationManager()
+    // if a map pin is tapped by the user, a reference will be stored here
+    var selectedDevice: Device?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if CLLocationManager.authorizationStatus() == .notDetermined {
+            let locationManager = CLLocationManager()
             locationManager.requestWhenInUseAuthorization()
         }
         
@@ -78,6 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // don't let user open devices view until the devices have been loaded
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         mapView?.isRotateEnabled = false
+        mapView?.delegate = self
         
     }
     
@@ -114,10 +115,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
 
     @IBAction func reportButtonPressed(_ sender: Any) {
-   
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "ReportListViewStoryboard")  as! ReportListViewController
         navigationController!.pushViewController(vc, animated: true)
-        
     }
     
     @IBAction func devicesButtonPressed() {
@@ -128,17 +127,29 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView?.showAnnotations((mapView?.annotations)!, animated: true)
     }
     
+    @IBAction func pressButtonMyLocation(_ sender: Any) {
+        setMyLocation()
+        buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocationset")
+    }
+    
+    @IBAction func switchLayers(_ sender: Any) {
+        
+        if mapView?.mapType == MKMapType.standard {
+            mapView?.mapType = MKMapType.satellite
+            showToast(message: "Satellite layer")
+        } else if mapView?.mapType == MKMapType.satellite {
+            mapView?.mapType = MKMapType.hybrid
+            showToast(message: "Hybrid layer")
+        } else {
+            mapView?.mapType = MKMapType.standard
+            showToast(message: "Standard layer")
+        }
+        
+    }
+    
     @objc func loginStatusChanged() {
         
         if User.sharedInstance.isAuthenticated {
-            
-//            if shouldCenterOnAppear {
-//                let centerCoordinates = User.sharedInstance.mapCenter
-//                assert(CLLocationCoordinate2DIsValid(centerCoordinates), "Map center coordinates aren't valid")
-//                self.mapView?.setCenter(centerCoordinates, animated: true)
-//
-//                shouldCenterOnAppear = false
-//            }
             
             refreshDevices()
         }
@@ -154,8 +165,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             // if devices are added/removed from the server while user is logged-in, the
             // positions will be added/removed from the map here
             self.refreshPositions()
-            //set region all devices
-            //self.mapView?.showAnnotations((self.mapView?.annotations)!, animated: true)
         })
         
     }
@@ -165,115 +174,109 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // positions of devices
         self.positions = WebService.sharedInstance.positions
         
+        //remove annotations
+        for ea in (self.mapView?.annotations)! {
+            if let a = ea as? CarAnnotation {
+                if WebService.sharedInstance.deviceById(a.deviceId!) == nil {
+                    self.mapView?.removeAnnotation(a)
+                }
+            }
+        }
+        
         for device in self.devices {
             
-            var annotationForDevice: PositionAnnotation?
+            var annotationForDevice: CarAnnotation?
             for existingAnnotation in (self.mapView?.annotations)! {
-                if let a = existingAnnotation as? PositionAnnotation {
+                if let a = existingAnnotation as? CarAnnotation {
                     if a.deviceId == device.id {
                         annotationForDevice = a
                         break
                     }
                 }
             }
-            
-            if let a = annotationForDevice {
+        
+            if let p = WebService.sharedInstance.positionByDeviceId(device.id!) {
                 
-                if let p = WebService.sharedInstance.positionByDeviceId(a.deviceId!) {
-                    if p.id == a.positionId
-                        && device.status == a.status
-                        && device.category == a.category
-                        && p.course == a.course {
-                        // this annotation is still current, don't change it
-                    } else {
-                        self.mapView?.removeAnnotation(a)
-                        
-                        let a = PositionAnnotation()
-                        
-                        a.coordinate = p.coordinate
-                        a.title = p.annotationTitle
-                        a.subtitle = p.annotationSubtitle
-                        a.positionId = p.id
-                        
-                        a.deviceId = p.deviceId
-                        a.status = device.status
-                        a.course = p.course
-                        a.speed = p.speed
-                        a.category = device.category
-                        
-//                        if device.id == selectedDevice?.id {
-//                            a.selected = true
-//                        } else {
-//                            a.selected = false
-//                        }
-                        
-                        self.mapView?.addAnnotation(a)
-                        
-                        // device ID will not have changed
-                        // changed status, cource
-                    }
+                var isPositionChanged = false
+             
+                var point: CarAnnotation?
+                if annotationForDevice == nil {
+                    point = CarAnnotation(coordinate: p.coordinate)
+                    point?.deviceId = device.id
                 } else {
-                    // the position for this device has been removed
-                    self.mapView?.removeAnnotation(a)
+                    point = annotationForDevice
                 }
                 
-            } else {
-                
-                // there's no annotation for the device's position, we need to add one
-                
-                if let p = WebService.sharedInstance.positionByDeviceId(device.id!) {
-                    let a = PositionAnnotation()
-                    a.coordinate = p.coordinate
-                    a.title = p.annotationTitle
-                    a.subtitle = p.annotationSubtitle
-                    a.positionId = p.id
-                    a.deviceId = p.deviceId
-                    
-                    a.status = device.status
-                    a.course = p.course
-                    a.speed = p.speed
-                    a.category = device.category
-                    
-                    self.mapView?.addAnnotation(a)
+                if point?.positionId != p.id {
+                    //position changed
+                    isPositionChanged = true
+                    point?.positionId = p.id
+                    point?.course = p.course
+                    point?.speed = p.speed
+                    point?.subtitle = p.address
+                }
+                let isDeviceSelected = selectedDevice?.id == device.id
+                if point?.selected != isDeviceSelected {
+                    point?.selected = isDeviceSelected
+                }
+                if point?.title != device.name {
+                    point?.title = device.name
+                }
+                if point?.status != device.status {
+                    point?.status = device.status
+                }
+                if point?.category != device.category {
+                    point?.category = device.category
                 }
                 
+                if annotationForDevice == nil {
+                    self.mapView?.addAnnotation(point!)
+                } else if isPositionChanged {
+                    point?.update(coordinate: p.coordinate)
+                }
             }
         }
-        
+        if isLogin {
+            //set region all devices
+            self.mapView?.showAnnotations((self.mapView?.annotations)!, animated: true)
+            isLogin = false
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        if annotation.isKind(of: MKUserLocation.self) {
+        if annotation is MKUserLocation {
             return nil
         }
+
+        let a = annotation as! CarAnnotation
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin" + String(a.deviceId!))
+        if annotationView == nil {
+            annotationView = CarAnnotationView(annotation: annotation, reuseIdentifier: "Pin" + String(a.deviceId!))
+            annotationView?.canShowCallout = true
+        }else{
+            annotationView?.annotation = annotation
+        }
         
-        //var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
-        //if pinView == nil {
-            //pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
-            let pinView = CustomPositionAnnotation(annotation: annotation, reuseIdentifier: "Pin")
-            pinView.canShowCallout = true
-            
-            let btn = UIButton(type: .detailDisclosure)
-            btn.addTarget(self, action: #selector(MapViewController.didTapMapPinDisclosureButton), for: UIControlEvents.touchUpInside)
-            pinView.rightCalloutAccessoryView = btn
-        //}
+        let btn = UIButton(type: .detailDisclosure)
+        btn.addTarget(self, action: #selector(MapViewController.didTapMapPinDisclosureButton), for: UIControlEvents.touchUpInside)
+        annotationView?.rightCalloutAccessoryView = btn
         
-        pinView.annotation = annotation
+        return annotationView
         
-        return pinView
     }
     
     // MARK: handle the tap of a map pin info button
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let a = view.annotation as? PositionAnnotation {
-            selectedAnnotation = a
+        if let a = view.annotation as? CarAnnotation {
+            selectedDevice = WebService.sharedInstance.deviceById(a.deviceId!)
+            a.selected = true
         }
     }
     
+    
     @objc func didTapMapPinDisclosureButton(_ sender: UIButton) {
-        if selectedAnnotation != nil {
+        if selectedDevice != nil {
             performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
         }
     }
@@ -282,24 +285,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         // running on iPhone
         if let dvc = segue.destination as? DeviceInfoViewController {
-            
             // set device on the info view
-            if let deviceId = selectedAnnotation?.deviceId {
-                if let device = WebService.sharedInstance.deviceById(deviceId) {
-                    dvc.device = device
-                }
-            }
-            
+            dvc.device = selectedDevice
+           
         } else if let nc = segue.destination as? UINavigationController {
             
             if let dvc = nc.topViewController as? DeviceInfoViewController {
-                
                 // set device on the info view
-                if let deviceId = selectedAnnotation?.deviceId {
-                    if let device = WebService.sharedInstance.deviceById(deviceId) {
-                        dvc.device = device
-                    }
-                }
+                dvc.device = selectedDevice
                 
                 // show a close button if we're running on an iPad
                 dvc.shouldShowCloseButton = true
@@ -330,26 +323,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let myLocation = mapView?.userLocation.coordinate
         let viewRegion = MKCoordinateRegionMakeWithDistance(myLocation!, 700, 100)
         mapView?.setRegion(viewRegion, animated: true)
-        
-    }
-    
-    @IBAction func switchLayers(_ sender: Any) {
-        
-        if mapView?.mapType == MKMapType.standard {
-            mapView?.mapType = MKMapType.satellite
-            showToast(message: "Satellite layer")
-        } else if mapView?.mapType == MKMapType.satellite {
-            mapView?.mapType = MKMapType.hybrid
-            showToast(message: "Hybrid layer")
-        } else {
-            mapView?.mapType = MKMapType.standard
-            showToast(message: "Standard layer")
-        }
-        
-    }
-    
-    @IBAction func pressButtonMyLocation(_ sender: Any) {
-        setMyLocation()
     }
     
     func zoomDevice() {
@@ -367,19 +340,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let userRegion = MKCoordinateRegionMake(userCoordinate, userSpan)
             
             mapView?.setRegion(userRegion, animated: true)
-            
-            for existingAnnotation in (self.mapView?.annotations)! {
-                if let a = existingAnnotation as? PositionAnnotation {
-                    if a.deviceId == selectedDevice?.id {
-                        mapView?.selectAnnotation(a, animated: true)
-                        break
-                    }
-                }
-            }
-
-            refreshDevices()
-            
+    
         }
     }
-
+    
 }

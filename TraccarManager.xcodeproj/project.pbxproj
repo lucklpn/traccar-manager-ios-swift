@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		4B0B9EDD1F2B043A002A99DC /* KeychainAttrRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDB1F2B043A002A99DC /* KeychainAttrRepresentable.swift */; };
 		4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */; };
-		4B0B9EE01F2B10F2002A99DC /* CustomPositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDF1F2B10F2002A99DC /* CustomPositionAnnotation.swift */; };
+		4B0B9EE01F2B10F2002A99DC /* CarAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0B9EDF1F2B10F2002A99DC /* CarAnnotationView.swift */; };
+		4B2A7DAE1FB340FE0017A71B /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A7DAD1FB340FE0017A71B /* Position.swift */; };
 		4B30B1501F80258F0032CB91 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30B14F1F80258F0032CB91 /* ReportViewController.swift */; };
 		4B30B1521F803C610032CB91 /* Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30B1511F803C610032CB91 /* Summary.swift */; };
 		4B30B1571F8041280032CB91 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B30B1531F803EA30032CB91 /* SwiftyJSON.framework */; };
@@ -20,6 +21,7 @@
 		4B471C161FAE5C6F00228C0E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C151FAE5C6F00228C0E /* Device.swift */; };
 		4B471C181FAE5D1600228C0E /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C171FAE5D1600228C0E /* Attribute.swift */; };
 		4B471C1A1FAE689C00228C0E /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C191FAE689C00228C0E /* Geofence.swift */; };
+		4B471C1C1FB2190C00228C0E /* CarAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C1B1FB2190C00228C0E /* CarAnnotation.swift */; };
 		4B8E31781F80D622007AF70D /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8E31771F80D622007AF70D /* FilterViewController.swift */; };
 		4BACB9521F8017D70074A6AB /* ReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACB9511F8017D70074A6AB /* ReportListViewController.swift */; };
 		CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0721121C86EB9800D057CE /* AppDelegate.swift */; };
@@ -36,14 +38,8 @@
 		D3091C0F1CD9D0670017F0DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C0D1CD9D0670017F0DC /* User.swift */; };
 		D3091C101CD9D0670017F0DC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091C0D1CD9D0670017F0DC /* User.swift */; };
 		D3091C121CD9D86F0017F0DC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3091C111CD9D86F0017F0DC /* CoreLocation.framework */; };
-		D3091CA91CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
-		D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
-		D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CA81CDDE2900017F0DC /* Position.swift */; };
 		D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */; };
 		D30ACDB71CE5409700925366 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30ACDB51CE5409700925366 /* Main-iPad.storyboard */; };
-		D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
-		D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
-		D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F251CE1C77900795822 /* PositionAnnotation.swift */; };
 		D3394F351CE2A56600795822 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F341CE2A56600795822 /* Definitions.swift */; };
 		D3394F361CE2A56600795822 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F341CE2A56600795822 /* Definitions.swift */; };
 		D3394F371CE2A56600795822 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3394F341CE2A56600795822 /* Definitions.swift */; };
@@ -84,7 +80,8 @@
 /* Begin PBXFileReference section */
 		4B0B9EDB1F2B043A002A99DC /* KeychainAttrRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainAttrRepresentable.swift; path = Utils/KeychainWrapper/KeychainAttrRepresentable.swift; sourceTree = "<group>"; };
 		4B0B9EDC1F2B043A002A99DC /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Utils/KeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
-		4B0B9EDF1F2B10F2002A99DC /* CustomPositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPositionAnnotation.swift; sourceTree = "<group>"; };
+		4B0B9EDF1F2B10F2002A99DC /* CarAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarAnnotationView.swift; sourceTree = "<group>"; };
+		4B2A7DAD1FB340FE0017A71B /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		4B30B14F1F80258F0032CB91 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		4B30B1511F803C610032CB91 /* Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summary.swift; sourceTree = "<group>"; };
 		4B30B1531F803EA30032CB91 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
@@ -95,6 +92,7 @@
 		4B471C151FAE5C6F00228C0E /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4B471C171FAE5D1600228C0E /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		4B471C191FAE689C00228C0E /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
+		4B471C1B1FB2190C00228C0E /* CarAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarAnnotation.swift; sourceTree = "<group>"; };
 		4B8E31771F80D622007AF70D /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4BACB9511F8017D70074A6AB /* ReportListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportListViewController.swift; sourceTree = "<group>"; };
 		CE07210F1C86EB9800D057CE /* TraccarManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TraccarManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,11 +113,9 @@
 		CEE848D51CCDCF34000B1E9D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D3091C0D1CD9D0670017F0DC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D3091C111CD9D86F0017F0DC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		D3091CA81CDDE2900017F0DC /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		D30ACDB61CE5409700925366 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main-iPad.storyboard"; sourceTree = "<group>"; };
 		D30ACE041CE5DE7300925366 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = TraccarManager/BridgingHeader.h; sourceTree = "<group>"; };
-		D3394F251CE1C77900795822 /* PositionAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAnnotation.swift; sourceTree = "<group>"; };
 		D3394F341CE2A56600795822 /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		D3394F381CE3D0AD00795822 /* SocketRocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketRocket.framework; path = Carthage/Build/iOS/SocketRocket.framework; sourceTree = "<group>"; };
 		D3394F391CE3D0AD00795822 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -219,8 +215,8 @@
 				4BACB9511F8017D70074A6AB /* ReportListViewController.swift */,
 				4B30B14F1F80258F0032CB91 /* ReportViewController.swift */,
 				4B8E31771F80D622007AF70D /* FilterViewController.swift */,
-				D3394F251CE1C77900795822 /* PositionAnnotation.swift */,
-				4B0B9EDF1F2B10F2002A99DC /* CustomPositionAnnotation.swift */,
+				4B0B9EDF1F2B10F2002A99DC /* CarAnnotationView.swift */,
+				4B471C1B1FB2190C00228C0E /* CarAnnotation.swift */,
 				CEE848D31CCDCF0E000B1E9D /* DevicesViewController.swift */,
 				D3091CBE1CDEAED10017F0DC /* DeviceInfoViewController.swift */,
 				CE0721161C86EB9800D057CE /* Main.storyboard */,
@@ -261,7 +257,7 @@
 				4B471C171FAE5D1600228C0E /* Attribute.swift */,
 				4B34CEF91FACC91600709B17 /* Event.swift */,
 				4B471C191FAE689C00228C0E /* Geofence.swift */,
-				D3091CA81CDDE2900017F0DC /* Position.swift */,
+				4B2A7DAD1FB340FE0017A71B /* Position.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -429,24 +425,24 @@
 				4B0B9EDD1F2B043A002A99DC /* KeychainAttrRepresentable.swift in Sources */,
 				D3091C0E1CD9D0670017F0DC /* User.swift in Sources */,
 				D3091CBF1CDEAED10017F0DC /* DeviceInfoViewController.swift in Sources */,
-				4B0B9EE01F2B10F2002A99DC /* CustomPositionAnnotation.swift in Sources */,
+				4B0B9EE01F2B10F2002A99DC /* CarAnnotationView.swift in Sources */,
 				4B30B1521F803C610032CB91 /* Summary.swift in Sources */,
 				D3394F351CE2A56600795822 /* Definitions.swift in Sources */,
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
+				4B2A7DAE1FB340FE0017A71B /* Position.swift in Sources */,
 				4B471C1A1FAE689C00228C0E /* Geofence.swift in Sources */,
 				4B34CEF41FAC649A00709B17 /* Extensions.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 				4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */,
 				4B0B9EDE1F2B043A002A99DC /* KeychainWrapper.swift in Sources */,
 				4B471C161FAE5C6F00228C0E /* Device.swift in Sources */,
-				D3091CA91CDDE2900017F0DC /* Position.swift in Sources */,
+				4B471C1C1FB2190C00228C0E /* CarAnnotation.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
 				4B34CEFA1FACC91600709B17 /* Event.swift in Sources */,
 				4B8E31781F80D622007AF70D /* FilterViewController.swift in Sources */,
 				4B30B1501F80258F0032CB91 /* ReportViewController.swift in Sources */,
 				4B471C181FAE5D1600228C0E /* Attribute.swift in Sources */,
 				4BACB9521F8017D70074A6AB /* ReportListViewController.swift in Sources */,
-				D3394F261CE1C77900795822 /* PositionAnnotation.swift in Sources */,
 				4B30B15D1F80C73F0032CB91 /* formatNumber.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,8 +454,6 @@
 				D3394F361CE2A56600795822 /* Definitions.swift in Sources */,
 				D3091C0F1CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721281C86EB9800D057CE /* TraccarManagerTests.swift in Sources */,
-				D3091CAA1CDDE2900017F0DC /* Position.swift in Sources */,
-				D3394F271CE1C77900795822 /* PositionAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,8 +464,6 @@
 				D3394F371CE2A56600795822 /* Definitions.swift in Sources */,
 				D3091C101CD9D0670017F0DC /* User.swift in Sources */,
 				CE0721331C86EB9800D057CE /* TraccarManagerUITests.swift in Sources */,
-				D3091CAB1CDDE2900017F0DC /* Position.swift in Sources */,
-				D3394F281CE1C77900795822 /* PositionAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

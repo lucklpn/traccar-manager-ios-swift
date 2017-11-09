@@ -21,18 +21,18 @@ class User: NSObject {
     
     static let sharedInstance = User()
     
-    var admin: NSNumber?
-    var distanceUnit: String?
-    var email: String?
-    var id: NSNumber?
-    var latitude: NSNumber?
-    var longitude: NSNumber?
-    var map: String?
-    var name: String?
-    var readonly: NSNumber?
-    var speedUnit: String?
-    var twelveHourFormat: NSNumber?
-    var zoom: NSNumber?
+    @objc var admin: NSNumber?
+    @objc var distanceUnit: String?
+    @objc var email: String?
+    @objc var id: NSNumber?
+    @objc var latitude: NSNumber?
+    @objc var longitude: NSNumber?
+    @objc var map: String?
+    @objc var name: String?
+    @objc var readonly: NSNumber?
+    @objc var speedUnit: String?
+    @objc var twelveHourFormat: NSNumber?
+    @objc var zoom: NSNumber?
     
     var mapCenter: CLLocationCoordinate2D {
         guard let lat = latitude else {

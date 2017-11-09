@@ -21,22 +21,22 @@ import CoreLocation
  
  TODO: Position attributes?
  
-    {
-     "status": "00000000",
-     "charge": true,
-     "ignition": false,
-     "odometer": 0,
-     "ip": "118.148.169.48"
-    }
+ {
+ "status": "00000000",
+ "charge": true,
+ "ignition": false,
+ "odometer": 0,
+ "ip": "118.148.169.48"
+ }
  
-*/
+ */
 
 class Position: NSObject {
     
-    var id: NSNumber?
+    @objc var id: NSNumber?
     var deviceId: Int?
     
-    var attributes: [String : AnyObject]?
+    @objc var attributes: [String : AnyObject]?
     
     // protocol is reserved
     var positionProtocol: String?
@@ -44,12 +44,14 @@ class Position: NSObject {
     // type is reserved
     var positionType: String?
     
-    var latitude: NSNumber?
-    var longitude: NSNumber?
-    var speed: NSNumber?
-    var course: NSNumber?
-    var address: NSString?
-    var altitude: NSNumber?
+    @objc var latitude: NSNumber?
+    @objc var longitude: NSNumber?
+    @objc var speed: NSNumber?
+    @objc var course: NSNumber?
+    @objc var address: String?
+    @objc var altitude: NSNumber?
+    @objc var accuracy: NSNumber?
+    @objc var network: String?
     
     // outdated is reserved
     var isOutdated: Bool?
@@ -70,7 +72,7 @@ class Position: NSObject {
     // logic derived from public domain code by Martin R, copied on 9 May 2016
     // http://stackoverflow.com/a/13220694/336419
     static let compassDirections = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
-    "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+                                    "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
     
     // returns the course of this position as a compass direction
     var courseDirectionString : String? {
@@ -83,7 +85,7 @@ class Position: NSObject {
         }
     }
     
-    var speedString: String? {
+    @objc var speedString: String? {
         get {
             if let s = speed {
                 
@@ -108,7 +110,7 @@ class Position: NSObject {
     // this gives about 10cm resolution and is plenty
     fileprivate var latLonFormatter: NumberFormatter
     
-    var latitudeString: String? {
+    @objc var latitudeString: String? {
         get {
             if let l = latitude {
                 return latLonFormatter.string(from: l)
@@ -117,7 +119,7 @@ class Position: NSObject {
         }
     }
     
-    var longitudeString: String? {
+    @objc var longitudeString: String? {
         get {
             if let l = longitude {
                 return latLonFormatter.string(from: l)
@@ -206,3 +208,4 @@ class Position: NSObject {
     }
     
 }
+
