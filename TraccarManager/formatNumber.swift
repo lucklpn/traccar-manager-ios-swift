@@ -23,7 +23,24 @@ class formatNumber: NumberFormatter {
         self.usesGroupingSeparator = true
         self.numberStyle = .decimal
     }
-    
     static let sharedInstance = formatNumber()
+}
+
+extension Double {
+    
+    func stringFormat(round: Int) -> String {
+    
+        // format speed to 1 dp
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = round
+        let formatted = formatter.string(from: self as NSNumber)
+        
+        if let fs = formatted {
+            return fs
+        } else {
+            return ""
+        }
+    }
 }
 

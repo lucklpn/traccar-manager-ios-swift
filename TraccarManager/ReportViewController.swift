@@ -51,8 +51,8 @@ class ReportViewController: UITableViewController {
             nameColumns = ["Name Device", "Distance", "Adverage Speed", "Maximum Speed", "Engine Hours"]
             keyColumns = ["devicename", "distance", "averageSpeed", "maxSpeed", "engineHours"]
         } else if typeReport == typeReports.Events {
-            nameColumns = ["Time", "Type", "Geofence"]
-            keyColumns = ["Time", "Type", "Geofence"]
+            nameColumns = ["Time", "Type", "Geofence", "Attributes"]
+            keyColumns = ["serverTime", "Type", "Geofence", "Attributes"]
         }
     }
     
@@ -84,14 +84,18 @@ class ReportViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        var cell: UITableViewCell
+        
+        var cell: UITableViewCell!
         if typeReport == typeReports.Summary {
             cell = tableView.dequeueReusableCell(withIdentifier: "cellSummary")!
-        } else if typeReport == typeReports.Events {
+        } else if Definitions.isRunningOniPad && typeReport == typeReports.Events {
             cell = tableView.dequeueReusableCell(withIdentifier: "cellEvents")!
+        } else if typeReport == typeReports.Events {
+            cell = tableView.dequeueReusableCell(withIdentifier: "cellEventsHeader")!
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "cellSummary")!
+            cell  = tableView.dequeueReusableCell(withIdentifier: "cellSummary")!
         }
+        
         if Definitions.isRunningOniPad {
             if typeReport == typeReports.Summary {
                 for i in 0...nameColumns.count - 1 {
@@ -101,19 +105,17 @@ class ReportViewController: UITableViewController {
                 let key = Array(tableEvent.keys)[section]
                 (cell.viewWithTag(1) as! UILabel).text = WebService.sharedInstance.deviceById(key)?.name
                 (cell.viewWithTag(2) as! UILabel).text = String(tableEvent[key]!.count) + " events"
+                (cell.viewWithTag(3) as! UILabel).text = ""
             }
         } else {
             if typeReport == typeReports.Summary {
                 (cell.viewWithTag(1) as! UILabel).text = tableSummary[section].deviceName
+                (cell.viewWithTag(2) as! UILabel).text = ""
             } else if typeReport == typeReports.Events {
-                (cell.viewWithTag(3) as! UILabel).text = ""
-                (cell.viewWithTag(4) as! UILabel).text = ""
-                (cell.viewWithTag(5) as! UILabel).text = ""
-                (cell.viewWithTag(6) as! UILabel).text = ""
                 let key = Array(tableEvent.keys)[section]
                 (cell.viewWithTag(1) as! UILabel).text = WebService.sharedInstance.deviceById(key)?.name
+                (cell.viewWithTag(2) as! UILabel).text = String(tableEvent[key]!.count) + " events"
             }
-            (cell.viewWithTag(2) as! UILabel).text = ""
         }
       
         cell.backgroundColor = UIColor.init(red: 235/255, green: 235/255, blue: 241/255, alpha: 1)
@@ -122,7 +124,7 @@ class ReportViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell
+        var cell: UITableViewCell!
         if typeReport == typeReports.Summary {
             cell = tableView.dequeueReusableCell(withIdentifier: "cellSummary", for: indexPath) as UITableViewCell
         } else if typeReport == typeReports.Events {
@@ -137,8 +139,22 @@ class ReportViewController: UITableViewController {
                 if typeReport == typeReports.Summary {
                     (cell.viewWithTag(i + 1) as! UILabel).text = tableSummary[indexPath.row].valueString(forKey: keyColumns[i])
                 } else if typeReport == typeReports.Events {
+                    var desc = ""
                     let key = Array(tableEvent.keys)[indexPath.section]
-                    (cell.viewWithTag(i + 1) as! UILabel).text = (tableEvent[key] as [Event]!)[indexPath.row].valueString(forKey: keyColumns[i])
+                    if keyColumns[i] == "Attributes" {
+                        continue
+                    } else if keyColumns[i] == "Geofence"{
+                        let countattr = ((tableEvent[key] as [Event]!)[indexPath.row].attributes?.AttributeName.count)! - 1
+                        if countattr > 0 {
+                            for i in 0...countattr {
+                                desc = desc + " "
+                                    + ((tableEvent[key] as [Event]!)[indexPath.row].attributes?.AttributeName[i])! + " = "
+                                    + ((tableEvent[key] as [Event]!)[indexPath.row].attributes?.AttributeValue[i])!
+                            }
+                        }
+                    }
+                    
+                    (cell.viewWithTag(i + 1) as! UILabel).text = (tableEvent[key] as [Event]!)[indexPath.row].valueString(forKey: keyColumns[i]) + desc
                 }
             }
             
@@ -152,9 +168,11 @@ class ReportViewController: UITableViewController {
                 (cell.viewWithTag(1) as! UILabel).text = "Time"
                 (cell.viewWithTag(3) as! UILabel).text = "Type"
                 (cell.viewWithTag(5) as! UILabel).text = "Geofence"
+                (cell.viewWithTag(7) as! UILabel).text = "Attributes"
                 (cell.viewWithTag(2) as! UILabel).text = (tableEvent[key] as [Event]!)[indexPath.row].valueString(forKey: "Time")
                 (cell.viewWithTag(4) as! UILabel).text = (tableEvent[key] as [Event]!)[indexPath.row].valueString(forKey: "Type")
                 (cell.viewWithTag(6) as! UILabel).text = (tableEvent[key] as [Event]!)[indexPath.row].valueString(forKey: "Geofence")
+                (cell.viewWithTag(8) as! UILabel).text = (tableEvent[key] as [Event]!)[indexPath.row].valueString(forKey: "Attributes")
             }
             
         }
@@ -187,12 +205,16 @@ class ReportViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50.0
+        if !Definitions.isRunningOniPad && typeReport == typeReports.Events {
+            return 70.0
+        } else {
+            return 50.0
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if !Definitions.isRunningOniPad && typeReport == typeReports.Events {
-            return 90.0
+            return 110.0
         } else {
             return 44.0
         }
@@ -232,7 +254,7 @@ class ReportViewController: UITableViewController {
             
             DispatchQueue.main.async(execute: {
              
-                let ac = UIAlertController(title: "Ошибка запроса", message: errorString, preferredStyle: .alert)
+                let ac = UIAlertController(title: "Error request", message: errorString, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 ac.addAction(okAction)
                 self.present(ac, animated: true, completion: nil)
