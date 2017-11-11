@@ -539,7 +539,7 @@
         <scene sceneID="ihT-8p-4dK">
             <objects>
                 <tableViewController storyboardIdentifier="ReportViewControllerStoryboard" id="efO-3p-vsl" customClass="ReportViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="1" id="hkb-GS-DL6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="1" id="hkb-GS-DL6">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -672,10 +672,10 @@
             </objects>
             <point key="canvasLocation" x="1684" y="533"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail Map View Controller-->
         <scene sceneID="2qp-lf-32P">
             <objects>
-                <viewController id="6WU-Jf-2t8" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailMapViewStoryboard" id="6WU-Jf-2t8" customClass="DetailMapViewController" customModule="TraccarManager" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g1F-ha-0Ap"/>
                         <viewControllerLayoutGuide type="bottom" id="9JE-XI-iwf"/>
@@ -697,6 +697,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hVt-Fr-Bbt"/>
+                    <connections>
+                        <outlet property="mapView" destination="1qM-sB-kqx" id="Uvo-ch-ctt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lE5-dp-ari" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

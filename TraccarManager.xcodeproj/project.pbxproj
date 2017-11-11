@@ -18,6 +18,8 @@
 		4B34CEF41FAC649A00709B17 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF31FAC649A00709B17 /* Extensions.swift */; };
 		4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF71FAC9EAB00709B17 /* WebService.swift */; };
 		4B34CEFA1FACC91600709B17 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B34CEF91FACC91600709B17 /* Event.swift */; };
+		4B41E9401FB774D40007E76A /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B41E93F1FB774D40007E76A /* DetailMapViewController.swift */; };
+		4B41E9421FB783A10007E76A /* Positions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B41E9411FB783A10007E76A /* Positions.swift */; };
 		4B471C161FAE5C6F00228C0E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C151FAE5C6F00228C0E /* Device.swift */; };
 		4B471C181FAE5D1600228C0E /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C171FAE5D1600228C0E /* Attribute.swift */; };
 		4B471C1A1FAE689C00228C0E /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B471C191FAE689C00228C0E /* Geofence.swift */; };
@@ -90,6 +92,8 @@
 		4B34CEF31FAC649A00709B17 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4B34CEF71FAC9EAB00709B17 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		4B34CEF91FACC91600709B17 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		4B41E93F1FB774D40007E76A /* DetailMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
+		4B41E9411FB783A10007E76A /* Positions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Positions.swift; sourceTree = "<group>"; };
 		4B471C151FAE5C6F00228C0E /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		4B471C171FAE5D1600228C0E /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		4B471C191FAE689C00228C0E /* Geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 				CE0721141C86EB9800D057CE /* MapViewController.swift */,
 				4BACB9511F8017D70074A6AB /* ReportListViewController.swift */,
 				4B30B14F1F80258F0032CB91 /* ReportViewController.swift */,
+				4B41E93F1FB774D40007E76A /* DetailMapViewController.swift */,
 				4B8E31771F80D622007AF70D /* FilterViewController.swift */,
 				4B0B9EDF1F2B10F2002A99DC /* CarAnnotationView.swift */,
 				4B471C1B1FB2190C00228C0E /* CarAnnotation.swift */,
@@ -261,6 +266,7 @@
 				4B34CEF91FACC91600709B17 /* Event.swift */,
 				4B471C191FAE689C00228C0E /* Geofence.swift */,
 				4B2A7DAD1FB340FE0017A71B /* Position.swift */,
+				4B41E9411FB783A10007E76A /* Positions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -435,6 +441,7 @@
 				CE0721151C86EB9800D057CE /* MapViewController.swift in Sources */,
 				4B2A7DAE1FB340FE0017A71B /* Position.swift in Sources */,
 				4B471C1A1FAE689C00228C0E /* Geofence.swift in Sources */,
+				4B41E9401FB774D40007E76A /* DetailMapViewController.swift in Sources */,
 				4B34CEF41FAC649A00709B17 /* Extensions.swift in Sources */,
 				CE0721131C86EB9800D057CE /* AppDelegate.swift in Sources */,
 				4B34CEF81FAC9EAB00709B17 /* WebService.swift in Sources */,
@@ -443,6 +450,7 @@
 				4B471C1C1FB2190C00228C0E /* CarAnnotation.swift in Sources */,
 				CEE848D41CCDCF0E000B1E9D /* DevicesViewController.swift in Sources */,
 				4B34CEFA1FACC91600709B17 /* Event.swift in Sources */,
+				4B41E9421FB783A10007E76A /* Positions.swift in Sources */,
 				4B8E31781F80D622007AF70D /* FilterViewController.swift in Sources */,
 				4B30B1501F80258F0032CB91 /* ReportViewController.swift in Sources */,
 				4B471C181FAE5D1600228C0E /* Attribute.swift in Sources */,

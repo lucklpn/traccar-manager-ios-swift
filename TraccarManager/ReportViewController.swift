@@ -27,8 +27,15 @@ class ReportViewController: UITableViewController {
     
         refreshControl?.addTarget(self, action: #selector(self.getRequestStart), for: UIControlEvents.valueChanged)
         
-        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "Image_filter"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.getFilter))
-        self.navigationItem.rightBarButtonItem = button
+        let buttonFilter = UIBarButtonItem(image: #imageLiteral(resourceName: "Image_filter"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.getFilter))
+        let buttonMap = UIBarButtonItem(image: #imageLiteral(resourceName: "Image_placeholder"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.getMapDetail))
+        if typeReport == typeReports.Summary {
+            self.navigationItem.rightBarButtonItems = [buttonFilter]
+        } else if typeReport == typeReports.Events {
+            self.navigationItem.rightBarButtonItems = [buttonFilter, buttonMap]
+        }
+        //if no records
+        buttonMap.isEnabled = false
         
         let c = Calendar.current.dateComponents([.year, .month], from: Date())
         fromDate = Calendar.current.date(from: c)!
@@ -69,6 +76,15 @@ class ReportViewController: UITableViewController {
     
     @objc func getFilter() {
         self.performSegue(withIdentifier: "ShowFilter", sender: self)
+    }
+    
+    @objc func getMapDetail() {
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "DetailMapViewStoryboard")  as! DetailMapViewController
+        for indexPath in tableView.indexPathsForSelectedRows! {
+            let key = Array(tableEvent.keys)[indexPath.section]
+            vc.SelectedEvents.append(tableEvent[key]![indexPath.row])
+        }
+        navigationController!.pushViewController(vc, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -177,6 +193,43 @@ class ReportViewController: UITableViewController {
             
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch typeReport {
+        case .Summary:
+            tableView.deselectRow(at: indexPath, animated: true)
+        case .Events:
+            //enable button map
+            if tableView.indexPathsForSelectedRows?.count != 0 {
+                let key = Array(tableEvent.keys)[indexPath.section]
+                if tableEvent[key]![indexPath.row].positionId == 0 {
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    self.showToast(message: "Сoordinates not found", withDuration: 3.0, width: 220.0)
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    self.navigationItem.rightBarButtonItems![1].isEnabled = true
+                }
+            }
+        case .Route:
+            tableView.deselectRow(at: indexPath, animated: true)
+        case .Trips:
+            tableView.deselectRow(at: indexPath, animated: true)
+        case .Chart:
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        if typeReport == .Events {
+            //disable button map
+            if tableView.indexPathsForSelectedRows == nil || tableView.indexPathsForSelectedRows?.count == 0 {
+                self.navigationItem.rightBarButtonItems![1].isEnabled = false
+            }
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

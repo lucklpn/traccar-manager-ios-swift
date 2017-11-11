@@ -15,11 +15,11 @@ struct Event: Decodable {
     let serverTime: Date?
     let positionId: Int?
     let geofenceId: Int?
-    let attributes: AttributeEvent?
+    let attributes: AttributeObject?
     
 }
 
-struct AttributeEvent: Decodable {
+struct AttributeObject: Decodable {
     var AttributeName: [String]
     var AttributeValue: [String]
     

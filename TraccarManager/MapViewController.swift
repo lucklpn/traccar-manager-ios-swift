@@ -159,13 +159,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         switch mapView!.mapType {
         case .standard:
             mapView?.mapType = MKMapType.satellite
-            showToast(message: "Satellite layer")
+            showToast(message: "Satellite layer", withDuration: 1.5, width: 150.0)
         case .satellite:
             mapView?.mapType = MKMapType.hybrid
-            showToast(message: "Hybrid layer")
+            showToast(message: "Hybrid layer", withDuration: 1.5, width: 150.0)
         default:
             mapView?.mapType = MKMapType.standard
-            showToast(message: "Standard layer")
+            showToast(message: "Standard layer", withDuration: 1.5, width: 150.0)
         }
         themeColor()
     }
