@@ -18,34 +18,19 @@
 import UIKit
 import MapKit
 
-extension UIViewController {
-
-    func showToast(message : String) {
-
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
-        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center;
-        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 10;
-        toastLabel.clipsToBounds  =  true
-        self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 1.5, delay: 0.1, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
-    }
+//flag switching my position
+enum statusPosition: Int {
+    case goPosition = 1
+    case offPosition = 2
+    case onPosition = 3
 }
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var mapView: MKMapView?
     @IBOutlet var buttonReport: UIBarButtonItem!
-    @IBOutlet var buttonMyLocation: UIButton!
-    
+    @IBOutlet var buttonMyLocation: UIImageView!
+    @IBOutlet var viewMyLocation: UIView!
     
     fileprivate var devices: [Device] = []
     
@@ -62,26 +47,37 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // if a map pin is tapped by the user, a reference will be stored here
     var selectedDevice: Device?
     var followDevice = false
+    var statusMyPosition = statusPosition.onPosition
+    let locationManager = CLLocationManager()
+    
+    let blueColor = UIColor(red: 85 / 255, green: 155 / 255, blue: 248 / 255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            let locationManager = CLLocationManager()
             locationManager.requestWhenInUseAuthorization()
         }
         
-        buttonMyLocation.tintColor = UIColor(red: 85 / 255, green: 155 / 255, blue: 248 / 255, alpha: 1)
-        
-        mapView?.showsScale = true
-        mapView?.setUserTrackingMode(.follow, animated: true)
-        
+        let tapbuttonMyLocation = UITapGestureRecognizer(target: self, action: #selector(self.pressButtonMyLocation))
+        viewMyLocation.addGestureRecognizer(tapbuttonMyLocation)
+        buttonMyLocation.tintColor = blueColor
+        viewMyLocation.layer.cornerRadius = 7
+        viewMyLocation.layer.shadowRadius = 1
+        viewMyLocation.layer.shadowOpacity = 0.5
+        viewMyLocation.layer.shadowOffset = CGSize.zero
+        themeColor()
+    
         // don't let user open devices view until the devices have been loaded
         self.navigationItem.rightBarButtonItem?.isEnabled = false
+        mapView?.showsScale = true
         mapView?.isRotateEnabled = false
         mapView?.delegate = self
+        mapView?.setUserTrackingMode(.follow, animated: true)
         let stopFollow = UITapGestureRecognizer(target: self, action: #selector(self.stopFollowDevice))
         mapView?.addGestureRecognizer(stopFollow)
+        
+        setStatusMyLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,24 +125,49 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView?.showAnnotations((mapView?.annotations)!, animated: true)
     }
     
-    @IBAction func pressButtonMyLocation(_ sender: Any) {
-        setMyLocation()
-        buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocationset")
+    @objc func pressButtonMyLocation(recognaizer: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.3) {
+            self.viewMyLocation.backgroundColor = self.blueColor.withAlphaComponent(0.4)
+            self.buttonMyLocation.tintColor = UIColor.white
+            self.themeColor()
+        }
+        
+        switch statusMyPosition {
+        case .goPosition:
+            statusMyPosition = statusPosition.offPosition
+            mapView?.setUserTrackingMode(.none, animated: true)
+            mapView?.showsUserLocation = false
+        case .offPosition:
+            statusMyPosition = statusPosition.onPosition
+            mapView?.setUserTrackingMode(.none, animated: true)
+            mapView?.showsUserLocation = true
+        case .onPosition:
+            statusMyPosition = statusPosition.goPosition
+            mapView?.setUserTrackingMode(.follow, animated: true)
+            mapView?.showsUserLocation = true
+            //zoom my location
+            let myLocation = mapView?.userLocation.coordinate
+            let viewRegion = MKCoordinateRegionMakeWithDistance(myLocation!, 700, 100)
+            mapView?.setRegion(viewRegion, animated: true)
+        }
+        
+        setStatusMyLocation()
     }
     
     @IBAction func switchLayers(_ sender: Any) {
         
-        if mapView?.mapType == MKMapType.standard {
+        switch mapView!.mapType {
+        case .standard:
             mapView?.mapType = MKMapType.satellite
             showToast(message: "Satellite layer")
-        } else if mapView?.mapType == MKMapType.satellite {
+        case .satellite:
             mapView?.mapType = MKMapType.hybrid
             showToast(message: "Hybrid layer")
-        } else {
+        default:
             mapView?.mapType = MKMapType.standard
             showToast(message: "Standard layer")
         }
-        
+        themeColor()
     }
     
     @objc func loginStatusChanged() {
@@ -154,6 +175,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         if User.sharedInstance.isAuthenticated {
             
             refreshDevices()
+        }
+    }
+    
+    func setStatusMyLocation() {
+        
+        switch statusMyPosition {
+        case .goPosition:
+            buttonMyLocation?.image = #imageLiteral(resourceName: "Image_mylocation_go")
+        case .offPosition:
+            buttonMyLocation?.image = #imageLiteral(resourceName: "Image_mylocation_off")
+        case .onPosition:
+            buttonMyLocation?.image = #imageLiteral(resourceName: "Image_mylocation_on")
         }
     }
     
@@ -169,6 +202,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             self.refreshPositions()
         })
         
+    }
+    
+    func themeColor() {
+        if mapView?.mapType == MKMapType.standard {
+            viewMyLocation.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+            buttonMyLocation.tintColor = blueColor
+        } else {
+            viewMyLocation.backgroundColor = UIColor(red: 58 / 255, green: 45 / 255,  blue: 19 / 255, alpha: 0.9)
+            buttonMyLocation.tintColor = UIColor.white
+        }
     }
     
     func refreshPositions() {
@@ -287,22 +330,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
-        let cLocation = mapView.centerCoordinate
-        let myLocation = mapView.userLocation.coordinate
-        let delta = 0.001
+        if mapView.showsUserLocation {
+            
+            let cLocation = mapView.centerCoordinate
+            let myLocation = mapView.userLocation.coordinate
+            let delta = 0.001
+            
+            if cLocation.latitude > myLocation.latitude - delta && cLocation.latitude < myLocation.latitude + delta
+                && cLocation.longitude > myLocation.longitude  - delta && cLocation.longitude < myLocation.longitude  + delta{
+                statusMyPosition = statusPosition.goPosition
+            } else {
+                statusMyPosition = statusPosition.onPosition
+            }
+            setStatusMyLocation()
         
-        if cLocation.latitude > myLocation.latitude - delta && cLocation.latitude < myLocation.latitude + delta
-            && cLocation.longitude > myLocation.longitude  - delta && cLocation.longitude < myLocation.longitude  + delta{
-            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocationset")
-        } else {
-            buttonMyLocation.imageView?.image = #imageLiteral(resourceName: "Image_mylocation")
         }
-    }
-    
-    func setMyLocation() {
-        let myLocation = mapView?.userLocation.coordinate
-        let viewRegion = MKCoordinateRegionMakeWithDistance(myLocation!, 700, 100)
-        mapView?.setRegion(viewRegion, animated: true)
     }
     
     @objc func didTapMapPinDisclosureButton(_ sender: UIButton) {

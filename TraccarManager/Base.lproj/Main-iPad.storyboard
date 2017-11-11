@@ -63,21 +63,28 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HWl-0Z-9nB"/>
                                 </items>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zY3-TV-PxP">
-                                <rect key="frame" x="717" y="68" width="24" height="24"/>
-                                <state key="normal" image="Image_mylocation"/>
-                                <connections>
-                                    <action selector="pressButtonMyLocation:" destination="roU-eq-rb0" eventType="touchUpInside" id="fk7-vd-Fr4"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4wE-vI-JIe">
+                                <rect key="frame" x="722" y="55" width="36" height="40"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OH5-yS-vSC">
+                                        <rect key="frame" x="6" y="8" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1m4-BI-IxC"/>
+                                    <constraint firstAttribute="width" constant="36" id="olj-Zv-kPf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uwH-5m-y4X" firstAttribute="top" secondItem="GYh-lf-PG6" secondAttribute="bottom" id="GCm-jd-N3S"/>
                             <constraint firstItem="FaA-1D-289" firstAttribute="top" secondItem="uwH-5m-y4X" secondAttribute="bottom" constant="44" id="GH6-ct-uG4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="zY3-TV-PxP" secondAttribute="trailing" constant="7" id="KG6-Yy-Ewc"/>
+                            <constraint firstItem="4wE-vI-JIe" firstAttribute="top" secondItem="GYh-lf-PG6" secondAttribute="bottom" constant="35" id="LJa-x2-txs"/>
+                            <constraint firstAttribute="trailing" secondItem="4wE-vI-JIe" secondAttribute="trailing" constant="10" id="Leo-dH-wtP"/>
                             <constraint firstItem="uwH-5m-y4X" firstAttribute="leading" secondItem="xel-Rt-4qR" secondAttribute="leadingMargin" constant="-20" id="OhG-Ud-neH"/>
-                            <constraint firstItem="zY3-TV-PxP" firstAttribute="top" secondItem="GYh-lf-PG6" secondAttribute="bottom" constant="48" id="a0y-WQ-db9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uwH-5m-y4X" secondAttribute="trailing" constant="-20" id="cah-ki-ElH"/>
                             <constraint firstItem="FaA-1D-289" firstAttribute="top" secondItem="w25-Xm-NlZ" secondAttribute="bottom" id="kry-BM-YpR"/>
                             <constraint firstItem="w25-Xm-NlZ" firstAttribute="leading" secondItem="xel-Rt-4qR" secondAttribute="leadingMargin" constant="-20" id="myY-VT-LuC"/>
@@ -105,9 +112,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="buttonMyLocation" destination="zY3-TV-PxP" id="dyf-Id-Gdq"/>
+                        <outlet property="buttonMyLocation" destination="OH5-yS-vSC" id="cgj-Mw-Msi"/>
                         <outlet property="buttonReport" destination="MgA-Wy-RXm" id="p59-K9-62j"/>
                         <outlet property="mapView" destination="uwH-5m-y4X" id="ITx-qS-a6H"/>
+                        <outlet property="viewMyLocation" destination="4wE-vI-JIe" id="Yxm-ff-zxu"/>
                         <segue destination="wTg-2z-vTv" kind="show" identifier="ShowLogin" id="XYS-oF-p7B"/>
                         <segue destination="eDH-Yx-qTP" kind="presentation" identifier="ShowDeviceInfo" modalPresentationStyle="formSheet" id="BYu-wi-I3a"/>
                     </connections>
@@ -648,13 +656,58 @@
             </objects>
             <point key="canvasLocation" x="1695" y="-234"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bf5-7Z-aEr">
+            <objects>
+                <navigationController id="WY9-zI-ceI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zPB-6Y-tGz">
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6WU-Jf-2t8" kind="relationship" relationship="rootViewController" id="YkR-Wn-nTT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dgf-gG-9Hh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="533"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="2qp-lf-32P">
+            <objects>
+                <viewController id="6WU-Jf-2t8" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g1F-ha-0Ap"/>
+                        <viewControllerLayoutGuide type="bottom" id="9JE-XI-iwf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wdr-QO-LOX">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1qM-sB-kqx">
+                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1qM-sB-kqx" firstAttribute="top" secondItem="g1F-ha-0Ap" secondAttribute="bottom" id="51R-FP-6l1"/>
+                            <constraint firstItem="1qM-sB-kqx" firstAttribute="leading" secondItem="Wdr-QO-LOX" secondAttribute="leading" id="6Nm-pI-dJ1"/>
+                            <constraint firstAttribute="trailing" secondItem="1qM-sB-kqx" secondAttribute="trailing" id="ArJ-dD-PGs"/>
+                            <constraint firstItem="9JE-XI-iwf" firstAttribute="top" secondItem="1qM-sB-kqx" secondAttribute="bottom" id="clX-fB-Ihk"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hVt-Fr-Bbt"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lE5-dp-ari" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2469.53125" y="535.546875"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Image_layers" width="24" height="24"/>
         <image name="Image_menu_car" width="24" height="24"/>
         <image name="Image_menu_logout" width="24" height="24"/>
         <image name="Image_menu_report" width="24" height="24"/>
-        <image name="Image_mylocation" width="24" height="24"/>
         <image name="Image_zoom" width="24" height="24"/>
         <image name="logo" width="120" height="120"/>
     </resources>
