@@ -313,7 +313,7 @@ class WebService: NSObject, SRWebSocketDelegate {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = headers
         let manager = Alamofire.SessionManager(
-            configuration: URLSessionConfiguration.default,
+            configuration: configuration,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
         )
         
