@@ -11,8 +11,6 @@ This project uses [Carthage](https://github.com/Carthage/Carthage) to manage dep
 
 ## Team
 
-- Anton Tananaev ([anton@traccar.org](mailto:anton@traccar.org))
-- William Pearse ([w.pearse@gmail.com](mailto:w.pearse@gmail.com))
 - Sergey Kruzhkov ([s.kruzhkov@gmail.com](mailto:s.kruzhkov@gmail.com))
 
 ## License
